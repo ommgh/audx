@@ -1,0 +1,179 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "audx",
+  "homepage": "https://audx.dev",
+  "items": [
+    {
+      "name": "audio-types",
+      "type": "registry:lib",
+      "title": "Audio Types",
+      "description": "TypeScript type definitions for audx audio assets.",
+      "files": [
+        {
+          "path": "registry/audx/lib/audio-types.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "categories": ["lib"]
+    },
+    {
+      "name": "use-audio",
+      "type": "registry:hook",
+      "title": "useAudio",
+      "description": "A lightweight React hook for playing UI audio effects using the Web Audio API. Zero dependencies.",
+      "files": [
+        {
+          "path": "registry/audx/hooks/use-audio.ts",
+          "type": "registry:hook"
+        }
+      ],
+      "categories": ["hooks"]
+    },
+    {
+      "name": "audio-engine",
+      "type": "registry:lib",
+      "title": "Audio Engine",
+      "description": "Framework-agnostic audio engine using Web Audio API. Zero dependencies.",
+      "files": [
+        {
+          "path": "registry/audx/lib/audio-engine.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "categories": ["lib"]
+    },
+    {
+      "name": "back-001",
+      "type": "registry:block",
+      "title": "Back 001",
+      "description": "A very quick, subtle sound effect suitable for navigating back in a UI or undoing a simple action.",
+      "files": [
+        {
+          "path": "registry/audx/sounds/back-001/back-001.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/audx/lib/audio-types.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/audx/lib/audio-engine.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "author": "Kenney <https://kenney.nl>",
+      "meta": {
+        "duration": 0.061,
+        "format": "mp3",
+        "sizeKb": 1,
+        "license": "CC0",
+        "tags": ["back", "undo", "navigate", "ui"],
+        "keywords": [
+          "back",
+          "undo",
+          "return",
+          "navigate",
+          "ui",
+          "menu",
+          "previous",
+          "dismiss",
+          "close",
+          "escape",
+          "feedback",
+          "subtle",
+          "quick",
+          "minimal"
+        ]
+      }
+    },
+    {
+      "name": "click-001",
+      "type": "registry:block",
+      "title": "Click 001",
+      "description": "A very short, high-pitched click sound, ideal for a light, responsive button press or a subtle interactive element.",
+      "files": [
+        {
+          "path": "registry/audx/sounds/click-001/click-001.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/audx/lib/audio-types.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/audx/lib/audio-engine.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "author": "Kenney <https://kenney.nl>",
+      "meta": {
+        "duration": 0.097,
+        "format": "mp3",
+        "sizeKb": 1,
+        "license": "CC0",
+        "tags": ["click", "button", "tap", "ui"],
+        "keywords": [
+          "button press",
+          "interactive element",
+          "light click",
+          "ui feedback",
+          "subtle",
+          "responsive",
+          "tap",
+          "select",
+          "press",
+          "confirm",
+          "quick",
+          "clean",
+          "minimal",
+          "digital"
+        ]
+      }
+    },
+    {
+      "name": "scroll-001",
+      "type": "registry:block",
+      "title": "Scroll 001",
+      "description": "A smooth, continuous scrolling sound effect, ideal for indicating content navigation, a list moving, or a wheel spinning within a UI.",
+      "files": [
+        {
+          "path": "registry/audx/sounds/scroll-001/scroll-001.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/audx/lib/audio-types.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/audx/lib/audio-engine.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "author": "Kenney <https://kenney.nl>",
+      "meta": {
+        "duration": 1.0,
+        "format": "mp3",
+        "sizeKb": 8,
+        "license": "CC0",
+        "tags": ["scroll", "navigation", "ui", "list"],
+        "keywords": [
+          "scroll",
+          "navigation",
+          "list",
+          "wheel",
+          "continuous",
+          "smooth",
+          "ui element",
+          "feedback",
+          "browsing",
+          "menu",
+          "selection",
+          "content",
+          "movement",
+          "subtle",
+          "interactive"
+        ]
+      }
+    }
+  ]
+}

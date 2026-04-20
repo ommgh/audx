@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "audio-types",
+  "type": "registry:lib",
+  "title": "Audio Types",
+  "description": "TypeScript type definitions for audx audio assets.",
+  "files": [
+    {
+      "path": "registry/audx/lib/audio-types.ts",
+      "content": "export interface AudioAsset {\n  /** Unique identifier for the audio */\n  name: string;\n  /** Base64-encoded data URI (data:audio/mpeg;base64,...) */\n  dataUri: string;\n  /** Duration in seconds */\n  duration: number;\n  /** Audio format */\n  format: \"mp3\" | \"wav\" | \"ogg\";\n  /** License identifier */\n  license: \"CC0\" | \"OGA-BY\" | \"MIT\";\n  /** Original author/creator */\n  author: string;\n}\n\nexport interface UseAudioOptions {\n  /** Volume level from 0 to 1. Default: 1 */\n  volume?: number;\n  /** Playback speed multiplier. Default: 1 */\n  playbackRate?: number;\n  /** If true, calling play() stops current playback first. Default: false */\n  interrupt?: boolean;\n  /** If false, play() does nothing. Useful for user preferences. Default: true */\n  soundEnabled?: boolean;\n  /** Called when playback starts */\n  onPlay?: () => void;\n  /** Called when playback ends naturally */\n  onEnd?: () => void;\n  /** Called when pause() is called */\n  onPause?: () => void;\n  /** Called when stop() is called */\n  onStop?: () => void;\n  /** If true, stop playback when the component unmounts. Default: true */\n  stopOnUnmount?: boolean;\n}\n\nexport type PlayFunction = (overrides?: {\n  volume?: number;\n  playbackRate?: number;\n}) => void;\n\nexport interface AudioControls {\n  stop: () => void;\n  pause: () => void;\n  isPlaying: boolean;\n  duration: number | null;\n  audio: AudioAsset;\n}\n\nexport type UseAudioReturn = readonly [PlayFunction, AudioControls];\n",
+      "type": "registry:lib"
+    }
+  ],
+  "categories": [
+    "lib"
+  ]
+}
