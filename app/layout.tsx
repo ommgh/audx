@@ -1,5 +1,5 @@
-import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Syne } from "next/font/google";
+import type { Metadata } from "next";
+import { Geist_Mono, DM_Sans, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import "./globals.css";
@@ -8,22 +8,18 @@ import { Analytics } from "@vercel/analytics/next";
 import { Suspense } from "react";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
-import { InstallMethodProvider } from "@/contexts/install-method-context";
-import { PackageManagerProvider } from "@/contexts/package-manager-context";
+import { cn } from "@/lib/utils";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const spaceGroteskHeading = Space_Grotesk({
   subsets: ["latin"],
+  variable: "--font-heading",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-sans" });
 
-const syne = Syne({
-  variable: "--font-syne",
+const fontMono = Geist_Mono({
   subsets: ["latin"],
+  variable: "--font-mono",
 });
 
 const siteUrl = "https://audx.dev";
@@ -79,23 +75,24 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#faf8f4" },
-    { media: "(prefers-color-scheme: dark)", color: "#1c1b2e" },
-  ],
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} antialiased`}
-      >
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={cn(
+        "antialiased",
+        fontMono.variable,
+        "font-sans",
+        dmSans.variable,
+        spaceGroteskHeading.variable,
+      )}
+    >
+      <body>
         <Suspense fallback={<>...</>}>
           <ThemeProvider
             attribute="class"
@@ -104,15 +101,11 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <NuqsAdapter>
-              <PackageManagerProvider>
-                <InstallMethodProvider>
-                  <div className="flex min-h-svh flex-col">
-                    <Header />
-                    {children}
-                    <Footer />
-                  </div>
-                </InstallMethodProvider>
-              </PackageManagerProvider>
+              <div className="flex min-h-svh flex-col">
+                <Header />
+                {children}
+                <Footer />
+              </div>
             </NuqsAdapter>
           </ThemeProvider>
           <Analytics />

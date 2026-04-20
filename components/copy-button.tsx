@@ -36,7 +36,7 @@ export function CopyButton({
         "inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium transition-[color,background-color,border-color,box-shadow] duration-150 focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none",
         copied
           ? "border-green-500/30 bg-green-500/10 text-green-600 dark:text-green-400"
-          : "border-primary/30 bg-primary/5 text-primary hover:bg-primary/10 active:scale-[0.97]",
+          : "border-primary/30 bg-primary/5 text-primary hover:bg-primary/10",
       )}
     >
       {copied ? (

@@ -8,7 +8,6 @@ import { MiniSoundEqualizer } from "@/components/mini-sound-equalizer";
 import { SoundDownloadButton } from "@/components/sound-download-button";
 import { SoundInstallInstructions } from "@/components/sound-install-instructions";
 import { PlayerStrip } from "@/components/sound-player";
-import { useGridNavigation } from "@/hooks/use-grid-navigation";
 import { useHoverPreview } from "@/hooks/use-hover-preview";
 import { useAudioPlayback } from "@/hooks/use-sound-playback";
 import type { AudioCatalogItem } from "@/lib/audio-catalog";
@@ -25,8 +24,6 @@ export function SoundDetailPage({ audio, relatedAudio }: AudioDetailPageProps) {
   const { playState, toggle } = useAudioPlayback(audio.name);
 
   const { onPreviewStart, onPreviewStop } = useHoverPreview();
-  const { gridRef: relatedGridRef, onKeyDown: relatedKeyDown } =
-    useGridNavigation();
 
   const tags = audio.meta.tags;
 
@@ -40,7 +37,7 @@ export function SoundDetailPage({ audio, relatedAudio }: AudioDetailPageProps) {
       </a>
 
       {/* ── Back navigation ── */}
-      <nav className="stagger-fade-up mx-auto w-full max-w-3xl px-6 pt-6 pb-2">
+      <nav className="mx-auto w-full max-w-3xl px-6 pt-6 pb-2">
         <Link
           href="/"
           className="inline-flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm text-muted-foreground transition-colors duration-150 hover:text-foreground hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
@@ -55,10 +52,7 @@ export function SoundDetailPage({ audio, relatedAudio }: AudioDetailPageProps) {
         className="mx-auto w-full max-w-3xl flex-1 px-6 pb-16"
       >
         {/* ── Identity ── */}
-        <header
-          className="stagger-fade-up pt-4 pb-6"
-          style={{ animationDelay: "50ms" }}
-        >
+        <header className="pt-4 pb-6">
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2 mb-2">
@@ -84,7 +78,7 @@ export function SoundDetailPage({ audio, relatedAudio }: AudioDetailPageProps) {
         </header>
 
         {/* ── Player ── */}
-        <div className="stagger-fade-up" style={{ animationDelay: "100ms" }}>
+        <div>
           <PlayerStrip
             name={audio.name}
             playState={playState}
@@ -93,10 +87,7 @@ export function SoundDetailPage({ audio, relatedAudio }: AudioDetailPageProps) {
         </div>
 
         {/* ── Metadata ── */}
-        <div
-          className="stagger-fade-up mt-5 flex flex-wrap items-center gap-2"
-          style={{ animationDelay: "150ms" }}
-        >
+        <div className="mt-5 flex flex-wrap items-center gap-2">
           <MetaPill icon={Clock}>
             {formatDuration(audio.meta.duration)}
           </MetaPill>
@@ -113,32 +104,19 @@ export function SoundDetailPage({ audio, relatedAudio }: AudioDetailPageProps) {
         </div>
 
         {/* ── Integration code ── */}
-        <div
-          className="stagger-fade-up mt-8"
-          style={{ animationDelay: "200ms" }}
-        >
+        <div className="mt-8">
           <SoundInstallInstructions soundName={audio.name} />
         </div>
 
         {/* ── Related audio ── */}
         {relatedAudio.length > 0 ? (
-          <section
-            className="stagger-fade-up mt-12"
-            style={{ animationDelay: "260ms" }}
-          >
+          <section className="mt-12">
             <div className="flex items-center justify-between mb-4">
               <h2 className="font-display text-lg font-bold text-balance">
                 More UI Audio
               </h2>
             </div>
-            {/** biome-ignore lint/a11y/useSemanticElements: <explanation> */}
-            <div
-              ref={relatedGridRef}
-              onKeyDown={relatedKeyDown}
-              role="grid"
-              aria-label="Related audio"
-              className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4"
-            >
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
               {relatedAudio.map((s) => (
                 <RelatedAudioCard
                   key={s.name}
@@ -171,7 +149,7 @@ const RelatedAudioCard = memo(function RelatedAudioCard({
       onPointerLeave={onPreviewStop}
       onFocus={() => onPreviewStart(item.name)}
       onBlur={onPreviewStop}
-      className="group relative flex cursor-pointer flex-col items-center gap-3 rounded-xl border border-border/50 bg-card p-4 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/[0.08] hover:scale-[1.03] active:scale-[0.97] transition-[border-color,box-shadow,transform] duration-200 focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
+      className="group relative flex cursor-pointer flex-col items-center gap-3 rounded-xl border border-border/50 bg-card p-4 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/[0.08] transition-[border-color,box-shadow] duration-200 focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
     >
       <MiniSoundEqualizer selected={false} name={item.name} />
 

@@ -13,27 +13,18 @@ export function Hero({ items }: { items: AudioCatalogItem[] }) {
       <HeroBars />
 
       <div className="relative mx-auto max-w-6xl">
-        <h1
-          className="stagger-fade-up font-display text-4xl font-bold text-balance sm:text-5xl lg:text-6xl"
-          style={{ animationDelay: "50ms" }}
-        >
+        <h1 className="font-display text-4xl font-bold text-balance sm:text-5xl lg:text-6xl">
           Customisable <span className="text-primary">UI audio</span>.
           <br />
           <span className="text-muted-foreground">Copy. Paste. Play.</span>
         </h1>
 
-        <p
-          className="stagger-fade-up text-muted-foreground mt-5 max-w-lg text-base text-pretty leading-relaxed sm:text-lg"
-          style={{ animationDelay: "100ms" }}
-        >
+        <p className="text-muted-foreground mt-5 max-w-lg text-base text-pretty leading-relaxed sm:text-lg">
           Open-source UI sound effects for modern web apps. Install any audio
           with a single CLI command.
         </p>
 
-        <div
-          className="stagger-fade-up mt-7"
-          style={{ animationDelay: "150ms" }}
-        >
+        <div className="mt-8">
           <HeroInstallationCode items={items} />
         </div>
       </div>

@@ -5,10 +5,10 @@ import { CopyButton } from "@/components/copy-button";
 import { InstallMethodSwitcher } from "@/components/install-method-switcher";
 import { PackageManagerSwitcher } from "@/components/package-manager-switcher";
 import { SoundCopyBlock } from "@/components/sound-copy-block";
-import { useInstallMethod } from "@/hooks/use-install-method";
-import { usePackageManager } from "@/hooks/use-package-manager";
 import { trackEvent } from "@/lib/analytics";
 import { getAudioSnippets, type SetupStep } from "@/lib/audio-snippets";
+import { DEFAULT_IM, type InstallMethod } from "@/lib/install-method";
+import { DEFAULT_PM, type PackageManager } from "@/lib/package-manager";
 
 interface SoundInstallInstructionsProps {
   soundName: string;
@@ -72,8 +72,8 @@ function ManualStepBlock({ step }: { step: SetupStep }) {
 export function SoundInstallInstructions({
   soundName,
 }: SoundInstallInstructionsProps) {
-  const [method, setMethod] = useInstallMethod();
-  const [pm, setPm] = usePackageManager();
+  const [method, setMethod] = useState<InstallMethod>(DEFAULT_IM);
+  const [pm, setPm] = useState<PackageManager>(DEFAULT_PM);
 
   const snippets = useMemo(
     () => getAudioSnippets(soundName, pm, method),

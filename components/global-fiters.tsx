@@ -4,23 +4,15 @@ import type { AudioCatalogItem } from "@/lib/audio-catalog";
 
 type GlobalFiltersProps = {
   items: AudioCatalogItem[];
-  onApplySearch: () => void;
 };
 
-export function GlobalFilters({ items, onApplySearch }: GlobalFiltersProps) {
+export function GlobalFilters({ items }: GlobalFiltersProps) {
   const { query, setQuery } = useGlobalFilters({ items });
 
   return (
-    <div
-      className="stagger-fade-up bg-background/95 sticky top-0 z-40 border-b"
-      style={{ animationDelay: "200ms" }}
-    >
+    <div className="bg-background/95 sticky top-0 z-40 border-b">
       <div className="mx-auto flex w-full max-w-6xl items-center gap-3 px-6 py-3">
-        <SoundSearch
-          value={query}
-          onChange={setQuery}
-          onEnterGrid={onApplySearch}
-        />
+        <SoundSearch value={query} onChange={setQuery} />
       </div>
     </div>
   );
