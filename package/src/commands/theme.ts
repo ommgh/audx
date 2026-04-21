@@ -37,7 +37,7 @@ export async function themeInitCommand(projectRoot: string): Promise<void> {
 		}
 	}
 
-	// Build default theme with all 16 semantic names mapped to null
+	// Build default theme with all semantic names mapped to null
 	const defaultMappings = Object.fromEntries(
 		SEMANTIC_SOUND_NAMES.map((name) => [name, null]),
 	) as Record<SemanticSoundName, null>;

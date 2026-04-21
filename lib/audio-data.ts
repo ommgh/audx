@@ -17,6 +17,12 @@ function buildCatalog(): AudioCatalogItem[] {
 				tags: item.meta?.tags ?? [],
 				keywords:
 					((item.meta as Record<string, unknown>)?.keywords as string[]) ?? [],
+				theme:
+					((item.meta as Record<string, unknown>)?.theme as string) ??
+					undefined,
+				semanticName:
+					((item.meta as Record<string, unknown>)?.semanticName as string) ??
+					undefined,
 			},
 		}))
 		.sort((a, b) => a.title.localeCompare(b.title));

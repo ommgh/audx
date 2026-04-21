@@ -14,7 +14,9 @@
 					"type": "registry:lib"
 				}
 			],
-			"categories": ["lib"]
+			"categories": [
+				"lib"
+			]
 		},
 		{
 			"name": "use-audio",
@@ -27,7 +29,9 @@
 					"type": "registry:hook"
 				}
 			],
-			"categories": ["hooks"]
+			"categories": [
+				"hooks"
+			]
 		},
 		{
 			"name": "audio-engine",
@@ -40,7 +44,9 @@
 					"type": "registry:lib"
 				}
 			],
-			"categories": ["lib"]
+			"categories": [
+				"lib"
+			]
 		},
 		{
 			"name": "back-001",
@@ -67,7 +73,12 @@
 				"format": "mp3",
 				"sizeKb": 1,
 				"license": "CC0",
-				"tags": ["back", "undo", "navigate", "ui"],
+				"tags": [
+					"back",
+					"undo",
+					"navigate",
+					"ui"
+				],
 				"keywords": [
 					"back",
 					"undo",
@@ -111,7 +122,12 @@
 				"format": "mp3",
 				"sizeKb": 1,
 				"license": "CC0",
-				"tags": ["click", "button", "tap", "ui"],
+				"tags": [
+					"click",
+					"button",
+					"tap",
+					"ui"
+				],
 				"keywords": [
 					"button press",
 					"interactive element",
@@ -151,11 +167,16 @@
 			],
 			"author": "Kenney <https://kenney.nl>",
 			"meta": {
-				"duration": 1.0,
+				"duration": 1,
 				"format": "mp3",
 				"sizeKb": 8,
 				"license": "CC0",
-				"tags": ["scroll", "navigation", "ui", "list"],
+				"tags": [
+					"scroll",
+					"navigation",
+					"ui",
+					"list"
+				],
 				"keywords": [
 					"scroll",
 					"navigation",
@@ -173,6 +194,5500 @@
 					"subtle",
 					"interactive"
 				]
+			}
+		},
+		{
+			"name": "success-minimal-001",
+			"type": "registry:block",
+			"title": "Success (Minimal)",
+			"description": "A clear, minimal success feedback sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/success-minimal-001/success-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.213,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"success",
+					"minimal",
+					"feedback"
+				],
+				"keywords": [
+					"success",
+					"minimal",
+					"feedback",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "success"
+			}
+		},
+		{
+			"name": "error-minimal-001",
+			"type": "registry:block",
+			"title": "Error (Minimal)",
+			"description": "A clear, minimal error feedback sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/error-minimal-001/error-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.174,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"error",
+					"minimal",
+					"feedback"
+				],
+				"keywords": [
+					"error",
+					"minimal",
+					"feedback",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "error"
+			}
+		},
+		{
+			"name": "warning-minimal-001",
+			"type": "registry:block",
+			"title": "Warning (Minimal)",
+			"description": "A clear, minimal warning feedback sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/warning-minimal-001/warning-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.244,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"warning",
+					"minimal",
+					"feedback"
+				],
+				"keywords": [
+					"warning",
+					"minimal",
+					"feedback",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "warning"
+			}
+		},
+		{
+			"name": "info-minimal-001",
+			"type": "registry:block",
+			"title": "Info (Minimal)",
+			"description": "A subtle info notification tone.",
+			"files": [
+				{
+					"path": "registry/audx/audio/info-minimal-001/info-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.078,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"info",
+					"minimal",
+					"notification"
+				],
+				"keywords": [
+					"info",
+					"minimal",
+					"notification",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "info"
+			}
+		},
+		{
+			"name": "click-minimal-001",
+			"type": "registry:block",
+			"title": "Click (Minimal)",
+			"description": "A clean, minimal click sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/click-minimal-001/click-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.193,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"click",
+					"minimal",
+					"interaction"
+				],
+				"keywords": [
+					"click",
+					"minimal",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "click"
+			}
+		},
+		{
+			"name": "back-minimal-001",
+			"type": "registry:block",
+			"title": "Back (Minimal)",
+			"description": "A subtle back sound for navigation feedback.",
+			"files": [
+				{
+					"path": "registry/audx/audio/back-minimal-001/back-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.059,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"back",
+					"minimal",
+					"navigation"
+				],
+				"keywords": [
+					"back",
+					"minimal",
+					"navigation",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "back"
+			}
+		},
+		{
+			"name": "enter-minimal-001",
+			"type": "registry:block",
+			"title": "Enter (Minimal)",
+			"description": "A clean, minimal enter sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/enter-minimal-001/enter-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.033,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"enter",
+					"minimal",
+					"interaction"
+				],
+				"keywords": [
+					"enter",
+					"minimal",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "enter"
+			}
+		},
+		{
+			"name": "delete-minimal-001",
+			"type": "registry:block",
+			"title": "Delete (Minimal)",
+			"description": "A subtle delete sound for destructive actions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/delete-minimal-001/delete-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.077,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"delete",
+					"minimal",
+					"destructive"
+				],
+				"keywords": [
+					"delete",
+					"minimal",
+					"destructive",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "delete"
+			}
+		},
+		{
+			"name": "copy-minimal-001",
+			"type": "registry:block",
+			"title": "Copy (Minimal)",
+			"description": "A subtle copy clipboard action sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/copy-minimal-001/copy-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.218,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"copy",
+					"minimal",
+					"clipboard"
+				],
+				"keywords": [
+					"copy",
+					"minimal",
+					"clipboard",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "copy"
+			}
+		},
+		{
+			"name": "paste-minimal-001",
+			"type": "registry:block",
+			"title": "Paste (Minimal)",
+			"description": "A subtle paste clipboard action sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/paste-minimal-001/paste-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.251,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"paste",
+					"minimal",
+					"clipboard"
+				],
+				"keywords": [
+					"paste",
+					"minimal",
+					"clipboard",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "paste"
+			}
+		},
+		{
+			"name": "scroll-minimal-001",
+			"type": "registry:block",
+			"title": "Scroll (Minimal)",
+			"description": "A subtle scroll sound for navigation feedback.",
+			"files": [
+				{
+					"path": "registry/audx/audio/scroll-minimal-001/scroll-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.11,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"scroll",
+					"minimal",
+					"navigation"
+				],
+				"keywords": [
+					"scroll",
+					"minimal",
+					"navigation",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "scroll"
+			}
+		},
+		{
+			"name": "hover-minimal-001",
+			"type": "registry:block",
+			"title": "Hover (Minimal)",
+			"description": "A clean, minimal hover sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/hover-minimal-001/hover-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.229,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"hover",
+					"minimal",
+					"interaction"
+				],
+				"keywords": [
+					"hover",
+					"minimal",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "hover"
+			}
+		},
+		{
+			"name": "toggle-minimal-001",
+			"type": "registry:block",
+			"title": "Toggle (Minimal)",
+			"description": "A clean, minimal toggle sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/toggle-minimal-001/toggle-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.106,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"toggle",
+					"minimal",
+					"interaction"
+				],
+				"keywords": [
+					"toggle",
+					"minimal",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "toggle"
+			}
+		},
+		{
+			"name": "notify-minimal-001",
+			"type": "registry:block",
+			"title": "Notify (Minimal)",
+			"description": "A subtle notify notification tone.",
+			"files": [
+				{
+					"path": "registry/audx/audio/notify-minimal-001/notify-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.236,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"notify",
+					"minimal",
+					"notification"
+				],
+				"keywords": [
+					"notify",
+					"minimal",
+					"notification",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "notify"
+			}
+		},
+		{
+			"name": "complete-minimal-001",
+			"type": "registry:block",
+			"title": "Complete (Minimal)",
+			"description": "A clear, minimal complete feedback sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/complete-minimal-001/complete-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.124,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"complete",
+					"minimal",
+					"feedback"
+				],
+				"keywords": [
+					"complete",
+					"minimal",
+					"feedback",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "complete"
+			}
+		},
+		{
+			"name": "loading-minimal-001",
+			"type": "registry:block",
+			"title": "Loading (Minimal)",
+			"description": "A minimal loading progress indicator sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/loading-minimal-001/loading-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.179,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"loading",
+					"minimal",
+					"progress"
+				],
+				"keywords": [
+					"loading",
+					"minimal",
+					"progress",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "loading"
+			}
+		},
+		{
+			"name": "tap-minimal-001",
+			"type": "registry:block",
+			"title": "Tap (Minimal)",
+			"description": "A clean, minimal tap sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/tap-minimal-001/tap-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.129,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"tap",
+					"minimal",
+					"interaction"
+				],
+				"keywords": [
+					"tap",
+					"minimal",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "tap"
+			}
+		},
+		{
+			"name": "press-minimal-001",
+			"type": "registry:block",
+			"title": "Press (Minimal)",
+			"description": "A clean, minimal press sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/press-minimal-001/press-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.153,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"press",
+					"minimal",
+					"interaction"
+				],
+				"keywords": [
+					"press",
+					"minimal",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "press"
+			}
+		},
+		{
+			"name": "release-minimal-001",
+			"type": "registry:block",
+			"title": "Release (Minimal)",
+			"description": "A clean, minimal release sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/release-minimal-001/release-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.165,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"release",
+					"minimal",
+					"interaction"
+				],
+				"keywords": [
+					"release",
+					"minimal",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "release"
+			}
+		},
+		{
+			"name": "drag-minimal-001",
+			"type": "registry:block",
+			"title": "Drag (Minimal)",
+			"description": "A clean, minimal drag sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/drag-minimal-001/drag-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.242,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"drag",
+					"minimal",
+					"interaction"
+				],
+				"keywords": [
+					"drag",
+					"minimal",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "drag"
+			}
+		},
+		{
+			"name": "drop-minimal-001",
+			"type": "registry:block",
+			"title": "Drop (Minimal)",
+			"description": "A clean, minimal drop sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/drop-minimal-001/drop-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.103,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"drop",
+					"minimal",
+					"interaction"
+				],
+				"keywords": [
+					"drop",
+					"minimal",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "drop"
+			}
+		},
+		{
+			"name": "select-minimal-001",
+			"type": "registry:block",
+			"title": "Select (Minimal)",
+			"description": "A clean, minimal select sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/select-minimal-001/select-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.162,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"select",
+					"minimal",
+					"interaction"
+				],
+				"keywords": [
+					"select",
+					"minimal",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "select"
+			}
+		},
+		{
+			"name": "deselect-minimal-001",
+			"type": "registry:block",
+			"title": "Deselect (Minimal)",
+			"description": "A clean, minimal deselect sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/deselect-minimal-001/deselect-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.223,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"deselect",
+					"minimal",
+					"interaction"
+				],
+				"keywords": [
+					"deselect",
+					"minimal",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "deselect"
+			}
+		},
+		{
+			"name": "focus-minimal-001",
+			"type": "registry:block",
+			"title": "Focus (Minimal)",
+			"description": "A clean, minimal focus sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/focus-minimal-001/focus-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.169,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"focus",
+					"minimal",
+					"interaction"
+				],
+				"keywords": [
+					"focus",
+					"minimal",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "focus"
+			}
+		},
+		{
+			"name": "blur-minimal-001",
+			"type": "registry:block",
+			"title": "Blur (Minimal)",
+			"description": "A clean, minimal blur sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/blur-minimal-001/blur-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.247,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"blur",
+					"minimal",
+					"interaction"
+				],
+				"keywords": [
+					"blur",
+					"minimal",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "blur"
+			}
+		},
+		{
+			"name": "forward-minimal-001",
+			"type": "registry:block",
+			"title": "Forward (Minimal)",
+			"description": "A subtle forward sound for navigation feedback.",
+			"files": [
+				{
+					"path": "registry/audx/audio/forward-minimal-001/forward-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.27,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"forward",
+					"minimal",
+					"navigation"
+				],
+				"keywords": [
+					"forward",
+					"minimal",
+					"navigation",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "forward"
+			}
+		},
+		{
+			"name": "open-minimal-001",
+			"type": "registry:block",
+			"title": "Open (Minimal)",
+			"description": "A subtle open sound for navigation feedback.",
+			"files": [
+				{
+					"path": "registry/audx/audio/open-minimal-001/open-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.23,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"open",
+					"minimal",
+					"navigation"
+				],
+				"keywords": [
+					"open",
+					"minimal",
+					"navigation",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "open"
+			}
+		},
+		{
+			"name": "close-minimal-001",
+			"type": "registry:block",
+			"title": "Close (Minimal)",
+			"description": "A subtle close sound for navigation feedback.",
+			"files": [
+				{
+					"path": "registry/audx/audio/close-minimal-001/close-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.236,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"close",
+					"minimal",
+					"navigation"
+				],
+				"keywords": [
+					"close",
+					"minimal",
+					"navigation",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "close"
+			}
+		},
+		{
+			"name": "expand-minimal-001",
+			"type": "registry:block",
+			"title": "Expand (Minimal)",
+			"description": "A subtle expand sound for navigation feedback.",
+			"files": [
+				{
+					"path": "registry/audx/audio/expand-minimal-001/expand-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.28,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"expand",
+					"minimal",
+					"navigation"
+				],
+				"keywords": [
+					"expand",
+					"minimal",
+					"navigation",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "expand"
+			}
+		},
+		{
+			"name": "collapse-minimal-001",
+			"type": "registry:block",
+			"title": "Collapse (Minimal)",
+			"description": "A subtle collapse sound for navigation feedback.",
+			"files": [
+				{
+					"path": "registry/audx/audio/collapse-minimal-001/collapse-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.075,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"collapse",
+					"minimal",
+					"navigation"
+				],
+				"keywords": [
+					"collapse",
+					"minimal",
+					"navigation",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "collapse"
+			}
+		},
+		{
+			"name": "tab-minimal-001",
+			"type": "registry:block",
+			"title": "Tab (Minimal)",
+			"description": "A subtle tab sound for navigation feedback.",
+			"files": [
+				{
+					"path": "registry/audx/audio/tab-minimal-001/tab-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.05,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"tab",
+					"minimal",
+					"navigation"
+				],
+				"keywords": [
+					"tab",
+					"minimal",
+					"navigation",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "tab"
+			}
+		},
+		{
+			"name": "swipe-minimal-001",
+			"type": "registry:block",
+			"title": "Swipe (Minimal)",
+			"description": "A subtle swipe sound for navigation feedback.",
+			"files": [
+				{
+					"path": "registry/audx/audio/swipe-minimal-001/swipe-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.27,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"swipe",
+					"minimal",
+					"navigation"
+				],
+				"keywords": [
+					"swipe",
+					"minimal",
+					"navigation",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "swipe"
+			}
+		},
+		{
+			"name": "confirm-minimal-001",
+			"type": "registry:block",
+			"title": "Confirm (Minimal)",
+			"description": "A clear, minimal confirm feedback sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/confirm-minimal-001/confirm-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.139,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"confirm",
+					"minimal",
+					"feedback"
+				],
+				"keywords": [
+					"confirm",
+					"minimal",
+					"feedback",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "confirm"
+			}
+		},
+		{
+			"name": "cancel-minimal-001",
+			"type": "registry:block",
+			"title": "Cancel (Minimal)",
+			"description": "A clear, minimal cancel feedback sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/cancel-minimal-001/cancel-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.196,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"cancel",
+					"minimal",
+					"feedback"
+				],
+				"keywords": [
+					"cancel",
+					"minimal",
+					"feedback",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "cancel"
+			}
+		},
+		{
+			"name": "deny-minimal-001",
+			"type": "registry:block",
+			"title": "Deny (Minimal)",
+			"description": "A clear, minimal deny feedback sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/deny-minimal-001/deny-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.149,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"deny",
+					"minimal",
+					"feedback"
+				],
+				"keywords": [
+					"deny",
+					"minimal",
+					"feedback",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "deny"
+			}
+		},
+		{
+			"name": "undo-minimal-001",
+			"type": "registry:block",
+			"title": "Undo (Minimal)",
+			"description": "A clear, minimal undo feedback sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/undo-minimal-001/undo-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.16,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"undo",
+					"minimal",
+					"feedback"
+				],
+				"keywords": [
+					"undo",
+					"minimal",
+					"feedback",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "undo"
+			}
+		},
+		{
+			"name": "redo-minimal-001",
+			"type": "registry:block",
+			"title": "Redo (Minimal)",
+			"description": "A clear, minimal redo feedback sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/redo-minimal-001/redo-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.221,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"redo",
+					"minimal",
+					"feedback"
+				],
+				"keywords": [
+					"redo",
+					"minimal",
+					"feedback",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "redo"
+			}
+		},
+		{
+			"name": "alert-minimal-001",
+			"type": "registry:block",
+			"title": "Alert (Minimal)",
+			"description": "A subtle alert notification tone.",
+			"files": [
+				{
+					"path": "registry/audx/audio/alert-minimal-001/alert-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.032,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"alert",
+					"minimal",
+					"notification"
+				],
+				"keywords": [
+					"alert",
+					"minimal",
+					"notification",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "alert"
+			}
+		},
+		{
+			"name": "message-minimal-001",
+			"type": "registry:block",
+			"title": "Message (Minimal)",
+			"description": "A subtle message notification tone.",
+			"files": [
+				{
+					"path": "registry/audx/audio/message-minimal-001/message-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.077,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"message",
+					"minimal",
+					"notification"
+				],
+				"keywords": [
+					"message",
+					"minimal",
+					"notification",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "message"
+			}
+		},
+		{
+			"name": "reminder-minimal-001",
+			"type": "registry:block",
+			"title": "Reminder (Minimal)",
+			"description": "A subtle reminder notification tone.",
+			"files": [
+				{
+					"path": "registry/audx/audio/reminder-minimal-001/reminder-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.211,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"reminder",
+					"minimal",
+					"notification"
+				],
+				"keywords": [
+					"reminder",
+					"minimal",
+					"notification",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "reminder"
+			}
+		},
+		{
+			"name": "mention-minimal-001",
+			"type": "registry:block",
+			"title": "Mention (Minimal)",
+			"description": "A subtle mention notification tone.",
+			"files": [
+				{
+					"path": "registry/audx/audio/mention-minimal-001/mention-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.145,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"mention",
+					"minimal",
+					"notification"
+				],
+				"keywords": [
+					"mention",
+					"minimal",
+					"notification",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "mention"
+			}
+		},
+		{
+			"name": "show-minimal-001",
+			"type": "registry:block",
+			"title": "Show (Minimal)",
+			"description": "A clean show transition sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/show-minimal-001/show-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.184,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"show",
+					"minimal",
+					"transition"
+				],
+				"keywords": [
+					"show",
+					"minimal",
+					"transition",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "show"
+			}
+		},
+		{
+			"name": "hide-minimal-001",
+			"type": "registry:block",
+			"title": "Hide (Minimal)",
+			"description": "A clean hide transition sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/hide-minimal-001/hide-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.078,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"hide",
+					"minimal",
+					"transition"
+				],
+				"keywords": [
+					"hide",
+					"minimal",
+					"transition",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "hide"
+			}
+		},
+		{
+			"name": "slide-minimal-001",
+			"type": "registry:block",
+			"title": "Slide (Minimal)",
+			"description": "A clean slide transition sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/slide-minimal-001/slide-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.23,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"slide",
+					"minimal",
+					"transition"
+				],
+				"keywords": [
+					"slide",
+					"minimal",
+					"transition",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "slide"
+			}
+		},
+		{
+			"name": "fade-minimal-001",
+			"type": "registry:block",
+			"title": "Fade (Minimal)",
+			"description": "A clean fade transition sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/fade-minimal-001/fade-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.201,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"fade",
+					"minimal",
+					"transition"
+				],
+				"keywords": [
+					"fade",
+					"minimal",
+					"transition",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "fade"
+			}
+		},
+		{
+			"name": "pop-minimal-001",
+			"type": "registry:block",
+			"title": "Pop (Minimal)",
+			"description": "A clean pop transition sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/pop-minimal-001/pop-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.148,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"pop",
+					"minimal",
+					"transition"
+				],
+				"keywords": [
+					"pop",
+					"minimal",
+					"transition",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "pop"
+			}
+		},
+		{
+			"name": "clear-minimal-001",
+			"type": "registry:block",
+			"title": "Clear (Minimal)",
+			"description": "A subtle clear sound for destructive actions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/clear-minimal-001/clear-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.082,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"clear",
+					"minimal",
+					"destructive"
+				],
+				"keywords": [
+					"clear",
+					"minimal",
+					"destructive",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "clear"
+			}
+		},
+		{
+			"name": "remove-minimal-001",
+			"type": "registry:block",
+			"title": "Remove (Minimal)",
+			"description": "A subtle remove sound for destructive actions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/remove-minimal-001/remove-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.116,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"remove",
+					"minimal",
+					"destructive"
+				],
+				"keywords": [
+					"remove",
+					"minimal",
+					"destructive",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "remove"
+			}
+		},
+		{
+			"name": "trash-minimal-001",
+			"type": "registry:block",
+			"title": "Trash (Minimal)",
+			"description": "A subtle trash sound for destructive actions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/trash-minimal-001/trash-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.079,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"trash",
+					"minimal",
+					"destructive"
+				],
+				"keywords": [
+					"trash",
+					"minimal",
+					"destructive",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "trash"
+			}
+		},
+		{
+			"name": "shred-minimal-001",
+			"type": "registry:block",
+			"title": "Shred (Minimal)",
+			"description": "A subtle shred sound for destructive actions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/shred-minimal-001/shred-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.11,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"shred",
+					"minimal",
+					"destructive"
+				],
+				"keywords": [
+					"shred",
+					"minimal",
+					"destructive",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "shred"
+			}
+		},
+		{
+			"name": "upload-minimal-001",
+			"type": "registry:block",
+			"title": "Upload (Minimal)",
+			"description": "A minimal upload progress indicator sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/upload-minimal-001/upload-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.224,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"upload",
+					"minimal",
+					"progress"
+				],
+				"keywords": [
+					"upload",
+					"minimal",
+					"progress",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "upload"
+			}
+		},
+		{
+			"name": "download-minimal-001",
+			"type": "registry:block",
+			"title": "Download (Minimal)",
+			"description": "A minimal download progress indicator sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/download-minimal-001/download-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.189,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"download",
+					"minimal",
+					"progress"
+				],
+				"keywords": [
+					"download",
+					"minimal",
+					"progress",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "download"
+			}
+		},
+		{
+			"name": "refresh-minimal-001",
+			"type": "registry:block",
+			"title": "Refresh (Minimal)",
+			"description": "A minimal refresh progress indicator sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/refresh-minimal-001/refresh-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.123,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"refresh",
+					"minimal",
+					"progress"
+				],
+				"keywords": [
+					"refresh",
+					"minimal",
+					"progress",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "refresh"
+			}
+		},
+		{
+			"name": "sync-minimal-001",
+			"type": "registry:block",
+			"title": "Sync (Minimal)",
+			"description": "A minimal sync progress indicator sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/sync-minimal-001/sync-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.127,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"sync",
+					"minimal",
+					"progress"
+				],
+				"keywords": [
+					"sync",
+					"minimal",
+					"progress",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "sync"
+			}
+		},
+		{
+			"name": "process-minimal-001",
+			"type": "registry:block",
+			"title": "Process (Minimal)",
+			"description": "A minimal process progress indicator sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/process-minimal-001/process-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.208,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"process",
+					"minimal",
+					"progress"
+				],
+				"keywords": [
+					"process",
+					"minimal",
+					"progress",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "process"
+			}
+		},
+		{
+			"name": "cut-minimal-001",
+			"type": "registry:block",
+			"title": "Cut (Minimal)",
+			"description": "A subtle cut clipboard action sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/cut-minimal-001/cut-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.29,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"cut",
+					"minimal",
+					"clipboard"
+				],
+				"keywords": [
+					"cut",
+					"minimal",
+					"clipboard",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "cut"
+			}
+		},
+		{
+			"name": "snapshot-minimal-001",
+			"type": "registry:block",
+			"title": "Snapshot (Minimal)",
+			"description": "A subtle snapshot clipboard action sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/snapshot-minimal-001/snapshot-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.06,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"snapshot",
+					"minimal",
+					"clipboard"
+				],
+				"keywords": [
+					"snapshot",
+					"minimal",
+					"clipboard",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "snapshot"
+			}
+		},
+		{
+			"name": "lock-minimal-001",
+			"type": "registry:block",
+			"title": "Lock (Minimal)",
+			"description": "A clean lock state change sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/lock-minimal-001/lock-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.097,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"lock",
+					"minimal",
+					"state"
+				],
+				"keywords": [
+					"lock",
+					"minimal",
+					"state",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "lock"
+			}
+		},
+		{
+			"name": "unlock-minimal-001",
+			"type": "registry:block",
+			"title": "Unlock (Minimal)",
+			"description": "A clean unlock state change sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/unlock-minimal-001/unlock-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.129,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"unlock",
+					"minimal",
+					"state"
+				],
+				"keywords": [
+					"unlock",
+					"minimal",
+					"state",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "unlock"
+			}
+		},
+		{
+			"name": "enable-minimal-001",
+			"type": "registry:block",
+			"title": "Enable (Minimal)",
+			"description": "A clean enable state change sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/enable-minimal-001/enable-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.192,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"enable",
+					"minimal",
+					"state"
+				],
+				"keywords": [
+					"enable",
+					"minimal",
+					"state",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "enable"
+			}
+		},
+		{
+			"name": "disable-minimal-001",
+			"type": "registry:block",
+			"title": "Disable (Minimal)",
+			"description": "A clean disable state change sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/disable-minimal-001/disable-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.111,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"disable",
+					"minimal",
+					"state"
+				],
+				"keywords": [
+					"disable",
+					"minimal",
+					"state",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "disable"
+			}
+		},
+		{
+			"name": "connect-minimal-001",
+			"type": "registry:block",
+			"title": "Connect (Minimal)",
+			"description": "A clean connect state change sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/connect-minimal-001/connect-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.142,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"connect",
+					"minimal",
+					"state"
+				],
+				"keywords": [
+					"connect",
+					"minimal",
+					"state",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "connect"
+			}
+		},
+		{
+			"name": "disconnect-minimal-001",
+			"type": "registry:block",
+			"title": "Disconnect (Minimal)",
+			"description": "A clean disconnect state change sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/disconnect-minimal-001/disconnect-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.075,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"disconnect",
+					"minimal",
+					"state"
+				],
+				"keywords": [
+					"disconnect",
+					"minimal",
+					"state",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "disconnect"
+			}
+		},
+		{
+			"name": "mute-minimal-001",
+			"type": "registry:block",
+			"title": "Mute (Minimal)",
+			"description": "A subtle mute media control sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/mute-minimal-001/mute-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.247,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"mute",
+					"minimal",
+					"media"
+				],
+				"keywords": [
+					"mute",
+					"minimal",
+					"media",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "mute"
+			}
+		},
+		{
+			"name": "unmute-minimal-001",
+			"type": "registry:block",
+			"title": "Unmute (Minimal)",
+			"description": "A subtle unmute media control sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/unmute-minimal-001/unmute-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.266,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"unmute",
+					"minimal",
+					"media"
+				],
+				"keywords": [
+					"unmute",
+					"minimal",
+					"media",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "unmute"
+			}
+		},
+		{
+			"name": "record-minimal-001",
+			"type": "registry:block",
+			"title": "Record (Minimal)",
+			"description": "A subtle record media control sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/record-minimal-001/record-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.196,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"record",
+					"minimal",
+					"media"
+				],
+				"keywords": [
+					"record",
+					"minimal",
+					"media",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "record"
+			}
+		},
+		{
+			"name": "capture-minimal-001",
+			"type": "registry:block",
+			"title": "Capture (Minimal)",
+			"description": "A subtle capture media control sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/capture-minimal-001/capture-minimal-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.244,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"capture",
+					"minimal",
+					"media"
+				],
+				"keywords": [
+					"capture",
+					"minimal",
+					"media",
+					"ui",
+					"sound"
+				],
+				"theme": "minimal",
+				"semanticName": "capture"
+			}
+		},
+		{
+			"name": "success-playful-001",
+			"type": "registry:block",
+			"title": "Success (Playful)",
+			"description": "An expressive success feedback sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/success-playful-001/success-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.541,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"success",
+					"playful",
+					"feedback"
+				],
+				"keywords": [
+					"success",
+					"playful",
+					"feedback",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "success"
+			}
+		},
+		{
+			"name": "error-playful-001",
+			"type": "registry:block",
+			"title": "Error (Playful)",
+			"description": "An expressive error feedback sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/error-playful-001/error-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.419,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"error",
+					"playful",
+					"feedback"
+				],
+				"keywords": [
+					"error",
+					"playful",
+					"feedback",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "error"
+			}
+		},
+		{
+			"name": "warning-playful-001",
+			"type": "registry:block",
+			"title": "Warning (Playful)",
+			"description": "An expressive warning feedback sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/warning-playful-001/warning-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.224,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"warning",
+					"playful",
+					"feedback"
+				],
+				"keywords": [
+					"warning",
+					"playful",
+					"feedback",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "warning"
+			}
+		},
+		{
+			"name": "info-playful-001",
+			"type": "registry:block",
+			"title": "Info (Playful)",
+			"description": "A cheerful info notification tone.",
+			"files": [
+				{
+					"path": "registry/audx/audio/info-playful-001/info-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.685,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"info",
+					"playful",
+					"notification"
+				],
+				"keywords": [
+					"info",
+					"playful",
+					"notification",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "info"
+			}
+		},
+		{
+			"name": "click-playful-001",
+			"type": "registry:block",
+			"title": "Click (Playful)",
+			"description": "A rich, expressive click sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/click-playful-001/click-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.551,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"click",
+					"playful",
+					"interaction"
+				],
+				"keywords": [
+					"click",
+					"playful",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "click"
+			}
+		},
+		{
+			"name": "back-playful-001",
+			"type": "registry:block",
+			"title": "Back (Playful)",
+			"description": "A playful back sound for navigation feedback.",
+			"files": [
+				{
+					"path": "registry/audx/audio/back-playful-001/back-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.738,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"back",
+					"playful",
+					"navigation"
+				],
+				"keywords": [
+					"back",
+					"playful",
+					"navigation",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "back"
+			}
+		},
+		{
+			"name": "enter-playful-001",
+			"type": "registry:block",
+			"title": "Enter (Playful)",
+			"description": "A rich, expressive enter sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/enter-playful-001/enter-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.245,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"enter",
+					"playful",
+					"interaction"
+				],
+				"keywords": [
+					"enter",
+					"playful",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "enter"
+			}
+		},
+		{
+			"name": "delete-playful-001",
+			"type": "registry:block",
+			"title": "Delete (Playful)",
+			"description": "A dramatic delete sound for destructive actions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/delete-playful-001/delete-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.687,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"delete",
+					"playful",
+					"destructive"
+				],
+				"keywords": [
+					"delete",
+					"playful",
+					"destructive",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "delete"
+			}
+		},
+		{
+			"name": "copy-playful-001",
+			"type": "registry:block",
+			"title": "Copy (Playful)",
+			"description": "A satisfying copy clipboard action sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/copy-playful-001/copy-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.589,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"copy",
+					"playful",
+					"clipboard"
+				],
+				"keywords": [
+					"copy",
+					"playful",
+					"clipboard",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "copy"
+			}
+		},
+		{
+			"name": "paste-playful-001",
+			"type": "registry:block",
+			"title": "Paste (Playful)",
+			"description": "A satisfying paste clipboard action sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/paste-playful-001/paste-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.391,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"paste",
+					"playful",
+					"clipboard"
+				],
+				"keywords": [
+					"paste",
+					"playful",
+					"clipboard",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "paste"
+			}
+		},
+		{
+			"name": "scroll-playful-001",
+			"type": "registry:block",
+			"title": "Scroll (Playful)",
+			"description": "A playful scroll sound for navigation feedback.",
+			"files": [
+				{
+					"path": "registry/audx/audio/scroll-playful-001/scroll-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.783,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"scroll",
+					"playful",
+					"navigation"
+				],
+				"keywords": [
+					"scroll",
+					"playful",
+					"navigation",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "scroll"
+			}
+		},
+		{
+			"name": "hover-playful-001",
+			"type": "registry:block",
+			"title": "Hover (Playful)",
+			"description": "A rich, expressive hover sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/hover-playful-001/hover-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.452,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"hover",
+					"playful",
+					"interaction"
+				],
+				"keywords": [
+					"hover",
+					"playful",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "hover"
+			}
+		},
+		{
+			"name": "toggle-playful-001",
+			"type": "registry:block",
+			"title": "Toggle (Playful)",
+			"description": "A rich, expressive toggle sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/toggle-playful-001/toggle-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.794,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"toggle",
+					"playful",
+					"interaction"
+				],
+				"keywords": [
+					"toggle",
+					"playful",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "toggle"
+			}
+		},
+		{
+			"name": "notify-playful-001",
+			"type": "registry:block",
+			"title": "Notify (Playful)",
+			"description": "A cheerful notify notification tone.",
+			"files": [
+				{
+					"path": "registry/audx/audio/notify-playful-001/notify-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.64,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"notify",
+					"playful",
+					"notification"
+				],
+				"keywords": [
+					"notify",
+					"playful",
+					"notification",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "notify"
+			}
+		},
+		{
+			"name": "complete-playful-001",
+			"type": "registry:block",
+			"title": "Complete (Playful)",
+			"description": "An expressive complete feedback sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/complete-playful-001/complete-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.294,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"complete",
+					"playful",
+					"feedback"
+				],
+				"keywords": [
+					"complete",
+					"playful",
+					"feedback",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "complete"
+			}
+		},
+		{
+			"name": "loading-playful-001",
+			"type": "registry:block",
+			"title": "Loading (Playful)",
+			"description": "An engaging loading progress indicator sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/loading-playful-001/loading-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.446,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"loading",
+					"playful",
+					"progress"
+				],
+				"keywords": [
+					"loading",
+					"playful",
+					"progress",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "loading"
+			}
+		},
+		{
+			"name": "tap-playful-001",
+			"type": "registry:block",
+			"title": "Tap (Playful)",
+			"description": "A rich, expressive tap sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/tap-playful-001/tap-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.307,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"tap",
+					"playful",
+					"interaction"
+				],
+				"keywords": [
+					"tap",
+					"playful",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "tap"
+			}
+		},
+		{
+			"name": "press-playful-001",
+			"type": "registry:block",
+			"title": "Press (Playful)",
+			"description": "A rich, expressive press sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/press-playful-001/press-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.373,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"press",
+					"playful",
+					"interaction"
+				],
+				"keywords": [
+					"press",
+					"playful",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "press"
+			}
+		},
+		{
+			"name": "release-playful-001",
+			"type": "registry:block",
+			"title": "Release (Playful)",
+			"description": "A rich, expressive release sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/release-playful-001/release-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.444,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"release",
+					"playful",
+					"interaction"
+				],
+				"keywords": [
+					"release",
+					"playful",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "release"
+			}
+		},
+		{
+			"name": "drag-playful-001",
+			"type": "registry:block",
+			"title": "Drag (Playful)",
+			"description": "A rich, expressive drag sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/drag-playful-001/drag-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.23,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"drag",
+					"playful",
+					"interaction"
+				],
+				"keywords": [
+					"drag",
+					"playful",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "drag"
+			}
+		},
+		{
+			"name": "drop-playful-001",
+			"type": "registry:block",
+			"title": "Drop (Playful)",
+			"description": "A rich, expressive drop sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/drop-playful-001/drop-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.052,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"drop",
+					"playful",
+					"interaction"
+				],
+				"keywords": [
+					"drop",
+					"playful",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "drop"
+			}
+		},
+		{
+			"name": "select-playful-001",
+			"type": "registry:block",
+			"title": "Select (Playful)",
+			"description": "A rich, expressive select sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/select-playful-001/select-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.638,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"select",
+					"playful",
+					"interaction"
+				],
+				"keywords": [
+					"select",
+					"playful",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "select"
+			}
+		},
+		{
+			"name": "deselect-playful-001",
+			"type": "registry:block",
+			"title": "Deselect (Playful)",
+			"description": "A rich, expressive deselect sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/deselect-playful-001/deselect-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.283,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"deselect",
+					"playful",
+					"interaction"
+				],
+				"keywords": [
+					"deselect",
+					"playful",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "deselect"
+			}
+		},
+		{
+			"name": "focus-playful-001",
+			"type": "registry:block",
+			"title": "Focus (Playful)",
+			"description": "A rich, expressive focus sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/focus-playful-001/focus-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.617,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"focus",
+					"playful",
+					"interaction"
+				],
+				"keywords": [
+					"focus",
+					"playful",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "focus"
+			}
+		},
+		{
+			"name": "blur-playful-001",
+			"type": "registry:block",
+			"title": "Blur (Playful)",
+			"description": "A rich, expressive blur sound for UI interactions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/blur-playful-001/blur-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.672,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"blur",
+					"playful",
+					"interaction"
+				],
+				"keywords": [
+					"blur",
+					"playful",
+					"interaction",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "blur"
+			}
+		},
+		{
+			"name": "forward-playful-001",
+			"type": "registry:block",
+			"title": "Forward (Playful)",
+			"description": "A playful forward sound for navigation feedback.",
+			"files": [
+				{
+					"path": "registry/audx/audio/forward-playful-001/forward-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.151,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"forward",
+					"playful",
+					"navigation"
+				],
+				"keywords": [
+					"forward",
+					"playful",
+					"navigation",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "forward"
+			}
+		},
+		{
+			"name": "open-playful-001",
+			"type": "registry:block",
+			"title": "Open (Playful)",
+			"description": "A playful open sound for navigation feedback.",
+			"files": [
+				{
+					"path": "registry/audx/audio/open-playful-001/open-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.261,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"open",
+					"playful",
+					"navigation"
+				],
+				"keywords": [
+					"open",
+					"playful",
+					"navigation",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "open"
+			}
+		},
+		{
+			"name": "close-playful-001",
+			"type": "registry:block",
+			"title": "Close (Playful)",
+			"description": "A playful close sound for navigation feedback.",
+			"files": [
+				{
+					"path": "registry/audx/audio/close-playful-001/close-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.431,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"close",
+					"playful",
+					"navigation"
+				],
+				"keywords": [
+					"close",
+					"playful",
+					"navigation",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "close"
+			}
+		},
+		{
+			"name": "expand-playful-001",
+			"type": "registry:block",
+			"title": "Expand (Playful)",
+			"description": "A playful expand sound for navigation feedback.",
+			"files": [
+				{
+					"path": "registry/audx/audio/expand-playful-001/expand-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.124,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"expand",
+					"playful",
+					"navigation"
+				],
+				"keywords": [
+					"expand",
+					"playful",
+					"navigation",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "expand"
+			}
+		},
+		{
+			"name": "collapse-playful-001",
+			"type": "registry:block",
+			"title": "Collapse (Playful)",
+			"description": "A playful collapse sound for navigation feedback.",
+			"files": [
+				{
+					"path": "registry/audx/audio/collapse-playful-001/collapse-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.193,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"collapse",
+					"playful",
+					"navigation"
+				],
+				"keywords": [
+					"collapse",
+					"playful",
+					"navigation",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "collapse"
+			}
+		},
+		{
+			"name": "tab-playful-001",
+			"type": "registry:block",
+			"title": "Tab (Playful)",
+			"description": "A playful tab sound for navigation feedback.",
+			"files": [
+				{
+					"path": "registry/audx/audio/tab-playful-001/tab-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.763,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"tab",
+					"playful",
+					"navigation"
+				],
+				"keywords": [
+					"tab",
+					"playful",
+					"navigation",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "tab"
+			}
+		},
+		{
+			"name": "swipe-playful-001",
+			"type": "registry:block",
+			"title": "Swipe (Playful)",
+			"description": "A playful swipe sound for navigation feedback.",
+			"files": [
+				{
+					"path": "registry/audx/audio/swipe-playful-001/swipe-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.336,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"swipe",
+					"playful",
+					"navigation"
+				],
+				"keywords": [
+					"swipe",
+					"playful",
+					"navigation",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "swipe"
+			}
+		},
+		{
+			"name": "confirm-playful-001",
+			"type": "registry:block",
+			"title": "Confirm (Playful)",
+			"description": "An expressive confirm feedback sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/confirm-playful-001/confirm-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.701,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"confirm",
+					"playful",
+					"feedback"
+				],
+				"keywords": [
+					"confirm",
+					"playful",
+					"feedback",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "confirm"
+			}
+		},
+		{
+			"name": "cancel-playful-001",
+			"type": "registry:block",
+			"title": "Cancel (Playful)",
+			"description": "An expressive cancel feedback sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/cancel-playful-001/cancel-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.358,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"cancel",
+					"playful",
+					"feedback"
+				],
+				"keywords": [
+					"cancel",
+					"playful",
+					"feedback",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "cancel"
+			}
+		},
+		{
+			"name": "deny-playful-001",
+			"type": "registry:block",
+			"title": "Deny (Playful)",
+			"description": "An expressive deny feedback sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/deny-playful-001/deny-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.488,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"deny",
+					"playful",
+					"feedback"
+				],
+				"keywords": [
+					"deny",
+					"playful",
+					"feedback",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "deny"
+			}
+		},
+		{
+			"name": "undo-playful-001",
+			"type": "registry:block",
+			"title": "Undo (Playful)",
+			"description": "An expressive undo feedback sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/undo-playful-001/undo-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.644,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"undo",
+					"playful",
+					"feedback"
+				],
+				"keywords": [
+					"undo",
+					"playful",
+					"feedback",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "undo"
+			}
+		},
+		{
+			"name": "redo-playful-001",
+			"type": "registry:block",
+			"title": "Redo (Playful)",
+			"description": "An expressive redo feedback sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/redo-playful-001/redo-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.562,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"redo",
+					"playful",
+					"feedback"
+				],
+				"keywords": [
+					"redo",
+					"playful",
+					"feedback",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "redo"
+			}
+		},
+		{
+			"name": "alert-playful-001",
+			"type": "registry:block",
+			"title": "Alert (Playful)",
+			"description": "A cheerful alert notification tone.",
+			"files": [
+				{
+					"path": "registry/audx/audio/alert-playful-001/alert-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.248,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"alert",
+					"playful",
+					"notification"
+				],
+				"keywords": [
+					"alert",
+					"playful",
+					"notification",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "alert"
+			}
+		},
+		{
+			"name": "message-playful-001",
+			"type": "registry:block",
+			"title": "Message (Playful)",
+			"description": "A cheerful message notification tone.",
+			"files": [
+				{
+					"path": "registry/audx/audio/message-playful-001/message-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.124,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"message",
+					"playful",
+					"notification"
+				],
+				"keywords": [
+					"message",
+					"playful",
+					"notification",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "message"
+			}
+		},
+		{
+			"name": "reminder-playful-001",
+			"type": "registry:block",
+			"title": "Reminder (Playful)",
+			"description": "A cheerful reminder notification tone.",
+			"files": [
+				{
+					"path": "registry/audx/audio/reminder-playful-001/reminder-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.315,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"reminder",
+					"playful",
+					"notification"
+				],
+				"keywords": [
+					"reminder",
+					"playful",
+					"notification",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "reminder"
+			}
+		},
+		{
+			"name": "mention-playful-001",
+			"type": "registry:block",
+			"title": "Mention (Playful)",
+			"description": "A cheerful mention notification tone.",
+			"files": [
+				{
+					"path": "registry/audx/audio/mention-playful-001/mention-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.685,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"mention",
+					"playful",
+					"notification"
+				],
+				"keywords": [
+					"mention",
+					"playful",
+					"notification",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "mention"
+			}
+		},
+		{
+			"name": "show-playful-001",
+			"type": "registry:block",
+			"title": "Show (Playful)",
+			"description": "A smooth, expressive show transition sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/show-playful-001/show-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.391,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"show",
+					"playful",
+					"transition"
+				],
+				"keywords": [
+					"show",
+					"playful",
+					"transition",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "show"
+			}
+		},
+		{
+			"name": "hide-playful-001",
+			"type": "registry:block",
+			"title": "Hide (Playful)",
+			"description": "A smooth, expressive hide transition sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/hide-playful-001/hide-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.121,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"hide",
+					"playful",
+					"transition"
+				],
+				"keywords": [
+					"hide",
+					"playful",
+					"transition",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "hide"
+			}
+		},
+		{
+			"name": "slide-playful-001",
+			"type": "registry:block",
+			"title": "Slide (Playful)",
+			"description": "A smooth, expressive slide transition sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/slide-playful-001/slide-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.622,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"slide",
+					"playful",
+					"transition"
+				],
+				"keywords": [
+					"slide",
+					"playful",
+					"transition",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "slide"
+			}
+		},
+		{
+			"name": "fade-playful-001",
+			"type": "registry:block",
+			"title": "Fade (Playful)",
+			"description": "A smooth, expressive fade transition sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/fade-playful-001/fade-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.542,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"fade",
+					"playful",
+					"transition"
+				],
+				"keywords": [
+					"fade",
+					"playful",
+					"transition",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "fade"
+			}
+		},
+		{
+			"name": "pop-playful-001",
+			"type": "registry:block",
+			"title": "Pop (Playful)",
+			"description": "A smooth, expressive pop transition sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/pop-playful-001/pop-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.36,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"pop",
+					"playful",
+					"transition"
+				],
+				"keywords": [
+					"pop",
+					"playful",
+					"transition",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "pop"
+			}
+		},
+		{
+			"name": "clear-playful-001",
+			"type": "registry:block",
+			"title": "Clear (Playful)",
+			"description": "A dramatic clear sound for destructive actions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/clear-playful-001/clear-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.673,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"clear",
+					"playful",
+					"destructive"
+				],
+				"keywords": [
+					"clear",
+					"playful",
+					"destructive",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "clear"
+			}
+		},
+		{
+			"name": "remove-playful-001",
+			"type": "registry:block",
+			"title": "Remove (Playful)",
+			"description": "A dramatic remove sound for destructive actions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/remove-playful-001/remove-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.578,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"remove",
+					"playful",
+					"destructive"
+				],
+				"keywords": [
+					"remove",
+					"playful",
+					"destructive",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "remove"
+			}
+		},
+		{
+			"name": "trash-playful-001",
+			"type": "registry:block",
+			"title": "Trash (Playful)",
+			"description": "A dramatic trash sound for destructive actions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/trash-playful-001/trash-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.167,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"trash",
+					"playful",
+					"destructive"
+				],
+				"keywords": [
+					"trash",
+					"playful",
+					"destructive",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "trash"
+			}
+		},
+		{
+			"name": "shred-playful-001",
+			"type": "registry:block",
+			"title": "Shred (Playful)",
+			"description": "A dramatic shred sound for destructive actions.",
+			"files": [
+				{
+					"path": "registry/audx/audio/shred-playful-001/shred-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.254,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"shred",
+					"playful",
+					"destructive"
+				],
+				"keywords": [
+					"shred",
+					"playful",
+					"destructive",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "shred"
+			}
+		},
+		{
+			"name": "upload-playful-001",
+			"type": "registry:block",
+			"title": "Upload (Playful)",
+			"description": "An engaging upload progress indicator sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/upload-playful-001/upload-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.57,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"upload",
+					"playful",
+					"progress"
+				],
+				"keywords": [
+					"upload",
+					"playful",
+					"progress",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "upload"
+			}
+		},
+		{
+			"name": "download-playful-001",
+			"type": "registry:block",
+			"title": "Download (Playful)",
+			"description": "An engaging download progress indicator sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/download-playful-001/download-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.377,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"download",
+					"playful",
+					"progress"
+				],
+				"keywords": [
+					"download",
+					"playful",
+					"progress",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "download"
+			}
+		},
+		{
+			"name": "refresh-playful-001",
+			"type": "registry:block",
+			"title": "Refresh (Playful)",
+			"description": "An engaging refresh progress indicator sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/refresh-playful-001/refresh-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.745,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"refresh",
+					"playful",
+					"progress"
+				],
+				"keywords": [
+					"refresh",
+					"playful",
+					"progress",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "refresh"
+			}
+		},
+		{
+			"name": "sync-playful-001",
+			"type": "registry:block",
+			"title": "Sync (Playful)",
+			"description": "An engaging sync progress indicator sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/sync-playful-001/sync-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.733,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"sync",
+					"playful",
+					"progress"
+				],
+				"keywords": [
+					"sync",
+					"playful",
+					"progress",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "sync"
+			}
+		},
+		{
+			"name": "process-playful-001",
+			"type": "registry:block",
+			"title": "Process (Playful)",
+			"description": "An engaging process progress indicator sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/process-playful-001/process-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.564,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"process",
+					"playful",
+					"progress"
+				],
+				"keywords": [
+					"process",
+					"playful",
+					"progress",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "process"
+			}
+		},
+		{
+			"name": "cut-playful-001",
+			"type": "registry:block",
+			"title": "Cut (Playful)",
+			"description": "A satisfying cut clipboard action sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/cut-playful-001/cut-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.79,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"cut",
+					"playful",
+					"clipboard"
+				],
+				"keywords": [
+					"cut",
+					"playful",
+					"clipboard",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "cut"
+			}
+		},
+		{
+			"name": "snapshot-playful-001",
+			"type": "registry:block",
+			"title": "Snapshot (Playful)",
+			"description": "A satisfying snapshot clipboard action sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/snapshot-playful-001/snapshot-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.116,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"snapshot",
+					"playful",
+					"clipboard"
+				],
+				"keywords": [
+					"snapshot",
+					"playful",
+					"clipboard",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "snapshot"
+			}
+		},
+		{
+			"name": "lock-playful-001",
+			"type": "registry:block",
+			"title": "Lock (Playful)",
+			"description": "An expressive lock state change sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/lock-playful-001/lock-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.067,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"lock",
+					"playful",
+					"state"
+				],
+				"keywords": [
+					"lock",
+					"playful",
+					"state",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "lock"
+			}
+		},
+		{
+			"name": "unlock-playful-001",
+			"type": "registry:block",
+			"title": "Unlock (Playful)",
+			"description": "An expressive unlock state change sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/unlock-playful-001/unlock-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.308,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"unlock",
+					"playful",
+					"state"
+				],
+				"keywords": [
+					"unlock",
+					"playful",
+					"state",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "unlock"
+			}
+		},
+		{
+			"name": "enable-playful-001",
+			"type": "registry:block",
+			"title": "Enable (Playful)",
+			"description": "An expressive enable state change sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/enable-playful-001/enable-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.553,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"enable",
+					"playful",
+					"state"
+				],
+				"keywords": [
+					"enable",
+					"playful",
+					"state",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "enable"
+			}
+		},
+		{
+			"name": "disable-playful-001",
+			"type": "registry:block",
+			"title": "Disable (Playful)",
+			"description": "An expressive disable state change sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/disable-playful-001/disable-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.779,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"disable",
+					"playful",
+					"state"
+				],
+				"keywords": [
+					"disable",
+					"playful",
+					"state",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "disable"
+			}
+		},
+		{
+			"name": "connect-playful-001",
+			"type": "registry:block",
+			"title": "Connect (Playful)",
+			"description": "An expressive connect state change sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/connect-playful-001/connect-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.342,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"connect",
+					"playful",
+					"state"
+				],
+				"keywords": [
+					"connect",
+					"playful",
+					"state",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "connect"
+			}
+		},
+		{
+			"name": "disconnect-playful-001",
+			"type": "registry:block",
+			"title": "Disconnect (Playful)",
+			"description": "An expressive disconnect state change sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/disconnect-playful-001/disconnect-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.128,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"disconnect",
+					"playful",
+					"state"
+				],
+				"keywords": [
+					"disconnect",
+					"playful",
+					"state",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "disconnect"
+			}
+		},
+		{
+			"name": "mute-playful-001",
+			"type": "registry:block",
+			"title": "Mute (Playful)",
+			"description": "A rich mute media control sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/mute-playful-001/mute-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.214,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"mute",
+					"playful",
+					"media"
+				],
+				"keywords": [
+					"mute",
+					"playful",
+					"media",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "mute"
+			}
+		},
+		{
+			"name": "unmute-playful-001",
+			"type": "registry:block",
+			"title": "Unmute (Playful)",
+			"description": "A rich unmute media control sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/unmute-playful-001/unmute-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.349,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"unmute",
+					"playful",
+					"media"
+				],
+				"keywords": [
+					"unmute",
+					"playful",
+					"media",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "unmute"
+			}
+		},
+		{
+			"name": "record-playful-001",
+			"type": "registry:block",
+			"title": "Record (Playful)",
+			"description": "A rich record media control sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/record-playful-001/record-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.492,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"record",
+					"playful",
+					"media"
+				],
+				"keywords": [
+					"record",
+					"playful",
+					"media",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "record"
+			}
+		},
+		{
+			"name": "capture-playful-001",
+			"type": "registry:block",
+			"title": "Capture (Playful)",
+			"description": "A rich capture media control sound.",
+			"files": [
+				{
+					"path": "registry/audx/audio/capture-playful-001/capture-playful-001.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "registry/audx/lib/audio-engine.ts",
+					"type": "registry:lib"
+				}
+			],
+			"author": "audx",
+			"meta": {
+				"duration": 0.223,
+				"format": "mp3",
+				"sizeKb": 1,
+				"license": "CC0",
+				"tags": [
+					"capture",
+					"playful",
+					"media"
+				],
+				"keywords": [
+					"capture",
+					"playful",
+					"media",
+					"ui",
+					"sound"
+				],
+				"theme": "playful",
+				"semanticName": "capture"
 			}
 		}
 	]

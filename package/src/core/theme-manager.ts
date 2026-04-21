@@ -1,10 +1,10 @@
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import {
-  type ThemeConfig,
-  type SemanticSoundName,
-  themeConfigSchema,
-  SEMANTIC_SOUND_NAMES,
+	SEMANTIC_SOUND_NAMES,
+	type SemanticSoundName,
+	type ThemeConfig,
+	themeConfigSchema,
 } from "../types.js";
 
 const THEME_FILE_NAME = "audx.themes.json";
@@ -13,14 +13,14 @@ const THEME_FILE_NAME = "audx.themes.json";
  * Resolve the full path to the theme config file given a project root.
  */
 function themePath(projectRoot: string): string {
-  return join(projectRoot, THEME_FILE_NAME);
+	return join(projectRoot, THEME_FILE_NAME);
 }
 
 /**
  * Check whether `audx.themes.json` exists in the given project root.
  */
 export function exists(projectRoot: string): boolean {
-  return existsSync(themePath(projectRoot));
+	return existsSync(themePath(projectRoot));
 }
 
 /**
@@ -28,10 +28,10 @@ export function exists(projectRoot: string): boolean {
  * Throws if the file doesn't exist, contains invalid JSON, or fails validation.
  */
 export function read(projectRoot: string): ThemeConfig {
-  const filePath = themePath(projectRoot);
-  const content = readFileSync(filePath, "utf-8");
-  const parsed: unknown = JSON.parse(content);
-  return themeConfigSchema.parse(parsed);
+	const filePath = themePath(projectRoot);
+	const content = readFileSync(filePath, "utf-8");
+	const parsed: unknown = JSON.parse(content);
+	return themeConfigSchema.parse(parsed);
 }
 
 /**
@@ -39,19 +39,19 @@ export function read(projectRoot: string): ThemeConfig {
  * Uses 2-space indentation for readability.
  */
 export function write(projectRoot: string, config: ThemeConfig): void {
-  const filePath = themePath(projectRoot);
-  const json = JSON.stringify(config, null, 2);
-  writeFileSync(filePath, json + "\n", "utf-8");
+	const filePath = themePath(projectRoot);
+	const json = JSON.stringify(config, null, 2);
+	writeFileSync(filePath, json + "\n", "utf-8");
 }
 
 /**
  * Return a new ThemeConfig with the active theme set to the given name.
  */
 export function setActiveTheme(
-  config: ThemeConfig,
-  themeName: string,
+	config: ThemeConfig,
+	themeName: string,
 ): ThemeConfig {
-  return { ...config, activeTheme: themeName };
+	return { ...config, activeTheme: themeName };
 }
 
 /**
@@ -59,43 +59,43 @@ export function setActiveTheme(
  * in the active theme.
  */
 export function mapSound(
-  config: ThemeConfig,
-  semanticName: SemanticSoundName,
-  soundPath: string,
+	config: ThemeConfig,
+	semanticName: SemanticSoundName,
+	soundPath: string,
 ): ThemeConfig {
-  const activeTheme = config.activeTheme;
-  const currentMappings = config.themes[activeTheme];
-  return {
-    ...config,
-    themes: {
-      ...config.themes,
-      [activeTheme]: {
-        ...currentMappings,
-        [semanticName]: soundPath,
-      },
-    },
-  };
+	const activeTheme = config.activeTheme;
+	const currentMappings = config.themes[activeTheme];
+	return {
+		...config,
+		themes: {
+			...config.themes,
+			[activeTheme]: {
+				...currentMappings,
+				[semanticName]: soundPath,
+			},
+		},
+	};
 }
 
 /**
- * Return a new ThemeConfig with a new theme entry where all 16 semantic names
+ * Return a new ThemeConfig with a new theme entry where all semantic names
  * are mapped to null.
  */
 export function createTheme(
-  config: ThemeConfig,
-  themeName: string,
+	config: ThemeConfig,
+	themeName: string,
 ): ThemeConfig {
-  const emptyMappings = Object.fromEntries(
-    SEMANTIC_SOUND_NAMES.map((name) => [name, null]),
-  ) as Record<SemanticSoundName, null>;
+	const emptyMappings = Object.fromEntries(
+		SEMANTIC_SOUND_NAMES.map((name) => [name, null]),
+	) as Record<SemanticSoundName, null>;
 
-  return {
-    ...config,
-    themes: {
-      ...config.themes,
-      [themeName]: emptyMappings,
-    },
-  };
+	return {
+		...config,
+		themes: {
+			...config.themes,
+			[themeName]: emptyMappings,
+		},
+	};
 }
 
 /**
@@ -103,23 +103,23 @@ export function createTheme(
  * across all themes.
  */
 export function removeSoundMappings(
-  config: ThemeConfig,
-  soundName: string,
+	config: ThemeConfig,
+	soundName: string,
 ): ThemeConfig {
-  const updatedThemes: ThemeConfig["themes"] = {};
+	const updatedThemes: ThemeConfig["themes"] = {};
 
-  for (const [themeName, mappings] of Object.entries(config.themes)) {
-    const updatedMappings = { ...mappings };
-    for (const [key, value] of Object.entries(updatedMappings)) {
-      if (value !== null && value.includes(soundName)) {
-        updatedMappings[key as SemanticSoundName] = null;
-      }
-    }
-    updatedThemes[themeName] = updatedMappings;
-  }
+	for (const [themeName, mappings] of Object.entries(config.themes)) {
+		const updatedMappings = { ...mappings };
+		for (const [key, value] of Object.entries(updatedMappings)) {
+			if (value !== null && value.includes(soundName)) {
+				updatedMappings[key as SemanticSoundName] = null;
+			}
+		}
+		updatedThemes[themeName] = updatedMappings;
+	}
 
-  return {
-    ...config,
-    themes: updatedThemes,
-  };
+	return {
+		...config,
+		themes: updatedThemes,
+	};
 }

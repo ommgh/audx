@@ -9,6 +9,8 @@ export interface AudioCatalogItem {
 		license: string;
 		tags: string[];
 		keywords: string[];
+		theme?: string;
+		semanticName?: string;
 	};
 }
 
