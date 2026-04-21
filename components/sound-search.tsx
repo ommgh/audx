@@ -1,6 +1,6 @@
 "use client";
 
-import { Search } from "lucide-react";
+import { RiSearchLine } from "@remixicon/react";
 import { useEffect, useRef } from "react";
 
 interface SoundSearchProps {
@@ -24,9 +24,10 @@ export function SoundSearch({ value, onChange }: SoundSearchProps) {
   }, []);
 
   return (
-    <div className="relative w-full max-w-sm">
-      <Search
-        className="text-muted-foreground/60 absolute left-3 top-1/2 size-4 -translate-y-1/2"
+    <div className="relative w-full">
+      <RiSearchLine
+        size={16}
+        className="text-muted-foreground/60 absolute left-3 top-1/2 -translate-y-1/2"
         aria-hidden="true"
       />
       <input
@@ -35,7 +36,7 @@ export function SoundSearch({ value, onChange }: SoundSearchProps) {
         name="search"
         aria-label="Search sounds"
         autoComplete="off"
-        placeholder="Search sounds..."
+        placeholder="Search audio..."
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className="border-border/60 bg-secondary/40 placeholder:text-muted-foreground/50 h-10 w-full rounded-lg border pl-9 pr-14 text-sm outline-none transition-[color,border-color,box-shadow,background-color] focus-visible:ring-[3px] focus-visible:ring-primary/20 focus-visible:border-primary/40 focus-visible:shadow-lg focus-visible:shadow-primary/15"

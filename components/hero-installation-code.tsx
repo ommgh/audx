@@ -1,6 +1,6 @@
 "use client";
 
-import { Copy, Check } from "lucide-react";
+import { RiFileCopyLine, RiCheckLine } from "@remixicon/react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTypewriter } from "@/hooks/use-typewriter";
 import {
@@ -78,7 +78,7 @@ export function HeroInstallationCode({ items }: { items: AudioCatalogItem[] }) {
   }, [measure]);
 
   return (
-    <div className="w-full max-w-[620px]">
+    <div className="w-full max-w-[620px] min-w-0">
       {/* ── Package manager tabs ── */}
       <div
         ref={tabsRef}
@@ -119,7 +119,7 @@ export function HeroInstallationCode({ items }: { items: AudioCatalogItem[] }) {
         ))}
       </div>
 
-      <div className="relative overflow-hidden rounded-tr-xl rounded-b-xl border border-border/60 bg-card/80 backdrop-blur-sm">
+      <div className="relative w-full overflow-hidden rounded-tr-xl rounded-b-xl border border-border/60 bg-card/80 backdrop-blur-sm">
         <div
           className={cn(
             "overflow-x-auto whitespace-nowrap px-4 py-3.5 pr-14 font-mono text-sm",
@@ -154,14 +154,14 @@ export function HeroInstallationCode({ items }: { items: AudioCatalogItem[] }) {
             "absolute top-1/2 right-2 z-20 -translate-y-1/2 rounded-lg p-2 transition-colors duration-150",
             "focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none",
             copyState === "done"
-              ? "text-green-500"
+              ? "text-primary"
               : "text-muted-foreground hover:text-foreground hover:bg-accent",
           )}
         >
           {copyState === "done" ? (
-            <Check className="size-4" />
+            <RiCheckLine size={16} />
           ) : (
-            <Copy className="size-4" />
+            <RiFileCopyLine size={16} />
           )}
         </button>
       </div>

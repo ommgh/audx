@@ -1,6 +1,12 @@
 "use client";
 
-import { ArrowUpRight, Clock, HardDrive, Scale, Tag } from "lucide-react";
+import {
+  RiArrowRightUpLine,
+  RiTimeLine,
+  RiHardDriveLine,
+  RiScales3Line,
+  RiPriceTag3Line,
+} from "@remixicon/react";
 import Link from "next/link";
 import { MetaPill } from "@/components/metal-pill";
 import { SoundDownloadButton } from "@/components/sound-download-button";
@@ -58,7 +64,7 @@ export function SoundDetail({ items }: { items: AudioCatalogItem[] }) {
                     className="text-muted-foreground hover:text-primary hover:bg-primary/10 flex size-9 items-center justify-center rounded-lg transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
                     aria-label="Open audio page"
                   >
-                    <ArrowUpRight className="size-[18px]" aria-hidden="true" />
+                    <RiArrowRightUpLine size={18} aria-hidden="true" />
                   </Link>
                   <SoundDownloadButton name={audio.name} />
                 </div>
@@ -76,15 +82,15 @@ export function SoundDetail({ items }: { items: AudioCatalogItem[] }) {
 
             {/* ── 3. Metadata ── */}
             <div className="mt-4 flex flex-wrap items-center gap-2">
-              <MetaPill icon={Clock}>
+              <MetaPill icon={RiTimeLine}>
                 {formatDuration(audio.meta.duration)}
               </MetaPill>
-              <MetaPill icon={HardDrive}>
+              <MetaPill icon={RiHardDriveLine}>
                 {formatSizeKb(audio.meta.sizeKb)}
               </MetaPill>
-              <MetaPill icon={Scale}>{audio.meta.license}</MetaPill>
+              <MetaPill icon={RiScales3Line}>{audio.meta.license}</MetaPill>
               {tags.length > 0 ? (
-                <MetaPill icon={Tag}>
+                <MetaPill icon={RiPriceTag3Line}>
                   {tags.slice(0, 3).join(", ")}
                   {tags.length > 3 ? ` +${tags.length - 3}` : null}
                 </MetaPill>

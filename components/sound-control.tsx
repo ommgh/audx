@@ -1,4 +1,4 @@
-import { Loader2, Play, Square } from "lucide-react";
+import { RiLoader4Line, RiPlayFill, RiStopFill } from "@remixicon/react";
 import type { PlayState } from "@/hooks/use-sound-playback";
 import { cn } from "@/lib/utils";
 
@@ -16,11 +16,11 @@ export function SoundPlayControl({ state }: { state: PlayState }) {
       )}
     >
       {isLoading ? (
-        <Loader2 className="size-4" />
+        <RiLoader4Line size={16} />
       ) : isPlaying ? (
-        <Square className="relative size-3.5" />
+        <RiStopFill className="relative" size={14} />
       ) : (
-        <Play className="relative ml-0.5 size-4" />
+        <RiPlayFill className="relative ml-0.5" size={16} />
       )}
     </span>
   );

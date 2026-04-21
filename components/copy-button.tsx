@@ -1,4 +1,4 @@
-import { Check } from "lucide-react";
+import { RiCheckLine } from "@remixicon/react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/registry/audx/ui/button";
@@ -35,13 +35,13 @@ export function CopyButton({
       className={cn(
         "inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium transition-[color,background-color,border-color,box-shadow] duration-150 focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none",
         copied
-          ? "border-green-500/30 bg-green-500/10 text-green-600 dark:text-green-400"
+          ? "border-primary/30 bg-primary/10 text-primary"
           : "border-primary/30 bg-primary/5 text-primary hover:bg-primary/10",
       )}
     >
       {copied ? (
         <>
-          <Check className="size-3.5" />
+          <RiCheckLine size={14} />
           <span className="hidden sm:inline">{successText}</span>
         </>
       ) : (

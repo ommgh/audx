@@ -1,7 +1,6 @@
 "use client";
 
-import { Slot } from "@radix-ui/react-slot";
-import type { ReactNode } from "react";
+import { type ReactElement, cloneElement } from "react";
 import { useAudio } from "@/hooks/use-sound";
 import { click001Audio } from "@/registry/audx/sounds/click-001/click-001";
 
@@ -9,10 +8,15 @@ export function ClickableWithSound({
   children,
   volume = 0.5,
 }: {
-  children: ReactNode;
+  children: ReactElement<{ onClick?: (...args: unknown[]) => void }>;
   volume?: number;
 }) {
   const [play] = useAudio(click001Audio, { volume, interrupt: true });
 
-  return <Slot onClick={() => play()}>{children}</Slot>;
+  return cloneElement(children, {
+    onClick: (...args: unknown[]) => {
+      play();
+      children.props.onClick?.(...args);
+    },
+  });
 }

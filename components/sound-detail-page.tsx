@@ -1,10 +1,15 @@
 "use client";
 
-import { ArrowLeft, Clock, HardDrive, Scale, Tag } from "lucide-react";
+import {
+  RiArrowLeftLine,
+  RiTimeLine,
+  RiHardDriveLine,
+  RiScales3Line,
+  RiPriceTag3Line,
+} from "@remixicon/react";
 import Link from "next/link";
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { MetaPill } from "@/components/metal-pill";
-import { MiniSoundEqualizer } from "@/components/mini-sound-equalizer";
 import { SoundDownloadButton } from "@/components/sound-download-button";
 import { SoundInstallInstructions } from "@/components/sound-install-instructions";
 import { PlayerStrip } from "@/components/sound-player";
@@ -12,6 +17,7 @@ import { useHoverPreview } from "@/hooks/use-hover-preview";
 import { useAudioPlayback } from "@/hooks/use-sound-playback";
 import type { AudioCatalogItem } from "@/lib/audio-catalog";
 import { formatDuration, formatSizeKb } from "@/lib/audio-catalog";
+import { generateAudioWaves } from "@/lib/audio-data";
 
 /* ── Main page component ── */
 
@@ -42,7 +48,7 @@ export function SoundDetailPage({ audio, relatedAudio }: AudioDetailPageProps) {
           href="/"
           className="inline-flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm text-muted-foreground transition-colors duration-150 hover:text-foreground hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
         >
-          <ArrowLeft className="size-4" aria-hidden="true" />
+          <RiArrowLeftLine size={16} aria-hidden="true" />
           Back to Library
         </Link>
       </nav>
@@ -88,15 +94,15 @@ export function SoundDetailPage({ audio, relatedAudio }: AudioDetailPageProps) {
 
         {/* ── Metadata ── */}
         <div className="mt-5 flex flex-wrap items-center gap-2">
-          <MetaPill icon={Clock}>
+          <MetaPill icon={RiTimeLine}>
             {formatDuration(audio.meta.duration)}
           </MetaPill>
-          <MetaPill icon={HardDrive}>
+          <MetaPill icon={RiHardDriveLine}>
             {formatSizeKb(audio.meta.sizeKb)}
           </MetaPill>
-          <MetaPill icon={Scale}>{audio.meta.license}</MetaPill>
+          <MetaPill icon={RiScales3Line}>{audio.meta.license}</MetaPill>
           {tags.length > 0 ? (
-            <MetaPill icon={Tag}>
+            <MetaPill icon={RiPriceTag3Line}>
               {tags.slice(0, 4).join(", ")}
               {tags.length > 4 ? ` +${tags.length - 4}` : null}
             </MetaPill>
@@ -151,7 +157,7 @@ const RelatedAudioCard = memo(function RelatedAudioCard({
       onBlur={onPreviewStop}
       className="group relative flex cursor-pointer flex-col items-center gap-3 rounded-xl border border-border/50 bg-card p-4 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/[0.08] transition-[border-color,box-shadow] duration-200 focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
     >
-      <MiniSoundEqualizer selected={false} name={item.name} />
+      <StaticBars name={item.name} />
 
       <span className="line-clamp-1 text-center text-sm font-medium">
         {item.title}
@@ -163,3 +169,22 @@ const RelatedAudioCard = memo(function RelatedAudioCard({
     </Link>
   );
 });
+
+function StaticBars({ name }: { name: string }) {
+  const bars = useMemo(() => generateAudioWaves(name), [name]);
+
+  return (
+    <div
+      className="flex items-end justify-center gap-[3px] h-10"
+      aria-hidden="true"
+    >
+      {bars.map((bar, i) => (
+        <span
+          key={`${name}-${i}-${bar.height}`}
+          className="w-[3.5px] rounded-full bg-muted-foreground/20 group-hover:bg-primary/70 transition-colors"
+          style={{ height: `${bar.height}%` }}
+        />
+      ))}
+    </div>
+  );
+}

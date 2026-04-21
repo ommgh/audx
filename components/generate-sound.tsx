@@ -1,6 +1,10 @@
 "use client";
 
-import { Download, Loader2, Sparkles } from "lucide-react";
+import {
+  RiDownloadLine,
+  RiLoader4Line,
+  RiSparklingLine,
+} from "@remixicon/react";
 import { useRef } from "react";
 import { Button } from "@/registry/audx/ui/button";
 import { Label } from "@/registry/audx/ui/label";
@@ -157,12 +161,12 @@ export function GenerateSound() {
         >
           {isGenerating ? (
             <>
-              <Loader2 className="size-4 animate-spin" />
+              <RiLoader4Line size={16} className="animate-spin" />
               Generating…
             </>
           ) : (
             <>
-              <Sparkles className="size-4" />
+              <RiSparklingLine size={16} />
               Generate
             </>
           )}
@@ -188,7 +192,7 @@ export function GenerateSound() {
           <div className="flex justify-end">
             <Button variant="outline" size="sm" asChild>
               <a href={audioUrl} download="generated-sound.mp3">
-                <Download className="size-4" />
+                <RiDownloadLine size={16} />
                 Download
               </a>
             </Button>

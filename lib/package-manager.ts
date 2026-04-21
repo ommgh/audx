@@ -10,7 +10,7 @@ export const PACKAGE_MANAGERS: PackageManager[] = [
 const PM_PREFIX: Record<PackageManager, string> = {
   npm: "npx shadcn@latest",
   pnpm: "pnpm dlx shadcn@latest",
-  yarn: "npx shadcn@latest",
+  yarn: "yarn dlx shadcn@latest",
   bun: "bunx --bun shadcn@latest",
 };
 

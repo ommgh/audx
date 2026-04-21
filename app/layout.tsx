@@ -6,7 +6,6 @@ import "./globals.css";
 
 import { Analytics } from "@vercel/analytics/next";
 import { Suspense } from "react";
-import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { cn } from "@/lib/utils";
 
@@ -104,7 +103,6 @@ export default function RootLayout({
               <div className="flex min-h-svh flex-col">
                 <Header />
                 {children}
-                <Footer />
               </div>
             </NuqsAdapter>
           </ThemeProvider>

@@ -33,7 +33,7 @@ export function AudioPage({ items }: AudioPageProps) {
       {/* ── Content ── */}
       <main
         id="main-content"
-        className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 px-6 py-8"
+        className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 px-6 py-8 border-x"
       >
         <div className="flex items-center justify-between">
           <SoundsCountTitle count={deferredItems.length} />
