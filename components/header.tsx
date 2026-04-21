@@ -16,6 +16,12 @@ export function Header() {
 					>
 						Themes
 					</Link>
+					<Link
+						href="/themes/create"
+						className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+					>
+						Create
+					</Link>
 				</nav>
 				<div className="flex items-center gap-2">
 					<ThemeToggle />

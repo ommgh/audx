@@ -1,4 +1,6 @@
+import { RiAddLine } from "@remixicon/react";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ThemeCard } from "@/components/theme-card";
 import { getAllThemes } from "@/lib/theme-data";
 
@@ -22,6 +24,13 @@ export default function ThemesPage() {
 			</div>
 
 			<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+				<Link
+					href="/themes/create"
+					className="flex flex-col items-center justify-center gap-3 rounded-lg border border-dashed border-border/60 p-8 text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground hover:bg-secondary/30"
+				>
+					<RiAddLine size={24} />
+					<span className="text-sm font-medium">Create Theme</span>
+				</Link>
 				{themes.map((theme) => (
 					<ThemeCard key={theme.name} theme={theme} />
 				))}

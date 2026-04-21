@@ -30,7 +30,7 @@ export async function POST(request: Request) {
 		const body = await request.json();
 		const parsed = generateSoundSchema.parse(body);
 
-		const apiKey = process.env.ELEVEN_LABS_API_KEY;
+		const apiKey = process.env.ELEVENLABS_API_KEY;
 		if (!apiKey) {
 			return NextResponse.json(
 				{ error: "Sound generation is not configured" },
