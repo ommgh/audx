@@ -1,0 +1,54 @@
+{
+	"name": "@litlab/audx",
+	"version": "0.0.1",
+	"description": "CLI tool for distributing and managing UI sounds from the audx registry",
+	"type": "module",
+	"bin": {
+		"audx": "dist/index.js"
+	},
+	"main": "dist/index.js",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "tsc",
+		"dev": "tsc --watch",
+		"test": "vitest --run",
+		"test:watch": "vitest",
+		"prepublishOnly": "npm run build"
+	},
+	"keywords": [
+		"audx",
+		"audio",
+		"sounds",
+		"ui-sounds",
+		"cli",
+		"sound-effects",
+		"theme",
+		"registry"
+	],
+	"author": "audx",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ommgh/audx.git",
+		"directory": "package"
+	},
+	"homepage": "https://audx.dev",
+	"bugs": {
+		"url": "https://github.com/ommgh/audx/issues"
+	},
+	"dependencies": {
+		"commander": "^13.1.0",
+		"zod": "^3.25.67"
+	},
+	"devDependencies": {
+		"typescript": "^5.8.3",
+		"vitest": "^3.2.3",
+		"fast-check": "^4.1.1",
+		"@types/node": "^22.15.0"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	}
+}

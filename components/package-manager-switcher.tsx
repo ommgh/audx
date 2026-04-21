@@ -37,7 +37,7 @@ export function PackageManagerSwitcher({
 
 	useEffect(() => {
 		measure();
-	}, [value, measure]);
+	}, [measure]);
 
 	// Re-measure on resize (font loading can shift widths)
 	useEffect(() => {

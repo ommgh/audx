@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
 				allow: "/",
 			},
 		],
-		sitemap: "https://soundcn.xyz/sitemap.xml",
+		sitemap: "https://audx.site/sitemap.xml",
 	};
 }

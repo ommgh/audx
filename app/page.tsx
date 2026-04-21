@@ -1,7 +1,7 @@
-import { AudioPage } from "@/components/sounds-page";
+import { AudioPage } from "@/components/audio-page";
 import { getAllAudio } from "@/lib/audio-data";
 
 export default function Home() {
-  const items = getAllAudio();
-  return <AudioPage items={items} />;
+	const items = getAllAudio();
+	return <AudioPage items={items} />;
 }
