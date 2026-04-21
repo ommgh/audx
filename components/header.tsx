@@ -1,7 +1,7 @@
-"use client";
-
+import Link from "next/link";
+import { RiSparklingLine } from "@remixicon/react";
 import { AppLogo } from "@/components/app-logo";
-import { GithubButton } from "@/components/github-button";
+import { GithubStartsButton } from "@/components/github-button";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 export function Header() {
@@ -10,8 +10,15 @@ export function Header() {
       <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-6 border-x">
         <AppLogo />
         <div className="flex items-center gap-2">
-          <GithubButton />
           <ThemeToggle />
+          <GithubStartsButton />
+          <Link
+            href="/generate"
+            className="inline-flex items-center gap-1.5 rounded-md bg-foreground text-background px-3 py-1.5 text-sm font-medium"
+          >
+            <RiSparklingLine size={16} />
+            Generate
+          </Link>
         </div>
       </div>
     </header>

@@ -2,7 +2,6 @@ import { memo } from "react";
 import { EmptyBars } from "@/components/empty-bars";
 import { AudioCard } from "@/components/sound-card";
 import { useGlobalFilters } from "@/hooks/use-global-filters";
-import { useAudioSelection } from "@/hooks/use-sound-selection";
 import type { AudioCatalogItem } from "@/lib/audio-catalog";
 import { Button } from "@/registry/audx/ui/button";
 
@@ -17,7 +16,6 @@ export const SoundGrid = memo(function SoundGrid({
   onPreviewStart,
   onPreviewStop,
 }: AudioGridProps) {
-  const { handleSelect } = useAudioSelection({ items });
   const { handleClearFilters } = useGlobalFilters({ items });
 
   if (items.length === 0) {
@@ -41,7 +39,6 @@ export const SoundGrid = memo(function SoundGrid({
         <AudioCard
           key={item.name}
           item={item}
-          onSelect={handleSelect}
           onPreviewStart={onPreviewStart}
           onPreviewStop={onPreviewStop}
         />

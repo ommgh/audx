@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SoundDetailPage } from "@/components/sound-detail-page";
-import { getAllAudio, getRelatedAudio, getAudioByName } from "@/lib/audio-data";
+import { getAllAudio, getAudioByName } from "@/lib/audio-data";
 
 interface PageProps {
   params: Promise<{ name: string }>;
@@ -48,7 +48,5 @@ export default async function AudioDetailPage({ params }: PageProps) {
   const audio = getAudioByName(name);
   if (!audio) notFound();
 
-  const related = getRelatedAudio(name);
-
-  return <SoundDetailPage audio={audio} relatedAudio={related} />;
+  return <SoundDetailPage audio={audio} />;
 }

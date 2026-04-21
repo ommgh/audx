@@ -1,6 +1,5 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { GlobalFilters } from "@/components/global-fiters";
 import { Hero } from "@/components/hero";
 import { SoundGrid } from "@/components/sound-grid";
@@ -9,10 +8,6 @@ import { useGlobalFilters } from "@/hooks/use-global-filters";
 import { useHoverPreview } from "@/hooks/use-hover-preview";
 import type { AudioCatalogItem } from "@/lib/audio-catalog";
 import { cn } from "@/lib/utils";
-
-const SoundDetail = dynamic(() =>
-  import("@/components/sound-detail").then((mod) => mod.SoundDetail),
-);
 
 interface AudioPageProps {
   items: AudioCatalogItem[];
@@ -52,8 +47,6 @@ export function AudioPage({ items }: AudioPageProps) {
           />
         </div>
       </main>
-
-      <SoundDetail items={deferredItems} />
     </>
   );
 }

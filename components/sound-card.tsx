@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { memo, useMemo } from "react";
 import type { AudioCatalogItem } from "@/lib/audio-catalog";
 import { formatDuration } from "@/lib/audio-catalog";
@@ -7,21 +8,18 @@ import { generateAudioWaves } from "@/lib/audio-data";
 
 interface AudioCardProps {
   item: AudioCatalogItem;
-  onSelect: (item: AudioCatalogItem) => void;
   onPreviewStart: (audioName: string) => void;
   onPreviewStop: () => void;
 }
 
 export const AudioCard = memo(function AudioCard({
   item,
-  onSelect,
   onPreviewStart,
   onPreviewStop,
 }: AudioCardProps) {
   return (
-    <button
-      type="button"
-      onClick={() => onSelect(item)}
+    <Link
+      href={`/sound/${item.name}`}
       onPointerEnter={(e) => {
         e.currentTarget.focus({ preventScroll: true });
         onPreviewStart(item.name);
@@ -43,7 +41,7 @@ export const AudioCard = memo(function AudioCard({
       <span className="text-muted-foreground text-xs">
         {formatDuration(item.meta.duration)}
       </span>
-    </button>
+    </Link>
   );
 });
 
