@@ -9,20 +9,6 @@ export function Header() {
 		<header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur-sm">
 			<div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-6 border-x">
 				<AppLogo />
-				<nav className="flex items-center gap-4">
-					<Link
-						href="/themes"
-						className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-					>
-						Themes
-					</Link>
-					<Link
-						href="/themes/create"
-						className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-					>
-						Create
-					</Link>
-				</nav>
 				<div className="flex items-center gap-2">
 					<ThemeToggle />
 					<GithubStartsButton />

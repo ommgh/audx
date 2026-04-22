@@ -24,6 +24,11 @@ export interface ThemeDetail extends ThemeCatalogItem {
 	sounds: ThemeSound[];
 }
 
+export interface CategoryCount {
+	name: string;
+	count: number;
+}
+
 interface ThemeDefinition {
 	name: string;
 	displayName: string;
@@ -37,7 +42,7 @@ const THEME_DEFINITIONS: ThemeDefinition[] = [
 	playfulTheme as ThemeDefinition,
 ];
 
-const CATEGORIES: Record<string, string> = {
+export const CATEGORIES: Record<string, string> = {
 	success: "feedback",
 	error: "feedback",
 	warning: "feedback",
@@ -169,3 +174,15 @@ export const getThemeByName = cache((name: string): ThemeDetail | undefined => {
 		sounds,
 	};
 });
+
+export function getCategoriesForTheme(themeName: string): CategoryCount[] {
+	const theme = getThemeByName(themeName);
+	if (!theme) return [];
+	const countMap = new Map<string, number>();
+	for (const s of theme.sounds) {
+		countMap.set(s.category, (countMap.get(s.category) ?? 0) + 1);
+	}
+	return Array.from(countMap.entries())
+		.map(([name, count]) => ({ name, count }))
+		.sort((a, b) => a.name.localeCompare(b.name));
+}
