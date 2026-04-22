@@ -5,13 +5,13 @@ CLI tool for distributing and managing UI sounds from the [audx](https://audx.de
 ## Install
 
 ```bash
-npm install -g audx
+npm install -g @litlab/audx
 ```
 
 Or use directly with `npx`:
 
 ```bash
-npx audx <command>
+npx @litlab/audx <command>
 ```
 
 ## Quick Start

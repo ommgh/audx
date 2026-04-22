@@ -1,6 +1,6 @@
 {
 	"name": "@litlab/audx",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "CLI tool for distributing and managing UI sounds from the audx registry",
 	"type": "module",
 	"bin": {
