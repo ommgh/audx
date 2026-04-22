@@ -1,12 +1,13 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { GeneratedSound } from "@/hooks/use-theme-editor";
 import { cn } from "@/lib/utils";
 
 interface GenerationProgressProps {
 	sounds: Map<string, GeneratedSound>;
 	progress: { total: number; completed: number; failed: number };
+	startTime: number | null;
 }
 
 function groupByCategory(
@@ -21,14 +22,26 @@ function groupByCategory(
 	return Array.from(map.entries());
 }
 
+function formatTime(ms: number): string {
+	const totalSeconds = Math.floor(ms / 1000);
+	const minutes = Math.floor(totalSeconds / 60);
+	const seconds = totalSeconds % 60;
+	if (minutes > 0) {
+		return `${minutes}m ${seconds}s`;
+	}
+	return `${seconds}s`;
+}
+
 export function GenerationProgress({
 	sounds,
 	progress,
+	startTime,
 }: GenerationProgressProps) {
 	const grouped = groupByCategory(sounds);
 	const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
 		() => new Set(grouped.map(([cat]) => cat)),
 	);
+	const [elapsedMs, setElapsedMs] = useState<number>(0);
 
 	const toggleCategory = useCallback((category: string) => {
 		setExpandedCategories((prev) => {
@@ -42,9 +55,26 @@ export function GenerationProgress({
 		});
 	}, []);
 
+	useEffect(() => {
+		if (startTime === null) {
+			setElapsedMs(0);
+			return;
+		}
+		setElapsedMs(Date.now() - startTime);
+		const interval = setInterval(() => {
+			setElapsedMs(Date.now() - startTime);
+		}, 1000);
+		return () => clearInterval(interval);
+	}, [startTime]);
+
 	const done = progress.completed + progress.failed;
 	const percentage =
 		progress.total > 0 ? Math.round((done / progress.total) * 100) : 0;
+
+	const estimatedRemaining =
+		done >= 2 && elapsedMs > 0
+			? (progress.total - done) * (elapsedMs / done)
+			: null;
 
 	return (
 		<div className="flex flex-col gap-4">
@@ -61,6 +91,21 @@ export function GenerationProgress({
 						className="h-full rounded-full bg-primary transition-all duration-300"
 						style={{ width: `${percentage}%` }}
 					/>
+				</div>
+			</div>
+
+			{/* Time info */}
+			<div className="flex flex-col gap-1 text-sm">
+				<p className="text-muted-foreground">This may take a few minutes</p>
+				<div className="flex items-center gap-4 text-muted-foreground tabular-nums">
+					{startTime !== null && <span>Elapsed: {formatTime(elapsedMs)}</span>}
+					{startTime !== null && (
+						<span>
+							{estimatedRemaining !== null
+								? `Remaining: ${formatTime(estimatedRemaining)}`
+								: "Estimating…"}
+						</span>
+					)}
 				</div>
 			</div>
 

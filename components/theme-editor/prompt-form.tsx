@@ -2,7 +2,6 @@
 
 import { RiLoader4Line, RiSparklingLine } from "@remixicon/react";
 import { useState } from "react";
-import type { CostEstimate } from "@/lib/credit-cost";
 import { cn } from "@/lib/utils";
 import { Button } from "@/registry/audx/ui/button";
 import { Input } from "@/registry/audx/ui/input";
@@ -25,7 +24,6 @@ interface PromptFormProps {
 	onThemeNameChange: (name: string) => void;
 	onThemePromptChange: (prompt: string) => void;
 	onSubmit: () => void;
-	previewCost: CostEstimate;
 	isSubmitting: boolean;
 }
 
@@ -35,7 +33,6 @@ export function PromptForm({
 	onThemeNameChange,
 	onThemePromptChange,
 	onSubmit,
-	previewCost,
 	isSubmitting,
 }: PromptFormProps) {
 	const [nameBlurred, setNameBlurred] = useState(false);
@@ -61,8 +58,6 @@ export function PromptForm({
 		e.preventDefault();
 		if (canSubmit) onSubmit();
 	}
-
-	const costLabel = `~${previewCost.totalCredits} credits (~$${previewCost.approximateDollars.toFixed(2)})`;
 
 	return (
 		<form onSubmit={handleSubmit} className="flex flex-col gap-6">
@@ -95,6 +90,27 @@ export function PromptForm({
 			{/* Theme Prompt */}
 			<div className="flex flex-col gap-2">
 				<Label htmlFor="theme-prompt">Describe your theme</Label>
+				{/* Suggestion Chips */}
+				<div className="flex flex-col gap-2">
+					<div className="flex flex-wrap gap-2">
+						{SUGGESTION_CHIPS.map((chip) => (
+							<button
+								key={chip}
+								type="button"
+								onClick={() => onThemePromptChange(chip)}
+								disabled={isSubmitting}
+								className={cn(
+									"border border-border/50 bg-card px-3 py-1.5 text-sm font-medium transition-colors",
+									"hover:border-primary/30 hover:bg-accent hover:text-accent-foreground",
+									"focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none",
+									"disabled:pointer-events-none disabled:opacity-50",
+								)}
+							>
+								{chip}
+							</button>
+						))}
+					</div>
+				</div>
 				<Textarea
 					id="theme-prompt"
 					placeholder="Describe the mood, style, or aesthetic you want for your sounds…"
@@ -114,36 +130,8 @@ export function PromptForm({
 				</span>
 			</div>
 
-			{/* Suggestion Chips */}
-			<div className="flex flex-col gap-2">
-				<span className="text-muted-foreground text-xs font-medium">
-					Try a suggestion
-				</span>
-				<div className="flex flex-wrap gap-2">
-					{SUGGESTION_CHIPS.map((chip) => (
-						<button
-							key={chip}
-							type="button"
-							onClick={() => onThemePromptChange(chip)}
-							disabled={isSubmitting}
-							className={cn(
-								"rounded-full border border-border/50 bg-card px-3 py-1.5 text-sm font-medium transition-colors",
-								"hover:border-primary/30 hover:bg-accent hover:text-accent-foreground",
-								"focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none",
-								"disabled:pointer-events-none disabled:opacity-50",
-							)}
-						>
-							{chip}
-						</button>
-					))}
-				</div>
-			</div>
-
-			{/* Cost Estimate + Generate Button */}
-			<div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-				<p className="text-muted-foreground text-sm">
-					Preview cost: {costLabel}
-				</p>
+			{/* Generate Button */}
+			<div className="flex justify-end">
 				<Button type="submit" disabled={!canSubmit} size="lg">
 					{isSubmitting ? (
 						<>

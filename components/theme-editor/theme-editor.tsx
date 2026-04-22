@@ -18,8 +18,6 @@ export function ThemeEditor() {
 		rejectPreview,
 		retrySound,
 		saveTheme,
-		previewCost,
-		fullCost,
 	} = useThemeEditor();
 
 	// Warn before navigating away during active generation
@@ -51,11 +49,20 @@ export function ThemeEditor() {
 				rejectPreview={rejectPreview}
 				retrySound={retrySound}
 				saveTheme={saveTheme}
-				previewCost={previewCost}
-				fullCost={fullCost}
 			/>
 		</div>
 	);
+}
+
+interface PhaseRendererProps {
+	state: ReturnType<typeof useThemeEditor>["state"];
+	setThemeName: (name: string) => void;
+	setThemePrompt: (prompt: string) => void;
+	startPreview: () => Promise<void>;
+	approvePreview: () => Promise<void>;
+	rejectPreview: () => void;
+	retrySound: (semanticName: string) => Promise<void>;
+	saveTheme: () => Promise<void>;
 }
 
 function PhaseRenderer({
@@ -67,9 +74,7 @@ function PhaseRenderer({
 	rejectPreview,
 	retrySound,
 	saveTheme,
-	previewCost,
-	fullCost,
-}: ReturnType<typeof useThemeEditor>) {
+}: PhaseRendererProps) {
 	switch (state.phase) {
 		case "idle":
 			return (
@@ -79,7 +84,6 @@ function PhaseRenderer({
 					onThemeNameChange={setThemeName}
 					onThemePromptChange={setThemePrompt}
 					onSubmit={startPreview}
-					previewCost={previewCost}
 					isSubmitting={false}
 				/>
 			);
@@ -88,13 +92,13 @@ function PhaseRenderer({
 				<GenerationProgress
 					sounds={state.previewSounds}
 					progress={state.progress}
+					startTime={state.startTime}
 				/>
 			);
 		case "preview-ready":
 			return (
 				<PreviewPlayer
 					previewSounds={state.previewSounds}
-					fullCost={fullCost}
 					onApprove={approvePreview}
 					onReject={rejectPreview}
 					onRetrySound={retrySound}
@@ -102,7 +106,11 @@ function PhaseRenderer({
 			);
 		case "generating":
 			return (
-				<GenerationProgress sounds={state.sounds} progress={state.progress} />
+				<GenerationProgress
+					sounds={state.sounds}
+					progress={state.progress}
+					startTime={state.startTime}
+				/>
 			);
 		case "review":
 			return (

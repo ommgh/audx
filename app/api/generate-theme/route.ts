@@ -7,6 +7,7 @@ import { SOUND_PROMPT_TEMPLATES } from "@/lib/sound-prompt-templates";
 const ELEVENLABS_URL = "https://api.elevenlabs.io/v1/sound-generation";
 const CONCURRENCY_LIMIT = 2;
 const MAX_RETRIES = 2;
+const INTER_REQUEST_DELAY_MS = 3600;
 
 function sseEvent(data: Record<string, unknown>): string {
 	return `data: ${JSON.stringify(data)}\n\n`;
@@ -60,7 +61,9 @@ async function generateSingleSound(
 
 		if (response.status === 429) {
 			const retryAfter = response.headers.get("retry-after");
-			const waitMs = retryAfter ? Number(retryAfter) * 1000 : 5000;
+			const headerMs = retryAfter ? Number(retryAfter) * 1000 : 0;
+			const backoffMs = 2 ** attempt * 2000;
+			const waitMs = Math.max(headerMs, backoffMs, 5000);
 			await sleep(waitMs);
 			continue;
 		}
@@ -201,6 +204,9 @@ export async function POST(request: Request) {
 							}),
 						);
 					} finally {
+						if (soundJobs.length > 1) {
+							await sleep(INTER_REQUEST_DELAY_MS);
+						}
 						release();
 					}
 				}

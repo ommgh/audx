@@ -1,7 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useReducer, useRef } from "react";
-import { type CostEstimate, estimateCost } from "@/lib/credit-cost";
+import { useCallback, useEffect, useReducer, useRef } from "react";
 import {
 	PREVIEW_SOUNDS,
 	SOUND_PROMPT_TEMPLATES,
@@ -300,8 +299,6 @@ export function useThemeEditor(): {
 	rejectPreview: () => void;
 	retrySound: (semanticName: string) => Promise<void>;
 	saveTheme: () => Promise<void>;
-	previewCost: CostEstimate;
-	fullCost: CostEstimate;
 } {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const abortRef = useRef<AbortController | null>(null);
@@ -345,7 +342,7 @@ export function useThemeEditor(): {
 					SOUND_PROMPT_TEMPLATES[name as keyof typeof SOUND_PROMPT_TEMPLATES];
 				return {
 					semanticName: name,
-					duration: template?.defaultDuration ?? 0.3,
+					duration: 1,
 				};
 			});
 
@@ -447,7 +444,7 @@ export function useThemeEditor(): {
 					body: JSON.stringify({
 						themeName: state.themeName,
 						themePrompt: state.themePrompt,
-						sounds: [{ semanticName, duration: template.defaultDuration }],
+						sounds: [{ semanticName, duration: 1 }],
 					}),
 				});
 				if (!response.ok) {
@@ -536,26 +533,6 @@ export function useThemeEditor(): {
 		state.sounds,
 	]);
 
-	const previewCost = useMemo(
-		() =>
-			estimateCost(
-				PREVIEW_SOUNDS.map((name) => ({
-					duration: SOUND_PROMPT_TEMPLATES[name]?.defaultDuration ?? 0.3,
-				})),
-			),
-		[],
-	);
-
-	const fullCost = useMemo(
-		() =>
-			estimateCost(
-				SEMANTIC_SOUND_NAMES.map((name) => ({
-					duration: SOUND_PROMPT_TEMPLATES[name]?.defaultDuration ?? 0.3,
-				})),
-			),
-		[],
-	);
-
 	return {
 		state,
 		setThemeName,
@@ -565,7 +542,5 @@ export function useThemeEditor(): {
 		rejectPreview,
 		retrySound,
 		saveTheme,
-		previewCost,
-		fullCost,
 	};
 }

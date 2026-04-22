@@ -37,17 +37,6 @@ function mergeAndGroupByCategory(
 	return Array.from(grouped.entries());
 }
 
-function formatDuration(seconds: number): string {
-	return `${seconds.toFixed(2)}s`;
-}
-
-function estimateFileSize(audioBase64: string | null): string {
-	if (!audioBase64) return "—";
-	const bytes = audioBase64.length * 0.75;
-	const kb = bytes / 1024;
-	return `~${Math.round(kb)} KB`;
-}
-
 function formatElapsed(ms: number | null): string {
 	if (ms === null) return "—";
 	const seconds = ms / 1000;
@@ -71,7 +60,7 @@ export function ThemeReview({
 		() => new Set(grouped.map(([cat]) => cat)),
 	);
 	const [playingSound, setPlayingSound] = useState<string | null>(null);
-	const audioCtxRef = useRef<AudioContext | null>(null);
+	const audioRef = useRef<HTMLAudioElement | null>(null);
 
 	const totalCompleted = progress.completed;
 	const totalFailed = progress.failed;
@@ -89,23 +78,18 @@ export function ThemeReview({
 		});
 	}, []);
 
-	const playSound = useCallback(async (sound: GeneratedSound) => {
-		if (!sound.audioUrl || typeof window === "undefined") return;
+	const playSound = useCallback((sound: GeneratedSound) => {
+		if (!sound.audioUrl) return;
 		try {
-			if (!audioCtxRef.current) {
-				audioCtxRef.current = new AudioContext();
+			if (audioRef.current) {
+				audioRef.current.pause();
+				audioRef.current = null;
 			}
-			const ctx = audioCtxRef.current;
-			const response = await fetch(sound.audioUrl);
-			const arrayBuffer = await response.arrayBuffer();
-			const buffer = await ctx.decodeAudioData(arrayBuffer);
-			const source = ctx.createBufferSource();
-			source.buffer = buffer;
-			source.connect(ctx.destination);
-			source.start();
-
+			const audio = new Audio(sound.audioUrl);
+			audioRef.current = audio;
 			setPlayingSound(sound.semanticName);
-			source.onended = () => setPlayingSound(null);
+			audio.onended = () => setPlayingSound(null);
+			audio.play();
 		} catch {
 			setPlayingSound(null);
 		}
@@ -150,16 +134,18 @@ export function ThemeReview({
 								</span>
 							</button>
 							{isExpanded && (
-								<div className="border-t border-border/50">
-									{categorySounds.map((sound) => (
-										<ReviewSoundRow
-											key={sound.semanticName}
-											sound={sound}
-											isPlaying={playingSound === sound.semanticName}
-											onPlay={() => playSound(sound)}
-											onRetry={() => onRetrySound(sound.semanticName)}
-										/>
-									))}
+								<div className="border-t border-border/50 p-3">
+									<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+										{categorySounds.map((sound) => (
+											<SoundCard
+												key={sound.semanticName}
+												sound={sound}
+												isPlaying={playingSound === sound.semanticName}
+												onPlay={() => playSound(sound)}
+												onRetry={() => onRetrySound(sound.semanticName)}
+											/>
+										))}
+									</div>
 								</div>
 							)}
 						</div>
@@ -183,7 +169,7 @@ export function ThemeReview({
 	);
 }
 
-function ReviewSoundRow({
+function SoundCard({
 	sound,
 	isPlaying,
 	onPlay,
@@ -196,60 +182,64 @@ function ReviewSoundRow({
 }) {
 	const isCompleted = sound.status === "completed";
 	const isFailed = sound.status === "failed";
+	const fileSizeKb = sound.audioBase64
+		? ((sound.audioBase64.length * 0.75) / 1024).toFixed(1)
+		: null;
 
 	return (
 		<div
 			className={cn(
-				"flex items-center justify-between px-4 py-2.5 text-sm",
-				isPlaying && "bg-primary/5",
+				"flex flex-col gap-2 rounded-md border border-border/50 p-3 text-sm",
+				isPlaying && "bg-primary/5 border-primary/20",
 			)}
 		>
-			<div className="flex items-center gap-3 min-w-0">
-				<span
-					className={cn(
-						"inline-block h-2 w-2 shrink-0 rounded-full",
-						isPlaying && "bg-primary animate-pulse",
-						!isPlaying && isCompleted && "bg-green-500",
-						isFailed && "bg-red-500",
-						sound.status === "pending" && "bg-muted-foreground/30",
-						sound.status === "generating" && "bg-yellow-500 animate-pulse",
+			<div className="flex items-center justify-between gap-2">
+				<div className="flex items-center gap-2 min-w-0">
+					<span
+						className={cn(
+							"inline-block h-2 w-2 shrink-0 rounded-full",
+							isPlaying && "bg-primary animate-pulse",
+							!isPlaying && isCompleted && "bg-green-500",
+							isFailed && "bg-red-500",
+							sound.status === "pending" && "bg-muted-foreground/30",
+							sound.status === "generating" && "bg-yellow-500 animate-pulse",
+						)}
+						aria-hidden="true"
+					/>
+					<span className="truncate font-medium">{sound.semanticName}</span>
+				</div>
+				<div className="flex items-center gap-1 shrink-0">
+					{isCompleted && (
+						<button
+							type="button"
+							onClick={onPlay}
+							className="rounded-md p-1.5 text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
+							aria-label={`Play ${sound.semanticName}`}
+						>
+							<RiPlayLine size={16} />
+						</button>
 					)}
-					aria-hidden="true"
-				/>
-				<span className="truncate">{sound.semanticName}</span>
-				{isCompleted && (
-					<span className="shrink-0 text-xs text-muted-foreground tabular-nums">
-						{formatDuration(sound.duration)}
-					</span>
-				)}
-				{isCompleted && (
-					<span className="shrink-0 text-xs text-muted-foreground tabular-nums">
-						{estimateFileSize(sound.audioBase64)}
-					</span>
-				)}
+					{isFailed && (
+						<button
+							type="button"
+							onClick={onRetry}
+							className="rounded-md p-1.5 text-red-500 hover:text-red-400 hover:bg-secondary/50 transition-colors focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
+							aria-label={`Retry ${sound.semanticName}`}
+						>
+							<RiRefreshLine size={16} />
+						</button>
+					)}
+				</div>
 			</div>
-			<div className="flex items-center gap-2 shrink-0">
-				{isCompleted && (
-					<button
-						type="button"
-						onClick={onPlay}
-						className="rounded-md p-1.5 text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
-						aria-label={`Play ${sound.semanticName}`}
-					>
-						<RiPlayLine size={16} />
-					</button>
-				)}
-				{isFailed && (
-					<button
-						type="button"
-						onClick={onRetry}
-						className="rounded-md p-1.5 text-red-500 hover:text-red-400 hover:bg-secondary/50 transition-colors focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
-						aria-label={`Retry ${sound.semanticName}`}
-					>
-						<RiRefreshLine size={16} />
-					</button>
-				)}
-			</div>
+			{isCompleted && (
+				<div className="flex items-center gap-3 text-xs text-muted-foreground tabular-nums">
+					<span>{sound.duration.toFixed(1)}s</span>
+					{fileSizeKb && <span>~{fileSizeKb} KB</span>}
+				</div>
+			)}
+			{isFailed && sound.error && (
+				<p className="text-xs text-red-500 truncate">{sound.error}</p>
+			)}
 		</div>
 	);
 }

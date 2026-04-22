@@ -17,7 +17,7 @@ export const generateThemeRequestSchema = z.object({
 			}),
 		)
 		.min(1)
-		.max(65),
+		.max(67),
 });
 
 export type GenerateThemeRequest = z.infer<typeof generateThemeRequestSchema>;
@@ -34,7 +34,7 @@ export const saveThemeRequestSchema = z.object({
 			}),
 		)
 		.min(60)
-		.max(65),
+		.max(67),
 });
 
 export type SaveThemeRequest = z.infer<typeof saveThemeRequestSchema>;
