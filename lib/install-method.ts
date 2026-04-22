@@ -1,3 +1,3 @@
-export type InstallMethod = "shadcn";
+export type InstallMethod = "audx";
 
-export const DEFAULT_IM: InstallMethod = "shadcn";
+export const DEFAULT_IM: InstallMethod = "audx";

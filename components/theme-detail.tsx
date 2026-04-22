@@ -34,21 +34,21 @@ export function ThemeDetailClient({
 		const mappedSounds = theme.sounds.filter((s) => s.soundAssetName);
 		const lines = [
 			`# Initialize theme config`,
-			`${prefix} audx theme init`,
+			`${prefix} theme init`,
 			``,
 			`# Create the ${theme.name} theme`,
-			`${prefix} audx theme create ${theme.name}`,
+			`${prefix} theme create ${theme.name}`,
 			``,
 			`# Set as active theme`,
-			`${prefix} audx theme set ${theme.name}`,
+			`${prefix} theme set ${theme.name}`,
 			``,
 			`# Map sounds`,
 			...mappedSounds.map(
-				(s) => `${prefix} audx theme map ${s.semanticName} ${s.soundAssetName}`,
+				(s) => `${prefix} theme map ${s.semanticName} ${s.soundAssetName}`,
 			),
 			``,
 			`# Generate theme file`,
-			`${prefix} audx theme generate`,
+			`${prefix} theme generate`,
 		];
 		return lines.join("\n");
 	}, [pm, theme]);

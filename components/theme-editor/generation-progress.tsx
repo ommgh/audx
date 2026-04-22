@@ -110,11 +110,14 @@ export function GenerationProgress({
 			</div>
 
 			{/* Category sections */}
-			<div className="flex flex-col gap-3">
+			<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
 				{grouped.map(([category, categorySounds]) => {
 					const isExpanded = expandedCategories.has(category);
 					return (
-						<div key={category} className="rounded-lg border border-border/50">
+						<div
+							key={category}
+							className="rounded-lg border border-border/50 self-start"
+						>
 							<button
 								type="button"
 								onClick={() => toggleCategory(category)}
@@ -128,7 +131,7 @@ export function GenerationProgress({
 								</span>
 							</button>
 							{isExpanded && (
-								<div className="border-t border-border/50">
+								<div className="border-t border-border/50 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1">
 									{categorySounds.map((sound) => (
 										<SoundStatusRow key={sound.semanticName} sound={sound} />
 									))}

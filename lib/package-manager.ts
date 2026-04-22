@@ -8,24 +8,20 @@ export const PACKAGE_MANAGERS: PackageManager[] = [
 ];
 
 const PM_PREFIX: Record<PackageManager, string> = {
-	npm: "npx shadcn@latest",
-	pnpm: "pnpm dlx shadcn@latest",
-	yarn: "yarn dlx shadcn@latest",
-	bun: "bunx --bun shadcn@latest",
-};
-
-const PM_PREFIX_VUE: Record<PackageManager, string> = {
-	npm: "npx shadcn-vue@latest",
-	pnpm: "pnpm dlx shadcn-vue@latest",
-	yarn: "npx shadcn-vue@latest",
-	bun: "bunx --bun shadcn-vue@latest",
+	npm: "npx",
+	pnpm: "pnpm dlx",
+	yarn: "yarn dlx",
+	bun: "bunx",
 };
 
 export const DEFAULT_PM: PackageManager = "npm";
 
-export function getInstallPrefix(
-	pm: PackageManager,
-	framework: "react" | "vue" = "react",
-): string {
-	return framework === "vue" ? PM_PREFIX_VUE[pm] : PM_PREFIX[pm];
+/** Returns the package-manager runner prefix (e.g. "npx", "pnpm dlx"). */
+export function getRunnerPrefix(pm: PackageManager): string {
+	return PM_PREFIX[pm];
+}
+
+/** Returns the full install prefix for audx CLI commands (e.g. "npx audx"). */
+export function getInstallPrefix(pm: PackageManager): string {
+	return `${PM_PREFIX[pm]} audx`;
 }

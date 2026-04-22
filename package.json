@@ -7,7 +7,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "biome check .",
-		"registry:build": "shadcn build",
+		"registry:build": "bun scripts/build-registry-items.ts",
 		"registry:enrich": "bun scripts/enrich-registry.ts",
 		"audio:encode": "bun scripts/encode-all.ts",
 		"audio:encode-one": "bun scripts/encode-sound.ts",

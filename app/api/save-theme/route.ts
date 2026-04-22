@@ -1,30 +1,20 @@
-import { promises as fs } from "node:fs";
-import path from "node:path";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 import { saveThemeRequestSchema } from "@/lib/generate-theme-schema";
-import { persistThemePack } from "@/lib/theme-persistence";
+import { persistThemePack, themeExistsInBlob } from "@/lib/theme-persistence";
 
 export async function POST(request: Request) {
 	try {
 		const body = await request.json();
 		const parsed = saveThemeRequestSchema.parse(body);
 
-		// Check if theme name already exists
-		const themePath = path.join(
-			process.cwd(),
-			"registry/audx/themes",
-			`${parsed.themeName}.json`,
-		);
-
-		try {
-			await fs.access(themePath);
+		// Check if theme name already exists in blob storage
+		const exists = await themeExistsInBlob(parsed.themeName);
+		if (exists) {
 			return NextResponse.json(
 				{ error: "Theme already exists" },
 				{ status: 409 },
 			);
-		} catch {
-			// File doesn't exist — good, we can proceed
 		}
 
 		const result = await persistThemePack({
@@ -35,7 +25,9 @@ export async function POST(request: Request) {
 
 		return NextResponse.json({
 			success: true,
-			themePath: result.themeDefinitionPath,
+			indexUrl: result.indexUrl,
+			themeName: parsed.themeName,
+			assetCount: result.assetCount,
 		});
 	} catch (error) {
 		if (error instanceof ZodError) {

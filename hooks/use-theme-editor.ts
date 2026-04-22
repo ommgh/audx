@@ -38,6 +38,7 @@ export interface ThemeEditorState {
 	error: string | null;
 	startTime: number | null;
 	elapsedMs: number | null;
+	indexUrl: string | null;
 }
 
 type EditorAction =
@@ -66,7 +67,7 @@ type EditorAction =
 	| { type: "START_FULL_GENERATION"; sounds: Map<string, GeneratedSound> }
 	| { type: "REJECT_PREVIEW" }
 	| { type: "START_SAVE" }
-	| { type: "SAVE_COMPLETE" }
+	| { type: "SAVE_COMPLETE"; indexUrl: string }
 	| { type: "SET_ERROR"; error: string };
 
 const initialState: ThemeEditorState = {
@@ -79,6 +80,7 @@ const initialState: ThemeEditorState = {
 	error: null,
 	startTime: null,
 	elapsedMs: null,
+	indexUrl: null,
 };
 
 function base64ToBlobUrl(base64: string): string {
@@ -199,7 +201,7 @@ function reducer(
 		case "START_SAVE":
 			return { ...state, phase: "saving", error: null };
 		case "SAVE_COMPLETE":
-			return { ...state, phase: "saved" };
+			return { ...state, phase: "saved", indexUrl: action.indexUrl };
 		case "SET_ERROR":
 			return { ...state, error: action.error };
 		default:
@@ -518,7 +520,8 @@ export function useThemeEditor(): {
 				const text = await response.text();
 				throw new Error(text || `HTTP ${response.status}`);
 			}
-			dispatch({ type: "SAVE_COMPLETE" });
+			const data = await response.json();
+			dispatch({ type: "SAVE_COMPLETE", indexUrl: data.indexUrl });
 		} catch (err) {
 			dispatch({
 				type: "SET_ERROR",

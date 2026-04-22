@@ -1,6 +1,40 @@
-import { promises as fs } from "node:fs";
-import path from "node:path";
+import { BlobNotFoundError, head, put } from "@vercel/blob";
 import { SEMANTIC_SOUND_CATEGORIES } from "@/package/src/types";
+
+export interface RegistryItemJSON {
+	$schema: string;
+	name: string;
+	type: "registry:block";
+	title: string;
+	description: string;
+	author: string;
+	files: Array<{ path: string; content: string; type: "registry:lib" }>;
+	meta: {
+		duration: number;
+		format: "mp3";
+		sizeKb: number;
+		license: "CC0";
+		tags: string[];
+		theme: string;
+		semanticName: string;
+	};
+}
+
+export interface ThemeRegistryIndex {
+	name: string;
+	displayName: string;
+	description: string;
+	author: string;
+	assetCount: number;
+	mappings: Record<string, string>;
+	assets: Array<{
+		semanticName: string;
+		assetName: string;
+		blobUrl: string;
+		duration: number;
+		sizeKb: number;
+	}>;
+}
 
 export interface PersistThemeInput {
 	themeName: string;
@@ -13,9 +47,8 @@ export interface PersistThemeInput {
 }
 
 export interface PersistThemeResult {
-	themeDefinitionPath: string;
+	indexUrl: string;
 	assetCount: number;
-	registryUpdated: boolean;
 }
 
 /**
@@ -71,28 +104,73 @@ export const ${varName}: AudioAsset = {
 }
 
 /**
- * Build a theme definition JSON object.
+ * Build a RegistryItemJSON for a single sound asset, suitable for blob upload.
  */
-export function buildThemeDefinition(
+export function buildRegistryItemJSON(
+	semanticName: string,
+	themeName: string,
+	audioBase64: string,
+	duration: number,
+): RegistryItemJSON {
+	const assetName = `${semanticName}-${themeName}-001`;
+	return {
+		$schema: "https://audx.site/schema/registry-item.json",
+		name: assetName,
+		type: "registry:block",
+		title: toDisplayName(assetName),
+		description: `Sound asset: ${semanticName} for theme ${themeName}`,
+		author: "audx-community",
+		files: [
+			{
+				path: `registry/audx/audio/${assetName}/${assetName}.ts`,
+				content: buildAssetModuleContent(assetName, audioBase64, duration),
+				type: "registry:lib",
+			},
+		],
+		meta: {
+			duration,
+			format: "mp3",
+			sizeKb: calculateSizeKb(audioBase64),
+			license: "CC0",
+			tags: [semanticName, themeName],
+			theme: themeName,
+			semanticName,
+		},
+	};
+}
+
+/**
+ * Build a ThemeRegistryIndex for a user-generated theme stored in blob storage.
+ */
+export function buildThemeRegistryIndex(
 	themeName: string,
 	themePrompt: string,
-	sounds: Array<{ semanticName: string }>,
-): Record<string, unknown> {
-	const displayName = toDisplayName(themeName);
+	assets: Array<{
+		semanticName: string;
+		blobUrl: string;
+		duration: number;
+		sizeKb: number;
+	}>,
+): ThemeRegistryIndex {
 	const mappings: Record<string, string> = {};
-
-	for (const sound of sounds) {
-		const assetName = `${sound.semanticName}-${themeName}-001`;
-		mappings[sound.semanticName] =
-			`registry/audx/audio/${assetName}/${assetName}.ts`;
+	for (const asset of assets) {
+		mappings[asset.semanticName] = asset.blobUrl;
 	}
 
 	return {
 		name: themeName,
-		displayName,
+		displayName: toDisplayName(themeName),
 		description: `Generated theme: ${themePrompt}`,
 		author: "audx-community",
+		assetCount: assets.length,
 		mappings,
+		assets: assets.map((asset) => ({
+			semanticName: asset.semanticName,
+			assetName: `${asset.semanticName}-${themeName}-001`,
+			blobUrl: asset.blobUrl,
+			duration: asset.duration,
+			sizeKb: asset.sizeKb,
+		})),
 	};
 }
 
@@ -146,75 +224,69 @@ export function buildRegistryEntry(
 }
 
 /**
- * Persist a generated theme pack to the registry.
+ * Check if a theme already exists in blob storage by looking for its index file.
+ */
+export async function themeExistsInBlob(themeName: string): Promise<boolean> {
+	try {
+		await head(`themes/${themeName}/index.json`);
+		return true;
+	} catch (error) {
+		if (error instanceof BlobNotFoundError) {
+			return false;
+		}
+		throw error;
+	}
+}
+
+/**
+ * Persist a generated theme pack to Vercel Blob storage.
  *
- * 1. Write each sound as a TS module in registry/audx/audio/{semantic}-{theme}-001/
- * 2. Create theme definition JSON in registry/audx/themes/{theme}.json
- * 3. Update registry.json with new asset entries
+ * 1. Upload each sound as a RegistryItemJSON blob
+ * 2. Upload a ThemeRegistryIndex blob linking all assets
  */
 export async function persistThemePack(
 	input: PersistThemeInput,
 ): Promise<PersistThemeResult> {
 	const { themeName, themePrompt, sounds } = input;
-	const projectRoot = process.cwd();
 
-	// 1. Write each sound as a TS module
-	for (const sound of sounds) {
-		const assetName = `${sound.semanticName}-${themeName}-001`;
-		const assetDir = path.join(projectRoot, "registry/audx/audio", assetName);
-		await fs.mkdir(assetDir, { recursive: true });
-
-		const moduleContent = buildAssetModuleContent(
-			assetName,
-			sound.audioBase64,
-			sound.duration,
-		);
-		await fs.writeFile(
-			path.join(assetDir, `${assetName}.ts`),
-			moduleContent,
-			"utf-8",
-		);
-	}
-
-	// 2. Create theme definition JSON
-	const themeDefinition = buildThemeDefinition(themeName, themePrompt, sounds);
-	const themeDefPath = path.join(
-		projectRoot,
-		"registry/audx/themes",
-		`${themeName}.json`,
-	);
-	await fs.writeFile(
-		themeDefPath,
-		`${JSON.stringify(themeDefinition, null, "\t")}\n`,
-		"utf-8",
+	// 1. Upload each sound as a RegistryItemJSON blob in parallel
+	const uploadResults = await Promise.all(
+		sounds.map(async (sound) => {
+			const item = buildRegistryItemJSON(
+				sound.semanticName,
+				themeName,
+				sound.audioBase64,
+				sound.duration,
+			);
+			const blobPath = `themes/${themeName}/${sound.semanticName}-${themeName}-001.json`;
+			const result = await put(blobPath, JSON.stringify(item), {
+				access: "public",
+				addRandomSuffix: false,
+				contentType: "application/json",
+			});
+			return {
+				semanticName: sound.semanticName,
+				blobUrl: result.url,
+				duration: sound.duration,
+				sizeKb: calculateSizeKb(sound.audioBase64),
+			};
+		}),
 	);
 
-	// 3. Update registry.json with new asset entries
-	const registryPath = path.join(projectRoot, "registry.json");
-	const registryContent = await fs.readFile(registryPath, "utf-8");
-	const registry = JSON.parse(registryContent);
-
-	const newEntries = sounds.map((sound) => {
-		const sizeKb = calculateSizeKb(sound.audioBase64);
-		return buildRegistryEntry(
-			sound.semanticName,
-			themeName,
-			sound.duration,
-			sizeKb,
-		);
-	});
-
-	registry.items.push(...newEntries);
-
-	await fs.writeFile(
-		registryPath,
-		`${JSON.stringify(registry, null, "\t")}\n`,
-		"utf-8",
+	// 2. Build and upload the theme registry index
+	const index = buildThemeRegistryIndex(themeName, themePrompt, uploadResults);
+	const indexResult = await put(
+		`themes/${themeName}/index.json`,
+		JSON.stringify(index),
+		{
+			access: "public",
+			addRandomSuffix: false,
+			contentType: "application/json",
+		},
 	);
 
 	return {
-		themeDefinitionPath: `registry/audx/themes/${themeName}.json`,
+		indexUrl: indexResult.url,
 		assetCount: sounds.length,
-		registryUpdated: true,
 	};
 }

@@ -6,6 +6,6 @@ export function buildInstallCommand(
 ): string {
 	if (audioNames.length === 0) return "";
 
-	const names = audioNames.map((name) => `@audx/${name}`);
-	return `${getInstallPrefix(pm, "react")} add ${names.join(" ")}`;
+	const names = audioNames.join(" ");
+	return `${getInstallPrefix(pm)} add ${names}`;
 }

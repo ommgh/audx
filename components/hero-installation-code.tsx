@@ -37,12 +37,12 @@ export function HeroInstallationCode({ items }: { items: AudioCatalogItem[] }) {
 	}, [typedName]);
 
 	const prefix = getInstallPrefix(pm);
-	const fullCommand = `${prefix} add @audx/${typedName}`;
+	const fullCommand = `${prefix} add ${typedName}`;
 
 	const handleCopy = useCallback(async () => {
 		try {
 			await navigator.clipboard.writeText(
-				`${getInstallPrefix(pm)} add @audx/${currentNameRef.current}`,
+				`${getInstallPrefix(pm)} add ${currentNameRef.current}`,
 			);
 			setCopyState("done");
 			setTimeout(() => setCopyState("idle"), 2000);
@@ -137,7 +137,7 @@ export function HeroInstallationCode({ items }: { items: AudioCatalogItem[] }) {
 						{prefix}
 					</span>{" "}
 					<span aria-hidden="true" className="text-foreground">
-						add @audx/
+						add{" "}
 					</span>
 					<span className="text-primary">{typedName}</span>
 					<span

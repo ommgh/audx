@@ -1,7 +1,6 @@
 "use client";
 
 import { RiCheckLine } from "@remixicon/react";
-import Link from "next/link";
 import { useMemo, useState } from "react";
 import { CopyButton } from "@/components/copy-button";
 import { PackageManagerSwitcher } from "@/components/package-manager-switcher";
@@ -11,29 +10,29 @@ import {
 	type PackageManager,
 } from "@/lib/package-manager";
 import { cn } from "@/lib/utils";
-import { Button } from "@/registry/audx/ui/button";
 
 interface SaveSuccessProps {
 	themeName: string;
+	indexUrl: string;
 }
 
-export function SaveSuccess({ themeName }: SaveSuccessProps) {
+export function SaveSuccess({ themeName, indexUrl }: SaveSuccessProps) {
 	const [pm, setPm] = useState<PackageManager>(DEFAULT_PM);
 
 	const installCommands = useMemo(() => {
 		const prefix = getInstallPrefix(pm);
 		const lines = [
 			"# Initialize theme config",
-			`${prefix} audx theme init`,
+			`${prefix} theme init`,
 			"",
 			"# Set as active theme",
-			`${prefix} audx theme set ${themeName}`,
+			`${prefix} theme set ${themeName} --registry ${indexUrl}`,
 			"",
 			"# Generate theme file",
-			`${prefix} audx theme generate`,
+			`${prefix} theme generate`,
 		];
 		return lines.join("\n");
-	}, [pm, themeName]);
+	}, [pm, themeName, indexUrl]);
 
 	return (
 		<div className="flex flex-col items-center gap-8">
@@ -54,11 +53,6 @@ export function SaveSuccess({ themeName }: SaveSuccessProps) {
 					been saved and is ready to use.
 				</p>
 			</div>
-
-			{/* View theme link */}
-			<Button asChild>
-				<Link href={`/themes/${themeName}`}>View Theme</Link>
-			</Button>
 
 			{/* CLI installation commands */}
 			<div className="w-full max-w-lg space-y-2">

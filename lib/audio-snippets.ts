@@ -16,7 +16,7 @@ export function getAudioSnippets(
 ): AudioSnippets {
 	const exportName = `${toCamelCase(name)}Audio`;
 	const prefix = getInstallPrefix(pm);
-	const installCmd = `${prefix} add @audx/use-audio @audx/${name}`;
+	const installCmd = `${prefix} add use-audio ${name}`;
 	const usageCode = `import { useAudio } from "@/hooks/use-audio";
 import { ${exportName} } from "@/sounds/${name}";
 

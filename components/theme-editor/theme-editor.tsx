@@ -137,6 +137,8 @@ function PhaseRenderer({
 				/>
 			);
 		case "saved":
-			return <SaveSuccess themeName={state.themeName} />;
+			return (
+				<SaveSuccess themeName={state.themeName} indexUrl={state.indexUrl!} />
+			);
 	}
 }
