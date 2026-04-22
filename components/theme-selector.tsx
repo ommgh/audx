@@ -1,6 +1,6 @@
 "use client";
 
-import { RiPaletteLine } from "@remixicon/react";
+import { RiArrowDropDownLine, RiPaletteLine } from "@remixicon/react";
 import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
@@ -28,9 +28,10 @@ export function ThemeSelector({
 		<DropdownMenu>
 			<DropdownMenuTrigger
 				render={
-					<Button variant="outline" size="sm">
+					<Button variant="outline" size="lg">
 						<RiPaletteLine data-icon="inline-start" />
 						{selected?.displayName ?? "Select theme"}
+						<RiArrowDropDownLine />
 					</Button>
 				}
 			/>

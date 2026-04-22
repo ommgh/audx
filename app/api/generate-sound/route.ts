@@ -15,7 +15,7 @@ function validationErrorMessage(error: ZodError): string {
 	}
 
 	if (issue.path.includes("duration_seconds")) {
-		return "Duration must be between 0.5 and 22 seconds";
+		return "Duration must be between 0.5 and 30 seconds";
 	}
 
 	if (issue.path.includes("prompt_influence")) {
@@ -56,6 +56,15 @@ export async function POST(request: Request) {
 		}
 
 		if (!response.ok) {
+			let detail = "";
+			try {
+				const errBody = await response.json();
+				detail =
+					errBody?.detail?.message ?? errBody?.detail ?? errBody?.message ?? "";
+			} catch {
+				// response wasn't JSON
+			}
+
 			if (response.status >= 500) {
 				return NextResponse.json(
 					{
@@ -64,9 +73,12 @@ export async function POST(request: Request) {
 					{ status: 502 },
 				);
 			}
+
 			return NextResponse.json(
-				{ error: "Sound generation failed. Please try again." },
-				{ status: 502 },
+				{
+					error: detail || "Sound generation failed. Please try again.",
+				},
+				{ status: response.status >= 400 ? 400 : 502 },
 			);
 		}
 

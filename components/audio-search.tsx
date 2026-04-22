@@ -4,47 +4,47 @@ import { RiSearchLine } from "@remixicon/react";
 import { useEffect, useRef } from "react";
 
 interface SoundSearchProps {
-  value: string;
-  onChange: (value: string) => void;
+	value: string;
+	onChange: (value: string) => void;
 }
 
 export function SoundSearch({ value, onChange }: SoundSearchProps) {
-  const inputRef = useRef<HTMLInputElement>(null);
+	const inputRef = useRef<HTMLInputElement>(null);
 
-  // TODO: Replace with useEvent
-  useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-        e.preventDefault();
-        inputRef.current?.focus();
-      }
-    }
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
+	// TODO: Replace with useEvent
+	useEffect(() => {
+		function handleKeyDown(e: KeyboardEvent) {
+			if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+				e.preventDefault();
+				inputRef.current?.focus();
+			}
+		}
+		document.addEventListener("keydown", handleKeyDown);
+		return () => document.removeEventListener("keydown", handleKeyDown);
+	}, []);
 
-  return (
-    <div className="relative w-full">
-      <RiSearchLine
-        size={16}
-        className="text-muted-foreground/60 absolute left-3 top-1/2 -translate-y-1/2"
-        aria-hidden="true"
-      />
-      <input
-        ref={inputRef}
-        type="text"
-        name="search"
-        aria-label="Search sounds"
-        autoComplete="off"
-        placeholder="Search audio..."
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="border-border/60 bg-secondary/40 placeholder:text-muted-foreground/50 h-10 w-full rounded-lg border pl-9 pr-14 text-sm outline-none"
-      />
-      <kbd className="text-muted-foreground/40 pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 font-mono text-[11px]">
-        <kbd>⌘</kbd>
-        {" +"} <kbd>K</kbd>
-      </kbd>
-    </div>
-  );
+	return (
+		<div className="relative w-full">
+			<RiSearchLine
+				size={16}
+				className="text-muted-foreground/60 absolute left-3 top-1/2 -translate-y-1/2"
+				aria-hidden="true"
+			/>
+			<input
+				ref={inputRef}
+				type="text"
+				name="search"
+				aria-label="Search sounds"
+				autoComplete="off"
+				placeholder="Search audio..."
+				value={value}
+				onChange={(e) => onChange(e.target.value)}
+				className="border-border/60 bg-secondary/40 placeholder:text-muted-foreground/50 h-10 w-full border pl-9 pr-14 text-sm outline-none"
+			/>
+			<kbd className="text-muted-foreground/40 pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 font-mono text-[11px]">
+				<kbd>⌘</kbd>
+				{" +"} <kbd>K</kbd>
+			</kbd>
+		</div>
+	);
 }

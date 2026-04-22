@@ -27,7 +27,7 @@ export const AudioCard = memo(function AudioCard({
 			onPointerLeave={onPreviewStop}
 			onFocus={() => onPreviewStart(item.name)}
 			onBlur={onPreviewStop}
-			className="group relative flex cursor-pointer flex-col items-center gap-3 rounded-xl border border-border/50 bg-card p-4 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/[0.08] transition-[border-color,box-shadow] duration-200 focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
+			className="group relative flex cursor-pointer flex-col items-center gap-3 border border-border/50 bg-card p-4 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/[0.08] transition-[border-color,box-shadow] duration-200 focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
 		>
 			{/* Static equalizer bars */}
 			<StaticBars name={item.name} />
@@ -56,7 +56,7 @@ function StaticBars({ name }: { name: string }) {
 			{bars.map((bar, i) => (
 				<span
 					key={`${name}-${i}-${bar.height}`}
-					className="w-[3.5px] rounded-full bg-muted-foreground/20 group-hover:bg-primary/70 transition-colors"
+					className="w-[3.5px] bg-muted-foreground/20 group-hover:bg-primary/70 transition-colors"
 					style={{ height: `${bar.height}%` }}
 				/>
 			))}

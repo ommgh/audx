@@ -24,7 +24,7 @@ export function CategoryBar({
 	return (
 		<div
 			ref={ref}
-			className={`flex gap-2 overflow-x-auto scrollbar-none ${isGrabbing ? "cursor-grabbing" : "cursor-grab"}`}
+			className={`flex gap-3 overflow-x-auto scrollbar-none ${isGrabbing ? "cursor-grabbing" : "cursor-grab"}`}
 		>
 			{categories.map((cat) => {
 				const isActive = selectedCategory === cat.name;
@@ -32,7 +32,7 @@ export function CategoryBar({
 					<Badge
 						key={cat.name}
 						variant={isActive ? "default" : "outline"}
-						className="shrink-0 cursor-pointer select-none"
+						className="shrink-0 cursor-pointer select-none p-3"
 						onClick={() => onCategoryChange(isActive ? null : cat.name)}
 					>
 						{capitalize(cat.name)} ({cat.count})

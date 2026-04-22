@@ -14,7 +14,7 @@ export function Header() {
 					<GithubStartsButton />
 					<Link
 						href="/generate"
-						className="inline-flex items-center gap-1.5 rounded-md bg-foreground text-background px-3 py-1.5 text-sm font-medium"
+						className="inline-flex items-center gap-1.5 bg-foreground text-background px-3 py-1.5 text-sm font-medium"
 					>
 						<RiSparklingLine size={16} />
 						Generate

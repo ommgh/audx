@@ -63,13 +63,18 @@ export function HeroInstallationCode({ items }: { items: AudioCatalogItem[] }) {
 			"[aria-checked='true']",
 		);
 		if (!active) return;
-		setIndicator({ x: active.offsetLeft, width: active.offsetWidth });
+		const padding = 3;
+		setIndicator({
+			x: active.offsetLeft - padding,
+			width: active.offsetWidth,
+		});
 		measured.current = true;
 	}, []);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: re-measure when pm changes
 	useEffect(() => {
 		measure();
-	}, [measure]);
+	}, [pm, measure]);
 
 	useEffect(() => {
 		const ro = new ResizeObserver(measure);
@@ -82,14 +87,14 @@ export function HeroInstallationCode({ items }: { items: AudioCatalogItem[] }) {
 			{/* ── Package manager tabs ── */}
 			<div
 				ref={tabsRef}
-				className="relative inline-flex items-center rounded-t-lg border border-b-0 border-border/60 bg-secondary/50 p-[3px] backdrop-blur-sm"
+				className="relative inline-flex items-center border border-b-0 border-border/60 bg-secondary/50 p-[3px] backdrop-blur-sm"
 				role="radiogroup"
 				aria-label="Package manager"
 			>
 				{indicator.width > 0 && (
 					<span
 						className={cn(
-							"absolute top-[3px] bottom-[3px] rounded-md bg-background shadow-sm shadow-primary/10 dark:shadow-primary/5",
+							"absolute left-[3px] top-[3px] bottom-[3px] bg-background shadow-sm shadow-primary/10 dark:shadow-primary/5",
 							measured.current && "transition-all duration-200 ease-out",
 						)}
 						style={{
@@ -108,7 +113,7 @@ export function HeroInstallationCode({ items }: { items: AudioCatalogItem[] }) {
 						aria-checked={p === pm}
 						onClick={() => setPm(p)}
 						className={cn(
-							"relative z-10 rounded-md px-2.5 py-1 font-mono text-xs font-medium transition-colors duration-150",
+							"relative z-10 px-2.5 py-1 font-mono text-xs font-medium transition-colors duration-150",
 							"focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none",
 							p === pm
 								? "text-foreground"
@@ -120,7 +125,7 @@ export function HeroInstallationCode({ items }: { items: AudioCatalogItem[] }) {
 				))}
 			</div>
 
-			<div className="relative w-full overflow-hidden rounded-tr-xl rounded-b-xl border border-border/60 bg-card/80 backdrop-blur-sm">
+			<div className="relative w-full overflow-hidden border border-border/60 bg-card/80 backdrop-blur-sm">
 				<div
 					className={cn(
 						"overflow-x-auto whitespace-nowrap px-4 py-3.5 pr-14 font-mono text-sm",
@@ -136,7 +141,7 @@ export function HeroInstallationCode({ items }: { items: AudioCatalogItem[] }) {
 					</span>
 					<span className="text-primary">{typedName}</span>
 					<span
-						className="ml-px inline-block w-[7px] h-[15px] translate-y-[2px] rounded-[1px] bg-primary/60"
+						className="ml-px inline-block w-[7px] h-[15px] translate-y-[2px] bg-primary/60"
 						style={{
 							animation: cursorActive
 								? "none"
@@ -152,7 +157,7 @@ export function HeroInstallationCode({ items }: { items: AudioCatalogItem[] }) {
 					onClick={handleCopy}
 					disabled={copyState !== "idle"}
 					className={cn(
-						"absolute top-1/2 right-2 z-20 -translate-y-1/2 rounded-lg p-2 transition-colors duration-150",
+						"absolute top-1/2 right-2 z-20 -translate-y-1/2 p-2 transition-colors duration-150",
 						"focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none",
 						copyState === "done"
 							? "text-primary"

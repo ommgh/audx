@@ -9,7 +9,7 @@ export function NewThemeButton() {
 	return (
 		<Link
 			href="/themes/create"
-			className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
+			className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
 		>
 			<RiAddLine data-icon="inline-start" />
 			New Theme
