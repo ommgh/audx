@@ -15,9 +15,10 @@
 	},
 	"dependencies": {
 		"@base-ui/react": "^1.4.0",
-		"@remixicon/react": "^4.9.0",
 		"@radix-ui/react-label": "^2.1.7",
+		"@remixicon/react": "^4.9.0",
 		"@vercel/analytics": "^1.6.1",
+		"@vercel/blob": "^2.3.3",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"next": "15.5.9",
@@ -35,13 +36,11 @@
 	"devDependencies": {
 		"@ai-sdk/gateway": "^3.0.45",
 		"@biomejs/biome": "2.4.0",
-
 		"@tailwindcss/postcss": "^4.1.11",
 		"@types/node": "^20.19.9",
 		"@types/react": "19.1.2",
 		"@types/react-dom": "19.1.2",
 		"ai": "^6.0.85",
-
 		"tailwindcss": "^4.1.11",
 		"typescript": "^5.9.2"
 	},
