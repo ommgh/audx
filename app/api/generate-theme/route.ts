@@ -100,6 +100,7 @@ export async function POST(request: Request) {
 				{ status: 500 },
 			);
 		}
+		const resolvedApiKey: string = apiKey;
 
 		// Build prompts for each requested sound
 		const soundJobs = parsed.sounds.map((sound) => {
@@ -174,7 +175,7 @@ export async function POST(request: Request) {
 						const result = await generateSingleSound(
 							job.prompt,
 							job.duration,
-							apiKey,
+							resolvedApiKey,
 							request.signal,
 						);
 
