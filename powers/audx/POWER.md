@@ -1,6 +1,6 @@
 ---
-name: "audx-cli"
-displayName: "audx CLI Guide"
+name: "audx"
+displayName: "audx"
 description: "Complete guide for using the @litlab/audx CLI to manage UI sound effects — install, add, remove, update, generate, and theme sounds in any web project."
 keywords: ["audx", "cli", "ui-sounds", "sound-effects", "audio", "theme"]
 author: "audx"
