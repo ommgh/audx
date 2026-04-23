@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 			priority: 1,
 		},
 		...items.map((item) => ({
-			url: `${baseUrl}/sound/${item.name}`,
+			url: `${baseUrl}/audio/${item.name}`,
 			lastModified: now,
 			changeFrequency: "monthly" as const,
 			priority: 0.7,

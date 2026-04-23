@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, Geist_Mono, Space_Grotesk } from "next/font/google";
+import { Geist_Mono, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import "./globals.css";
@@ -11,10 +11,8 @@ import { cn } from "@/lib/utils";
 
 const spaceGroteskHeading = Space_Grotesk({
 	subsets: ["latin"],
-	variable: "--font-heading",
+	variable: "--font-sans",
 });
-
-const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-sans" });
 
 const fontMono = Geist_Mono({
 	subsets: ["latin"],
@@ -55,7 +53,7 @@ export const metadata: Metadata = {
 			"Customisable UI sound effects for modern web apps. Browse, preview, and install audio with a single command.",
 		images: [
 			{
-				url: "/hero-dark.png",
+				url: "/hero-light.png",
 				width: 2896,
 				height: 944,
 				alt: "audx - Customisable UI Audio for Modern Web Apps",
@@ -67,7 +65,7 @@ export const metadata: Metadata = {
 		title: "audx - Customisable UI Audio for Modern Web Apps",
 		description:
 			"Customisable UI sound effects for modern web apps. Browse, preview, and install audio with a single command.",
-		images: ["/hero-dark.png"],
+		images: ["/hero-light.png"],
 	},
 	alternates: {
 		canonical: siteUrl,
@@ -87,7 +85,7 @@ export default function RootLayout({
 				"antialiased",
 				fontMono.variable,
 				"font-sans",
-				dmSans.variable,
+
 				spaceGroteskHeading.variable,
 			)}
 		>

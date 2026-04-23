@@ -6,9 +6,9 @@ export function Hero({ items }: { items: AudioCatalogItem[] }) {
 		<section className="relative overflow-hidden">
 			<div className="relative mx-auto max-w-6xl border-x flex flex-col items-center px-6 pt-8 pb-14 sm:pt-14 sm:pb-20">
 				<h1 className="font-display text-4xl font-bold text-balance text-center sm:text-5xl lg:text-6xl">
-					Customisable <span className="text-primary">UI audio</span>.
+					Customisable <span className="text-primary">UI audio</span>
 					<br />
-					<span className="text-muted-foreground">Copy. Paste. Play.</span>
+					<span className="">Copy. Paste. Play.</span>
 				</h1>
 
 				<p className="text-muted-foreground mt-5 max-w-lg text-base text-pretty text-center leading-relaxed sm:text-lg">

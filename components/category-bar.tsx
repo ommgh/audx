@@ -24,7 +24,7 @@ export function CategoryBar({
 	return (
 		<div
 			ref={ref}
-			className={`flex gap-3 overflow-x-auto scrollbar-none ${isGrabbing ? "cursor-grabbing" : "cursor-grab"}`}
+			className={`flex gap-2 ml-2 overflow-x-auto scrollbar-none ${isGrabbing ? "cursor-grabbing" : "cursor-grab"}`}
 		>
 			{categories.map((cat) => {
 				const isActive = selectedCategory === cat.name;
