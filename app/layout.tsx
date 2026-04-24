@@ -5,9 +5,9 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 import "./globals.css";
 
 import { Analytics } from "@vercel/analytics/next";
-import { Suspense } from "react";
 import { Header } from "@/components/header";
 import { cn } from "@/lib/utils";
+import { TRPCReactProvider } from "@/trpc/client";
 
 const spaceGroteskHeading = Space_Grotesk({
 	subsets: ["latin"],
@@ -90,7 +90,7 @@ export default function RootLayout({
 			)}
 		>
 			<body>
-				<Suspense fallback={<>...</>}>
+				<TRPCReactProvider>
 					<ThemeProvider
 						attribute="class"
 						defaultTheme="system"
@@ -104,8 +104,8 @@ export default function RootLayout({
 							</div>
 						</NuqsAdapter>
 					</ThemeProvider>
-					<Analytics />
-				</Suspense>
+				</TRPCReactProvider>
+				<Analytics />
 			</body>
 		</html>
 	);

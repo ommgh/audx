@@ -46,3 +46,5 @@ next-env.d.ts
 # audx CLI package
 package/node_modules/
 package/dist/
+
+/prisma/generated
