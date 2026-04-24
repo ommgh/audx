@@ -1,11 +1,6 @@
-import { PrismaNeon } from "@prisma/adapter-neon";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { PrismaClient } from "@/prisma/generated/client";
-
-const prisma = new PrismaClient({
-	adapter: new PrismaNeon({ connectionString: process.env.DATABASE_URL }),
-});
+import prisma from "@/lib/db";
 
 export const auth = betterAuth({
 	database: prismaAdapter(prisma, {
@@ -13,6 +8,7 @@ export const auth = betterAuth({
 	}),
 	emailAndPassword: {
 		enabled: true,
+		autoSignIn: true,
 	},
 	socialProviders: {
 		github: {
