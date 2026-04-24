@@ -4,7 +4,7 @@ Open-source library of customizable UI sound effects for modern web apps. Browse
 
 Sounds are distributed as TypeScript modules with inline base64-encoded audio, played via the Web Audio API at runtime. No external files to serve, no network requests at play time.
 
-🌐 [audx.dev](https://audx.dev) · 📦 [npm](https://www.npmjs.com/package/@litlab/audx) · 🐛 [Issues](https://github.com/ommgh/audx/issues)
+🌐 [audx.site](https://audx.site) · 📦 [npm](https://www.npmjs.com/package/@litlab/audx) · 🐛 [Issues](https://github.com/ommgh/audx/issues)
 
 ## Quick Start
 
@@ -59,7 +59,7 @@ Sounds are organized by category and theme. Some examples:
 | Clipboard | copy, paste |
 | Selection | select, deselect, focus, blur |
 
-Each sound comes in themed variants (e.g. `click-minimal-001`). Browse the full catalog at [audx.dev](https://audx.dev).
+Each sound comes in themed variants (e.g. `click-minimal-001`). Browse the full catalog at [audx.site](https://audx.site).
 
 ## CLI Commands
 
@@ -104,7 +104,7 @@ Running `audx init` creates `audx.config.json`:
 {
   "soundDir": "src/sounds",
   "libDir": "src/lib",
-  "registryUrl": "https://audx.dev",
+  "registryUrl": "https://audx.site",
   "packageManager": "pnpm",
   "aliases": {
     "lib": "@/lib",
@@ -127,7 +127,7 @@ The registry follows the [shadcn/ui](https://ui.shadcn.com) distribution model: 
 
 ```
 audx/
-├── app/              # Next.js website (audx.dev)
+├── app/              # Next.js website (audx.site)
 ├── components/       # Website React components
 ├── hooks/            # Website React hooks
 ├── lib/              # Website utilities
