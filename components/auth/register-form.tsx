@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import Image from "next/image";
+import { RiGithubLine, RiGoogleLine } from "@remixicon/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
@@ -122,12 +122,7 @@ export function RegisterForm() {
 									type="button"
 									disabled={isPending}
 								>
-									<Image
-										alt="GitHub"
-										src="/logos/github.svg"
-										width={20}
-										height={20}
-									/>
+									<RiGithubLine size={20} />
 									Continue with GitHub
 								</Button>
 								<Button
@@ -137,12 +132,7 @@ export function RegisterForm() {
 									type="button"
 									disabled={isPending}
 								>
-									<Image
-										alt="Google"
-										src="/logos/google.svg"
-										width={20}
-										height={20}
-									/>
+									<RiGoogleLine size={20} />
 									Continue with Google
 								</Button>
 							</div>
