@@ -2,6 +2,7 @@ import { RiSparklingLine } from "@remixicon/react";
 import Link from "next/link";
 import { AppLogo } from "@/components/app-logo";
 import { GithubStartsButton } from "@/components/github-button";
+import { HeaderAuthNav } from "@/components/header-auth-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 export function Header() {
@@ -12,6 +13,7 @@ export function Header() {
 				<div className="flex items-center gap-2">
 					<ThemeToggle />
 					<GithubStartsButton />
+					<HeaderAuthNav />
 					<Link
 						href="/generate"
 						className="inline-flex items-center gap-1.5 bg-foreground text-background px-3 py-1.5 text-sm font-medium"

@@ -15,8 +15,10 @@ model User {
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @default(now()) @updatedAt
-  sessions      Session[]
-  accounts      Account[]
+  sessions        Session[]
+  accounts        Account[]
+  generatedThemes GeneratedTheme[]
+  generatedSounds GeneratedSound[]
 
   @@unique([email])
   @@map("user")
@@ -65,4 +67,31 @@ model Verification {
   updatedAt  DateTime @default(now()) @updatedAt
 
   @@map("verification")
+}
+
+model GeneratedTheme {
+  id           String   @id @default(cuid())
+  name         String
+  prompt       String
+  blobIndexUrl String
+  assetCount   Int
+  createdAt    DateTime @default(now())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, name])
+  @@map("generated_theme")
+}
+
+model GeneratedSound {
+  id        String   @id @default(cuid())
+  prompt    String
+  blobUrl   String
+  duration  Float
+  sizeKb    Int
+  createdAt DateTime @default(now())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("generated_sound")
 }

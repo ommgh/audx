@@ -11,7 +11,8 @@
 		"registry:enrich": "bun scripts/enrich-registry.ts",
 		"audio:encode": "bun scripts/encode-all.ts",
 		"audio:encode-one": "bun scripts/encode-sound.ts",
-		"audio:update-registry": "bun scripts/update-registry.ts"
+		"audio:update-registry": "bun scripts/update-registry.ts",
+		"test": "vitest --run"
 	},
 	"dependencies": {
 		"@base-ui/react": "^1.4.0",
@@ -53,12 +54,15 @@
 		"@ai-sdk/gateway": "^3.0.45",
 		"@biomejs/biome": "2.4.0",
 		"@tailwindcss/postcss": "^4.1.11",
+		"@testing-library/react": "^16.3.2",
 		"@types/node": "^20.19.9",
 		"@types/react": "19.1.2",
 		"@types/react-dom": "19.1.2",
 		"ai": "^6.0.85",
+		"fast-check": "^4.7.0",
 		"tailwindcss": "^4.1.11",
-		"typescript": "^5.9.2"
+		"typescript": "^5.9.2",
+		"vitest": "^4.1.5"
 	},
 	"overrides": {
 		"@types/react": "19.1.2",

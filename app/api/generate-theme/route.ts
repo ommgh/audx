@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
+import { auth } from "@/lib/auth";
 import { generateThemeRequestSchema } from "@/lib/generate-theme-schema";
 import { buildSoundPrompt } from "@/lib/prompt-builder";
 import { SOUND_PROMPT_TEMPLATES } from "@/lib/sound-prompt-templates";
@@ -95,6 +96,17 @@ export async function POST(request: Request) {
 	try {
 		const body = await request.json();
 		const parsed = generateThemeRequestSchema.parse(body);
+
+		const session = await auth.api.getSession({
+			headers: request.headers,
+		});
+
+		if (!session && parsed.sounds.length > 10) {
+			return NextResponse.json(
+				{ error: "Sign in to generate full themes" },
+				{ status: 403 },
+			);
+		}
 
 		const apiKey = process.env.ELEVENLABS_API_KEY;
 		if (!apiKey) {

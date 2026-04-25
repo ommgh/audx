@@ -1,14 +1,12 @@
-import prisma from "@/lib/db";
-import { createTRPCRouter, protectedProcedure } from "../init";
+import { createTRPCRouter } from "../init";
+import { profileRouter } from "./profile";
+import { soundRouter } from "./sound";
+import { themeRouter } from "./theme";
 
 export const appRouter = createTRPCRouter({
-	getUsers: protectedProcedure.query(({ ctx }) => {
-		return prisma.user.findMany({
-			where: {
-				id: ctx.auth.user.id,
-			},
-		});
-	}),
+	theme: themeRouter,
+	sound: soundRouter,
+	profile: profileRouter,
 });
 
 // export type definition of API
