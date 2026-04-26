@@ -16,15 +16,9 @@ export function LoginPromptBanner() {
 	return (
 		<div className="flex items-center justify-between gap-4 border border-border/50 bg-muted/50 px-4 py-3 text-sm">
 			<p className="text-muted-foreground">
-				Sign in to save your generated sounds and themes
+				Login to save your generated sounds and themes
 			</p>
 			<div className="flex items-center gap-3">
-				<Link
-					href="/login"
-					className="inline-flex items-center font-medium text-primary underline-offset-4 hover:underline"
-				>
-					Log in
-				</Link>
 				<button
 					type="button"
 					onClick={() => setDismissed(true)}

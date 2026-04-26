@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SoundDetailPage } from "@/components/audio-detail-page";
+import { Header } from "@/components/header";
 import { getAllAudio, getAudioByName } from "@/lib/audio-data";
 
 interface PageProps {
@@ -62,5 +63,10 @@ export default async function AudioDetailPage({ params }: PageProps) {
 	const audio = getAudioByName(lookupName);
 	if (!audio) notFound();
 
-	return <SoundDetailPage audio={audio} />;
+	return (
+		<div className="flex min-h-svh flex-col">
+			<Header />
+			<SoundDetailPage audio={audio} />
+		</div>
+	);
 }

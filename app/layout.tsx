@@ -97,12 +97,7 @@ export default function RootLayout({
 						enableSystem
 						disableTransitionOnChange
 					>
-						<NuqsAdapter>
-							<div className="flex min-h-svh flex-col">
-								<Header />
-								{children}
-							</div>
-						</NuqsAdapter>
+						<NuqsAdapter>{children}</NuqsAdapter>
 					</ThemeProvider>
 				</TRPCReactProvider>
 				<Analytics />

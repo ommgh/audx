@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { AudioPage } from "@/components/audio-page";
+import { Header } from "@/components/header";
 import { getAllAudio } from "@/lib/audio-data";
 import { getAllThemes } from "@/lib/theme-data";
 
@@ -8,7 +9,10 @@ export default function Home() {
 	const themes = getAllThemes();
 	return (
 		<Suspense>
-			<AudioPage items={items} themes={themes} />
+			<div className="flex min-h-svh flex-col">
+				<Header />
+				<AudioPage items={items} themes={themes} />
+			</div>
 		</Suspense>
 	);
 }

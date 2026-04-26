@@ -4,6 +4,7 @@ import { RiLogoutBoxRLine, RiUserLine } from "@remixicon/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -48,13 +49,13 @@ export function HeaderAuthNav() {
 					</Avatar>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="end" sideOffset={8}>
-					<DropdownMenuItem onSelect={() => router.push("/profile")}>
+					<DropdownMenuItem onClick={() => router.push("/profile")}>
 						<RiUserLine size={14} />
 						Profile
 					</DropdownMenuItem>
 					<DropdownMenuSeparator />
 					<DropdownMenuItem
-						onSelect={async () => {
+						onClick={async () => {
 							await authClient.signOut();
 							router.push("/");
 						}}
@@ -68,11 +69,8 @@ export function HeaderAuthNav() {
 	}
 
 	return (
-		<Link
-			href="/login"
-			className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-		>
+		<Button onClick={() => router.push("/login")} size="default">
 			Log in
-		</Link>
+		</Button>
 	);
 }
