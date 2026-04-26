@@ -71,7 +71,9 @@ for (const item of items) {
 		if (item.categories != null) output.categories = item.categories;
 
 		const json = JSON.stringify(output, null, 2) + "\n";
-		writeFileSync(resolve(OUTPUT_DIR, `${name}.json`), json);
+		const outputPath = resolve(OUTPUT_DIR, `${name}.json`);
+		mkdirSync(dirname(outputPath), { recursive: true });
+		writeFileSync(outputPath, json);
 		created++;
 
 		// Build public index entry (no content, no keywords)

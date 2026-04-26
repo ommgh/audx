@@ -198,30 +198,16 @@ export const audxConfigSchema = z.object({
 	libDir: z.string(),
 	registryUrl: z.string().url(),
 	packageManager: z.enum(["npm", "pnpm", "yarn", "bun"]),
+	theme: z.string().min(1),
 	aliases: z.object({
 		lib: z.string(),
 		hooks: z.string(),
 		sounds: z.string(),
 	}),
-	installedSounds: z.record(
-		z.string(),
-		z.object({
-			files: z.array(z.string()),
-			installedAt: z.string().datetime(),
-		}),
-	),
+	installedSounds: z.array(z.string()),
 });
 
 export type AudxConfig = z.infer<typeof audxConfigSchema>;
-
-// ── ThemeConfig (audx.themes.json) ──────────────────────────────────────────
-
-export const themeConfigSchema = z.object({
-	activeTheme: z.string(),
-	themes: z.record(z.string(), z.record(z.string(), z.string().nullable())),
-});
-
-export type ThemeConfig = z.infer<typeof themeConfigSchema>;
 
 // ── Registry Types ──────────────────────────────────────────────────────────
 

@@ -37,10 +37,13 @@ program
 	.description("List available sounds in the registry")
 	.option("--tag <tag>", "Filter by tag")
 	.option("--search <query>", "Search by name, description, or tags")
-	.action(async (options: { tag?: string; search?: string }) => {
-		const { listCommand } = await import("./commands/list.js");
-		await listCommand(process.cwd(), options);
-	});
+	.option("--theme <theme>", "Filter by theme (defaults to config theme)")
+	.action(
+		async (options: { tag?: string; search?: string; theme?: string }) => {
+			const { listCommand } = await import("./commands/list.js");
+			await listCommand(process.cwd(), options);
+		},
+	);
 
 // ── remove ──────────────────────────────────────────────────────────────────
 
@@ -89,17 +92,22 @@ program
 		},
 	);
 
+// ── install ──────────────────────────────────────────────────────────────────
+
+const install = program.command("install").description("Install sound packs");
+
+install
+	.command("pack")
+	.description("Install all sounds for a theme")
+	.argument("<theme>", "Theme name to install")
+	.action(async (themeName: string) => {
+		const { installPackCommand } = await import("./commands/install.js");
+		await installPackCommand(themeName, process.cwd());
+	});
+
 // ── theme (parent with subcommands) ────────────────────────────────────────
 
 const theme = program.command("theme").description("Manage sound themes");
-
-theme
-	.command("init")
-	.description("Initialize theme configuration")
-	.action(async () => {
-		const { themeInitCommand } = await import("./commands/theme.js");
-		await themeInitCommand(process.cwd());
-	});
 
 theme
 	.command("set")
@@ -107,42 +115,7 @@ theme
 	.argument("<theme-name>", "Theme name to activate")
 	.action(async (themeName: string) => {
 		const { themeSetCommand } = await import("./commands/theme.js");
-		themeSetCommand(themeName, process.cwd());
-	});
-
-theme
-	.command("map")
-	.description("Map a semantic name to an installed sound")
-	.argument("<semantic-name>", "Semantic sound name (e.g., success, error)")
-	.argument("<sound-name>", "Installed sound name")
-	.action(async (semanticName: string, soundName: string) => {
-		const { themeMapCommand } = await import("./commands/theme.js");
-		themeMapCommand(semanticName, soundName, process.cwd());
-	});
-
-theme
-	.command("create")
-	.description("Create a new theme")
-	.argument("<theme-name>", "Name for the new theme")
-	.action(async (themeName: string) => {
-		const { themeCreateCommand } = await import("./commands/theme.js");
-		themeCreateCommand(themeName, process.cwd());
-	});
-
-theme
-	.command("list")
-	.description("List all themes")
-	.action(async () => {
-		const { themeListCommand } = await import("./commands/theme.js");
-		themeListCommand(process.cwd());
-	});
-
-theme
-	.command("generate")
-	.description("Generate sound-theme.ts from theme configuration")
-	.action(async () => {
-		const { themeGenerateCommand } = await import("./commands/theme.js");
-		themeGenerateCommand(process.cwd());
+		await themeSetCommand(themeName, process.cwd());
 	});
 
 // ── Parse and run ───────────────────────────────────────────────────────────

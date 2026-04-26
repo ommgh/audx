@@ -3,7 +3,8 @@ import { basename, dirname, join } from "node:path";
 import { loadFromTsConfig } from "../core/alias-resolver.js";
 import * as ConfigManager from "../core/config.js";
 import { writeRegistryFile } from "../core/file-writer.js";
-import { fetchItem } from "../core/registry.js";
+import { buildSoundFilePath } from "../core/naming.js";
+import { fetchThemedItem } from "../core/registry.js";
 import type { AudxConfig, RegistryFile } from "../types.js";
 
 /**
@@ -24,13 +25,18 @@ function resolveLocalPath(
 
 	if (file.type === "registry:lib") {
 		const normalised = file.path.replace(/\\/g, "/");
-		if (normalised.includes("/sounds/")) {
-			return join(projectRoot, config.soundDir, fileName);
+		if (normalised.startsWith("audio/") || normalised.includes("/audio/")) {
+			const semanticName = basename(fileName, ".ts");
+			return buildSoundFilePath(
+				join(projectRoot, config.soundDir),
+				semanticName,
+			);
 		}
 		return join(projectRoot, config.libDir, fileName);
 	}
 
-	return join(projectRoot, config.soundDir, fileName);
+	const semanticName = basename(fileName, ".ts");
+	return buildSoundFilePath(join(projectRoot, config.soundDir), semanticName);
 }
 
 /**
@@ -71,7 +77,6 @@ export async function updateCommand(
 	soundName: string | undefined,
 	projectRoot: string,
 ): Promise<void> {
-	// Config must exist
 	if (!ConfigManager.exists(projectRoot)) {
 		console.error("Configuration not found. Run 'audx init' first.");
 		process.exit(1);
@@ -79,15 +84,9 @@ export async function updateCommand(
 
 	const config = ConfigManager.read(projectRoot);
 	const aliasMap = loadFromTsConfig(projectRoot);
-	const updatedConfig = {
-		...config,
-		installedSounds: { ...config.installedSounds },
-	};
 
-	// Requirement 10.5 — if sound name provided, update only that sound
-	const soundsToUpdate = soundName
-		? [soundName]
-		: Object.keys(config.installedSounds);
+	// Iterate installedSounds as flat string array
+	const soundsToUpdate = soundName ? [soundName] : [...config.installedSounds];
 
 	if (soundsToUpdate.length === 0) {
 		console.log("No sounds installed.");
@@ -95,9 +94,13 @@ export async function updateCommand(
 	}
 
 	// Validate the specified sound is installed
-	if (soundName && !config.installedSounds[soundName]) {
+	if (soundName && !config.installedSounds.includes(soundName)) {
+		const list =
+			config.installedSounds.length > 0
+				? config.installedSounds.join(", ")
+				: "(none)";
 		console.error(
-			`Sound '${soundName}' is not installed. Installed sounds: ${Object.keys(config.installedSounds).join(", ") || "(none)"}`,
+			`Sound '${soundName}' is not installed. Installed sounds: ${list}`,
 		);
 		process.exit(1);
 	}
@@ -106,53 +109,35 @@ export async function updateCommand(
 
 	for (const name of soundsToUpdate) {
 		try {
-			// Fetch current registry item
-			const item = await fetchItem(config.registryUrl, name);
+			// Requirement 9.2 — fetch themed registry item
+			const item = await fetchThemedItem(
+				config.registryUrl,
+				config.theme,
+				name,
+			);
 
-			// Requirement 10.4 — only update sounds that have differences
+			// Only update sounds that have differences (unless explicitly named)
 			if (!soundName && !hasChanges(item.files, config, projectRoot)) {
 				continue;
 			}
 
 			const targetDir = join(projectRoot, config.soundDir);
-			const writtenFiles: string[] = [];
 
 			// Overwrite local files with registry content
 			for (const file of item.files) {
-				const writtenPath = writeRegistryFile(
-					file,
-					targetDir,
-					aliasMap,
-					config,
-				);
-				if (writtenPath) {
-					writtenFiles.push(writtenPath);
-				} else {
-					// File was skipped (existing dependency) — keep it in the list
-					const localPath = resolveLocalPath(file, config, projectRoot);
-					writtenFiles.push(localPath);
-				}
+				writeRegistryFile(file, targetDir, aliasMap, config);
 			}
-
-			// Requirement 10.6 — update timestamp in config
-			updatedConfig.installedSounds[name] = {
-				files: writtenFiles,
-				installedAt: new Date().toISOString(),
-			};
 
 			updatedCount++;
 			console.log(`✔ Updated ${name}`);
 		} catch (error) {
-			// Requirement 10.7 — continue on individual fetch failures with warning
+			// Requirement 9.5 — continue on individual fetch failures with warning
 			const message = error instanceof Error ? error.message : String(error);
 			console.warn(`⚠ Could not update '${name}': ${message}`);
 		}
 	}
 
-	// Write updated config if any sounds were updated
-	if (updatedCount > 0) {
-		ConfigManager.write(projectRoot, updatedConfig);
-	} else {
+	if (updatedCount === 0) {
 		console.log("All sounds are up to date.");
 	}
 }

@@ -63,7 +63,7 @@ export function SoundDetailPage({ audio }: AudioDetailPageProps) {
 
 				{/* ── Install command block ── */}
 				<section className="pb-8">
-					<SoundInstallInstructions soundName={audio.name} />
+					<SoundInstallInstructions soundName={audio.meta.semanticName} />
 				</section>
 
 				{/* ── Player strip at the bottom ── */}

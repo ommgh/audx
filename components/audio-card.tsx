@@ -34,7 +34,7 @@ export const AudioCard = memo(function AudioCard({
 
 			{/* Audio name */}
 			<span className="line-clamp-1 text-center text-sm font-medium">
-				{item.title}
+				{item.meta.semanticName}
 			</span>
 
 			{/* Duration */}

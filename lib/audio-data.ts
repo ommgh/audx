@@ -5,26 +5,33 @@ import registry from "@/registry.json";
 function buildCatalog(): AudioCatalogItem[] {
 	return registry.items
 		.filter((item) => item.type === "registry:block")
-		.map((item) => ({
-			name: item.name,
-			title: item.title,
-			description: item.description,
-			author: item.author ?? "Unknown",
-			meta: {
-				duration: item.meta?.duration ?? 0,
-				sizeKb: item.meta?.sizeKb ?? 0,
-				license: item.meta?.license ?? "Unknown",
-				tags: item.meta?.tags ?? [],
-				keywords:
-					((item.meta as Record<string, unknown>)?.keywords as string[]) ?? [],
-				theme:
-					((item.meta as Record<string, unknown>)?.theme as string) ??
-					undefined,
-				semanticName:
-					((item.meta as Record<string, unknown>)?.semanticName as string) ??
-					undefined,
-			},
-		}))
+		.map((item) => {
+			const parts = item.name.split("/");
+			const theme =
+				((item.meta as Record<string, unknown>)?.theme as string) ??
+				(parts.length === 3 ? parts[1] : "");
+			const semanticName =
+				((item.meta as Record<string, unknown>)?.semanticName as string) ??
+				(parts.length === 3 ? parts[2] : item.name);
+
+			return {
+				name: item.name,
+				title: item.title,
+				description: item.description,
+				author: item.author ?? "Unknown",
+				meta: {
+					duration: item.meta?.duration ?? 0,
+					sizeKb: item.meta?.sizeKb ?? 0,
+					license: item.meta?.license ?? "Unknown",
+					tags: item.meta?.tags ?? [],
+					keywords:
+						((item.meta as Record<string, unknown>)?.keywords as string[]) ??
+						[],
+					theme,
+					semanticName,
+				},
+			};
+		})
 		.sort((a, b) => a.title.localeCompare(b.title));
 }
 

@@ -1,33 +1,61 @@
 import type {
-  RegistryItem,
-  RegistryCatalog,
-  GenerateSoundParams,
+	GenerateSoundParams,
+	RegistryCatalog,
+	RegistryItem,
 } from "../types.js";
+import { buildItemUrl } from "./naming.js";
 
 /**
  * Fetch a single registry item by name.
  * GET {registryUrl}/r/{name}.json
  */
 export async function fetchItem(
-  registryUrl: string,
-  name: string,
+	registryUrl: string,
+	name: string,
 ): Promise<RegistryItem> {
-  const url = `${registryUrl}/r/${name}.json`;
-  let response: Response;
+	const url = `${registryUrl}/r/${name}.json`;
+	let response: Response;
 
-  try {
-    response = await fetch(url);
-  } catch {
-    throw new Error(
-      `Could not reach the audx registry at ${registryUrl}. Check your network connection.`,
-    );
-  }
+	try {
+		response = await fetch(url);
+	} catch {
+		throw new Error(
+			`Could not reach the audx registry at ${registryUrl}. Check your network connection.`,
+		);
+	}
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch '${name}': HTTP ${response.status}`);
-  }
+	if (!response.ok) {
+		throw new Error(`Failed to fetch '${name}': HTTP ${response.status}`);
+	}
 
-  return (await response.json()) as RegistryItem;
+	return (await response.json()) as RegistryItem;
+}
+
+/**
+ * Fetch a themed registry item by theme and semantic name.
+ * Uses buildItemUrl to construct: GET {registryUrl}/r/audio/{theme}/{name}.json
+ */
+export async function fetchThemedItem(
+	registryUrl: string,
+	theme: string,
+	name: string,
+): Promise<RegistryItem> {
+	const url = buildItemUrl(registryUrl, theme, name);
+	let response: Response;
+
+	try {
+		response = await fetch(url);
+	} catch {
+		throw new Error(
+			`Could not reach the audx registry at ${registryUrl}. Check your network connection.`,
+		);
+	}
+
+	if (!response.ok) {
+		throw new Error(`Failed to fetch '${name}': HTTP ${response.status}`);
+	}
+
+	return (await response.json()) as RegistryItem;
 }
 
 /**
@@ -35,26 +63,26 @@ export async function fetchItem(
  * GET {registryUrl}/r/registry.json
  */
 export async function fetchCatalog(
-  registryUrl: string,
+	registryUrl: string,
 ): Promise<RegistryCatalog> {
-  const url = `${registryUrl}/r/registry.json`;
-  let response: Response;
+	const url = `${registryUrl}/r/registry.json`;
+	let response: Response;
 
-  try {
-    response = await fetch(url);
-  } catch {
-    throw new Error(
-      `Could not reach the audx registry at ${registryUrl}. Check your network connection.`,
-    );
-  }
+	try {
+		response = await fetch(url);
+	} catch {
+		throw new Error(
+			`Could not reach the audx registry at ${registryUrl}. Check your network connection.`,
+		);
+	}
 
-  if (!response.ok) {
-    throw new Error(
-      `Failed to fetch registry catalog: HTTP ${response.status}`,
-    );
-  }
+	if (!response.ok) {
+		throw new Error(
+			`Failed to fetch registry catalog: HTTP ${response.status}`,
+		);
+	}
 
-  return (await response.json()) as RegistryCatalog;
+	return (await response.json()) as RegistryCatalog;
 }
 
 /**
@@ -63,35 +91,35 @@ export async function fetchCatalog(
  * Returns raw audio bytes as a Buffer.
  */
 export async function generateSound(
-  registryUrl: string,
-  params: GenerateSoundParams,
+	registryUrl: string,
+	params: GenerateSoundParams,
 ): Promise<Buffer> {
-  const url = `${registryUrl}/api/generate-sound`;
-  let response: Response;
+	const url = `${registryUrl}/api/generate-sound`;
+	let response: Response;
 
-  try {
-    response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(params),
-    });
-  } catch {
-    throw new Error(
-      `Could not reach the audx registry at ${registryUrl}. Check your network connection.`,
-    );
-  }
+	try {
+		response = await fetch(url, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(params),
+		});
+	} catch {
+		throw new Error(
+			`Could not reach the audx registry at ${registryUrl}. Check your network connection.`,
+		);
+	}
 
-  if (!response.ok) {
-    let errorMessage: string;
-    try {
-      const body = (await response.json()) as { error?: string };
-      errorMessage = body.error ?? `HTTP ${response.status}`;
-    } catch {
-      errorMessage = `HTTP ${response.status}`;
-    }
-    throw new Error(errorMessage);
-  }
+	if (!response.ok) {
+		let errorMessage: string;
+		try {
+			const body = (await response.json()) as { error?: string };
+			errorMessage = body.error ?? `HTTP ${response.status}`;
+		} catch {
+			errorMessage = `HTTP ${response.status}`;
+		}
+		throw new Error(errorMessage);
+	}
 
-  const arrayBuffer = await response.arrayBuffer();
-  return Buffer.from(arrayBuffer);
+	const arrayBuffer = await response.arrayBuffer();
+	return Buffer.from(arrayBuffer);
 }

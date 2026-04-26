@@ -7,12 +7,13 @@ import type { AudxConfig } from "../../../src/types.js";
 
 function makeValidConfig(overrides: Partial<AudxConfig> = {}): AudxConfig {
 	return {
-		soundDir: "src/sounds",
+		soundDir: "assets/audio",
 		libDir: "src/lib",
 		registryUrl: "https://audx.site",
 		packageManager: "npm",
+		theme: "minimal",
 		aliases: { lib: "@/lib", hooks: "@/hooks", sounds: "@/sounds" },
-		installedSounds: {},
+		installedSounds: [],
 		...overrides,
 	};
 }

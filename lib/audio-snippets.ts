@@ -1,4 +1,4 @@
-import { getInstallPrefix, type PackageManager } from "@/lib/package-manager";
+import type { PackageManager } from "@/lib/package-manager";
 
 function toCamelCase(name: string): string {
 	return name.replace(/-([a-z0-9])/g, (_, c) => c.toUpperCase());
@@ -11,14 +11,13 @@ export interface AudioSnippets {
 }
 
 export function getAudioSnippets(
-	name: string,
-	pm: PackageManager,
+	semanticName: string,
+	_pm: PackageManager,
 ): AudioSnippets {
-	const exportName = `${toCamelCase(name)}Audio`;
-	const prefix = getInstallPrefix(pm);
-	const installCmd = `${prefix} add use-audio ${name}`;
+	const exportName = `${toCamelCase(semanticName)}Audio`;
+	const installCmd = `npx audx add ${semanticName}`;
 	const usageCode = `import { useAudio } from "@/hooks/use-audio";
-import { ${exportName} } from "@/sounds/${name}";
+import { ${exportName} } from "@/assets/audio/${semanticName}";
 
 const [play] = useAudio(${exportName});`;
 	return { exportName, installCmd, usageCode };

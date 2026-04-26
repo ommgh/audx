@@ -1,6 +1,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import * as ConfigManager from "../core/config.js";
+import { buildSoundFilePath } from "../core/naming.js";
 import { generateSound } from "../core/registry.js";
 import { deriveKebabName, encodeAudioToDataUri } from "../core/utils.js";
 import type { GenerateSoundParams } from "../types.js";
@@ -57,7 +58,6 @@ export async function generateCommand(
 	options: { name?: string; duration?: string },
 	projectRoot: string,
 ): Promise<void> {
-	// Requirement 8.8 — config must exist
 	if (!ConfigManager.exists(projectRoot)) {
 		console.error("Configuration not found. Run 'audx init' first.");
 		process.exit(1);
@@ -65,13 +65,13 @@ export async function generateCommand(
 
 	const config = ConfigManager.read(projectRoot);
 
-	// Requirement 8.2 / 8.3 — derive or use provided name
+	// Requirement 13.2 — derive or use provided name
 	const soundName = options.name ?? deriveKebabName(prompt);
 
 	// Build API params
 	const params: GenerateSoundParams = { text: prompt };
 
-	// Requirement 8.4 — optional duration
+	// Optional duration
 	if (options.duration !== undefined) {
 		const dur = Number(options.duration);
 		if (Number.isNaN(dur) || dur < 0.5 || dur > 22) {
@@ -82,11 +82,10 @@ export async function generateCommand(
 	}
 
 	try {
-		// Requirement 8.1 — POST to generation API
 		console.log(`Generating sound "${soundName}" from prompt: "${prompt}"...`);
 		const audioBuffer = await generateSound(config.registryUrl, params);
 
-		// Requirement 8.5 — encode as base64 data URI and create Sound_Module
+		// Encode as base64 data URI and create Sound_Module
 		const dataUri = encodeAudioToDataUri(audioBuffer);
 		const moduleContent = buildSoundModule(
 			soundName,
@@ -94,28 +93,24 @@ export async function generateCommand(
 			params.duration_seconds,
 		);
 
-		// Write to soundDir
+		// Requirement 13.1 — write to {soundDir}/{name}.ts using buildSoundFilePath
 		const targetDir = join(projectRoot, config.soundDir);
 		mkdirSync(targetDir, { recursive: true });
-		const filePath = join(targetDir, `${soundName}.ts`);
+		const filePath = buildSoundFilePath(targetDir, soundName);
 		writeFileSync(filePath, moduleContent, "utf-8");
 
-		// Requirement 8.6 — update installedSounds in config
-		const updatedConfig = {
+		// Requirement 13.3 — update installedSounds as flat string array, avoid duplicates
+		const updatedInstalledSounds = [...config.installedSounds];
+		if (!updatedInstalledSounds.includes(soundName)) {
+			updatedInstalledSounds.push(soundName);
+		}
+		ConfigManager.write(projectRoot, {
 			...config,
-			installedSounds: {
-				...config.installedSounds,
-				[soundName]: {
-					files: [filePath],
-					installedAt: new Date().toISOString(),
-				},
-			},
-		};
-		ConfigManager.write(projectRoot, updatedConfig);
+			installedSounds: updatedInstalledSounds,
+		});
 
 		console.log(`✔ Generated and installed ${soundName}`);
 	} catch (error) {
-		// Requirement 8.7 — handle API errors
 		const message = error instanceof Error ? error.message : String(error);
 		console.error(`✘ ${message}`);
 		process.exit(2);

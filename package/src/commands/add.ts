@@ -4,7 +4,7 @@ import { createInterface } from "node:readline";
 import { loadFromTsConfig } from "../core/alias-resolver.js";
 import * as ConfigManager from "../core/config.js";
 import { writeRegistryFile } from "../core/file-writer.js";
-import { fetchItem } from "../core/registry.js";
+import { fetchThemedItem } from "../core/registry.js";
 import type { AudxConfig, RegistryFile } from "../types.js";
 
 /**
@@ -38,7 +38,7 @@ function getConflictPath(
 		targetPath = join(hooksDir, fileName);
 	} else if (file.type === "registry:lib") {
 		const normalised = file.path.replace(/\\/g, "/");
-		if (normalised.includes("/sounds/")) {
+		if (normalised.startsWith("audio/") || normalised.includes("/audio/")) {
 			targetPath = join(targetDir, fileName);
 		} else {
 			targetPath = join(config.libDir, fileName);
@@ -58,7 +58,7 @@ function isDependencyFile(file: RegistryFile): boolean {
 	if (file.type === "registry:hook") return true;
 	if (file.type === "registry:lib") {
 		const normalised = file.path.replace(/\\/g, "/");
-		return !normalised.includes("/sounds/");
+		return !(normalised.startsWith("audio/") || normalised.includes("/audio/"));
 	}
 	return false;
 }
@@ -67,7 +67,7 @@ export async function addCommand(
 	sounds: string[],
 	projectRoot: string,
 ): Promise<void> {
-	// Requirement 3.8 — config must exist
+	// Requirement 5.6 — config must exist
 	if (!ConfigManager.exists(projectRoot)) {
 		console.error("Configuration not found. Run 'audx init' first.");
 		process.exit(1);
@@ -75,28 +75,27 @@ export async function addCommand(
 
 	const config = ConfigManager.read(projectRoot);
 	const aliasMap = loadFromTsConfig(projectRoot);
-	const updatedConfig = {
-		...config,
-		installedSounds: { ...config.installedSounds },
-	};
+	const updatedInstalledSounds = [...config.installedSounds];
 
 	for (const soundName of sounds) {
 		try {
-			// Requirement 3.1 — fetch registry item
-			const item = await fetchItem(config.registryUrl, soundName);
+			// Requirement 5.1, 5.2 — fetch themed registry item using config.theme
+			const item = await fetchThemedItem(
+				config.registryUrl,
+				config.theme,
+				soundName,
+			);
 			const targetDir = join(projectRoot, config.soundDir);
-			const writtenFiles: string[] = [];
 
 			for (const file of item.files) {
-				// Requirement 3.5 — skip dependency files that already exist
+				// Skip dependency files that already exist
 				if (isDependencyFile(file)) {
 					const conflictPath = getConflictPath(file, targetDir, config);
 					if (conflictPath) {
-						writtenFiles.push(conflictPath);
 						continue;
 					}
 				} else {
-					// Requirement 3.9 — prompt on file conflicts for non-dependency files
+					// Prompt on file conflicts for non-dependency files
 					const conflictPath = getConflictPath(file, targetDir, config);
 					if (conflictPath) {
 						const overwrite = await confirm(
@@ -109,27 +108,18 @@ export async function addCommand(
 					}
 				}
 
-				// Requirement 3.2, 3.3 — write file with import rewriting
-				const writtenPath = writeRegistryFile(
-					file,
-					targetDir,
-					aliasMap,
-					config,
-				);
-				if (writtenPath) {
-					writtenFiles.push(writtenPath);
-				}
+				// Requirement 5.3 — write file to {soundDir}/{semantic-name}.ts
+				writeRegistryFile(file, targetDir, aliasMap, config);
 			}
 
-			// Requirement 3.6 — update installedSounds in config
-			updatedConfig.installedSounds[soundName] = {
-				files: writtenFiles,
-				installedAt: new Date().toISOString(),
-			};
+			// Requirement 5.4 — update installedSounds as flat string array, avoid duplicates
+			if (!updatedInstalledSounds.includes(soundName)) {
+				updatedInstalledSounds.push(soundName);
+			}
 
 			console.log(`✔ Added ${soundName}`);
 		} catch (error) {
-			// Requirement 3.7 — handle HTTP errors with sound name and status code
+			// Requirement 5.5 — handle HTTP errors with sound name and status code
 			const message = error instanceof Error ? error.message : String(error);
 			console.error(`✘ ${message}`);
 			process.exit(2);
@@ -137,5 +127,8 @@ export async function addCommand(
 	}
 
 	// Write updated config once after all sounds are processed
-	ConfigManager.write(projectRoot, updatedConfig);
+	ConfigManager.write(projectRoot, {
+		...config,
+		installedSounds: updatedInstalledSounds,
+	});
 }
