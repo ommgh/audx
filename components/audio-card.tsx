@@ -19,7 +19,7 @@ export const AudioCard = memo(function AudioCard({
 }: AudioCardProps) {
 	return (
 		<Link
-			href={`/audio/${item.name}`}
+			href={`/audio/${item.meta.theme}/${item.meta.semanticName}`}
 			onPointerEnter={(e) => {
 				e.currentTarget.focus({ preventScroll: true });
 				onPreviewStart(item.name);

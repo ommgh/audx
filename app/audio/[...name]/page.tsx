@@ -4,18 +4,29 @@ import { SoundDetailPage } from "@/components/audio-detail-page";
 import { getAllAudio, getAudioByName } from "@/lib/audio-data";
 
 interface PageProps {
-	params: Promise<{ name: string }>;
+	params: Promise<{ name: string[] }>;
+}
+
+function buildLookupName(segments: string[]): string {
+	// URL: /audio/minimal/alert → segments: ["minimal", "alert"]
+	// Lookup key: "audio/minimal/alert"
+	return `audio/${segments.join("/")}`;
 }
 
 export async function generateStaticParams() {
-	return getAllAudio().map((s) => ({ name: s.name }));
+	return getAllAudio().map((s) => {
+		// s.name is "audio/minimal/alert" → strip "audio/" prefix and split
+		const withoutPrefix = s.name.replace(/^audio\//, "");
+		return { name: withoutPrefix.split("/") };
+	});
 }
 
 export async function generateMetadata({
 	params,
 }: PageProps): Promise<Metadata> {
 	const { name } = await params;
-	const audio = getAudioByName(name);
+	const lookupName = buildLookupName(name);
+	const audio = getAudioByName(lookupName);
 	if (!audio) return {};
 
 	const title = `${audio.title} - UI Audio Effect`;
@@ -23,13 +34,15 @@ export async function generateMetadata({
 		audio.description ||
 		`${audio.title} is a free UI audio effect. Duration: ${audio.meta.duration.toFixed(2)}s. Install with a single CLI command.`;
 
+	const urlPath = name.join("/");
+
 	return {
 		title,
 		description,
 		openGraph: {
 			title,
 			description,
-			url: `https://audx.site/sound/${name}`,
+			url: `https://audx.site/audio/${urlPath}`,
 			type: "website",
 		},
 		twitter: {
@@ -38,14 +51,15 @@ export async function generateMetadata({
 			description,
 		},
 		alternates: {
-			canonical: `https://audx.site/sound/${name}`,
+			canonical: `https://audx.site/audio/${urlPath}`,
 		},
 	};
 }
 
 export default async function AudioDetailPage({ params }: PageProps) {
 	const { name } = await params;
-	const audio = getAudioByName(name);
+	const lookupName = buildLookupName(name);
+	const audio = getAudioByName(lookupName);
 	if (!audio) notFound();
 
 	return <SoundDetailPage audio={audio} />;
