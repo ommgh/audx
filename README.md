@@ -1,4 +1,5 @@
-# audx
+## <img src="https://res.cloudinary.com/dcwsgwsfw/image/upload/v1777189809/audx-banner-final_rl6wci.png">
+
 
 Open-source library of customizable UI sound effects for modern web apps. Browse, preview, and install audio assets — clicks, scrolls, notifications, and more — with a single command.
 
