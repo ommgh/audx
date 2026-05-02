@@ -13,11 +13,11 @@ import {
 import { cn } from "@/lib/utils";
 
 function pickHeroWords(items: AudioCatalogItem[], count: number): string[] {
-	if (items.length === 0) return ["click-001"];
+	if (items.length === 0) return ["click"];
 	const step = Math.max(1, Math.floor(items.length / count));
 	const picked: string[] = [];
 	for (let i = 0; i < items.length && picked.length < count; i += step) {
-		picked.push(items[i].name);
+		picked.push(items[i].meta.semanticName);
 	}
 	return picked;
 }

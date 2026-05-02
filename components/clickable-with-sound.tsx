@@ -2,7 +2,7 @@
 
 import { cloneElement, type ReactElement } from "react";
 import { useAudio } from "@/hooks/use-sound";
-import { click001Audio } from "@/registry/audx/audio/click-001/click-001";
+import { clickMinimal001Audio } from "@/registry/audx/audio/minimal/click/click";
 
 export function ClickableWithSound({
 	children,
@@ -11,7 +11,7 @@ export function ClickableWithSound({
 	children: ReactElement<{ onClick?: (...args: unknown[]) => void }>;
 	volume?: number;
 }) {
-	const [play] = useAudio(click001Audio, { volume, interrupt: true });
+	const [play] = useAudio(clickMinimal001Audio, { volume, interrupt: true });
 
 	return cloneElement(children, {
 		onClick: (...args: unknown[]) => {

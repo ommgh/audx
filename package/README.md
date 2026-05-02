@@ -1,6 +1,6 @@
 # audx
 
-CLI tool for distributing and managing UI sounds from the [audx](https://audx.dev) registry.
+CLI tool for distributing and managing UI sounds from the [audx](https://audx.site) registry.
 
 ## Install
 
@@ -64,7 +64,7 @@ Running `audx init` creates `audx.config.json`:
 {
   "soundDir": "src/sounds",
   "libDir": "src/lib",
-  "registryUrl": "https://audx.dev",
+  "registryUrl": "https://audx.site",
   "packageManager": "pnpm",
   "aliases": {
     "lib": "@/lib",

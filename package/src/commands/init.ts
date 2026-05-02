@@ -6,6 +6,8 @@ import * as ConfigManager from "../core/config.js";
 import { detectPackageManager } from "../core/package-manager.js";
 import type { AudxConfig } from "../types.js";
 
+const AVAILABLE_THEMES = ["minimal", "playful"] as const;
+
 /**
  * Prompt the user with a yes/no question via stdin/stdout.
  * Returns `true` when the user answers y/yes (case-insensitive).
@@ -16,6 +18,30 @@ function confirm(question: string): Promise<boolean> {
 		rl.question(question, (answer) => {
 			rl.close();
 			resolve(/^y(es)?$/i.test(answer.trim()));
+		});
+	});
+}
+
+/**
+ * Prompt the user to select a theme from the available themes list.
+ * Displays a numbered list and returns the selected theme name.
+ */
+function selectTheme(): Promise<string> {
+	const rl = createInterface({ input: process.stdin, output: process.stdout });
+	return new Promise((resolve) => {
+		console.log("\nAvailable themes:");
+		for (let i = 0; i < AVAILABLE_THEMES.length; i++) {
+			console.log(`  ${i + 1}. ${AVAILABLE_THEMES[i]}`);
+		}
+		rl.question("\nSelect a theme (number): ", (answer) => {
+			rl.close();
+			const index = Number.parseInt(answer.trim(), 10) - 1;
+			if (index >= 0 && index < AVAILABLE_THEMES.length) {
+				resolve(AVAILABLE_THEMES[index]);
+			} else {
+				// Default to first theme on invalid input
+				resolve(AVAILABLE_THEMES[0]);
+			}
 		});
 	});
 }
@@ -51,7 +77,7 @@ function resolveAliases(aliasMap: ReturnType<typeof loadFromTsConfig>): {
 }
 
 export async function initCommand(projectRoot: string): Promise<void> {
-	// Requirement 2.6 — must be inside a Node.js project
+	// Requirement 4.7 — must be inside a Node.js project
 	if (!existsSync(join(projectRoot, "package.json"))) {
 		console.error(
 			"No package.json found. Run 'audx init' inside a Node.js project.",
@@ -59,7 +85,7 @@ export async function initCommand(projectRoot: string): Promise<void> {
 		process.exit(1);
 	}
 
-	// Requirement 2.5 — prompt before overwriting existing config
+	// Requirement 4.4, 4.5 — prompt before overwriting existing config
 	if (ConfigManager.exists(projectRoot)) {
 		const overwrite = await confirm(
 			"audx.config.json already exists. Overwrite? (y/N) ",
@@ -70,28 +96,33 @@ export async function initCommand(projectRoot: string): Promise<void> {
 		}
 	}
 
-	// Requirement 2.2 — detect package manager
+	// Requirement 4.1 — prompt for theme selection
+	const theme = await selectTheme();
+
+	// Requirement 4.6 — detect package manager
 	const packageManager = detectPackageManager(projectRoot);
 
-	// Requirement 2.3 — read tsconfig aliases
+	// Read tsconfig aliases
 	const aliasMap = loadFromTsConfig(projectRoot);
 	const aliases = resolveAliases(aliasMap);
 
-	// Requirement 2.4 — build default config
+	// Requirement 4.2, 4.3 — build config with theme and new defaults
 	const config: AudxConfig = {
 		$schema: "https://audx.site/schema/config.json",
-		soundDir: "src/sounds",
+		soundDir: "assets/audio",
 		libDir: "src/lib",
 		registryUrl: "https://audx.site",
 		packageManager,
+		theme,
 		aliases,
-		installedSounds: {},
+		installedSounds: [],
 	};
 
-	// Requirement 2.1 — write config
+	// Write config
 	ConfigManager.write(projectRoot, config);
 
 	console.log("✔ Created audx.config.json");
+	console.log(`  Theme: ${theme}`);
 	console.log(`  Package manager: ${packageManager}`);
 	console.log(
 		`  Aliases: ${aliasMap.hasAliases ? "detected from tsconfig" : "using default paths"}`,

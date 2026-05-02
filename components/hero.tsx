@@ -12,8 +12,8 @@ export function Hero({ items }: { items: AudioCatalogItem[] }) {
 				</h1>
 
 				<p className="text-muted-foreground mt-5 max-w-lg text-base text-pretty text-center leading-relaxed sm:text-lg">
-					Open-source UI sound effects for modern web apps. Install any audio
-					with a single CLI command.
+					Open-source UI sound effects for modern web apps <br />
+					Install any audio with a single CLI command
 				</p>
 
 				<div className="mt-8 w-full max-w-[620px]">

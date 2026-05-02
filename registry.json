@@ -49,161 +49,13 @@
 			]
 		},
 		{
-			"name": "back-001",
-			"type": "registry:block",
-			"title": "Back 001",
-			"description": "A very quick, subtle sound effect suitable for navigating back in a UI or undoing a simple action.",
-			"files": [
-				{
-					"path": "registry/audx/audio/back-001/back-001.ts",
-					"type": "registry:lib"
-				},
-				{
-					"path": "registry/audx/lib/audio-types.ts",
-					"type": "registry:lib"
-				},
-				{
-					"path": "registry/audx/lib/audio-engine.ts",
-					"type": "registry:lib"
-				}
-			],
-			"author": "Kenney <https://kenney.nl>",
-			"meta": {
-				"duration": 0.061,
-				"format": "mp3",
-				"sizeKb": 1,
-				"license": "CC0",
-				"tags": [
-					"back",
-					"undo",
-					"navigate",
-					"ui"
-				],
-				"keywords": [
-					"back",
-					"undo",
-					"return",
-					"navigate",
-					"ui",
-					"menu",
-					"previous",
-					"dismiss",
-					"close",
-					"escape",
-					"feedback",
-					"subtle",
-					"quick",
-					"minimal"
-				]
-			}
-		},
-		{
-			"name": "click-001",
-			"type": "registry:block",
-			"title": "Click 001",
-			"description": "A very short, high-pitched click sound, ideal for a light, responsive button press or a subtle interactive element.",
-			"files": [
-				{
-					"path": "registry/audx/audio/click-001/click-001.ts",
-					"type": "registry:lib"
-				},
-				{
-					"path": "registry/audx/lib/audio-types.ts",
-					"type": "registry:lib"
-				},
-				{
-					"path": "registry/audx/lib/audio-engine.ts",
-					"type": "registry:lib"
-				}
-			],
-			"author": "Kenney <https://kenney.nl>",
-			"meta": {
-				"duration": 0.097,
-				"format": "mp3",
-				"sizeKb": 1,
-				"license": "CC0",
-				"tags": [
-					"click",
-					"button",
-					"tap",
-					"ui"
-				],
-				"keywords": [
-					"button press",
-					"interactive element",
-					"light click",
-					"ui feedback",
-					"subtle",
-					"responsive",
-					"tap",
-					"select",
-					"press",
-					"confirm",
-					"quick",
-					"clean",
-					"minimal",
-					"digital"
-				]
-			}
-		},
-		{
-			"name": "scroll-001",
-			"type": "registry:block",
-			"title": "Scroll 001",
-			"description": "A smooth, continuous scrolling sound effect, ideal for indicating content navigation, a list moving, or a wheel spinning within a UI.",
-			"files": [
-				{
-					"path": "registry/audx/audio/scroll-001/scroll-001.ts",
-					"type": "registry:lib"
-				},
-				{
-					"path": "registry/audx/lib/audio-types.ts",
-					"type": "registry:lib"
-				},
-				{
-					"path": "registry/audx/lib/audio-engine.ts",
-					"type": "registry:lib"
-				}
-			],
-			"author": "Kenney <https://kenney.nl>",
-			"meta": {
-				"duration": 1,
-				"format": "mp3",
-				"sizeKb": 8,
-				"license": "CC0",
-				"tags": [
-					"scroll",
-					"navigation",
-					"ui",
-					"list"
-				],
-				"keywords": [
-					"scroll",
-					"navigation",
-					"list",
-					"wheel",
-					"continuous",
-					"smooth",
-					"ui element",
-					"feedback",
-					"browsing",
-					"menu",
-					"selection",
-					"content",
-					"movement",
-					"subtle",
-					"interactive"
-				]
-			}
-		},
-		{
-			"name": "success-minimal-001",
+			"name": "audio/minimal/success",
 			"type": "registry:block",
 			"title": "Success (Minimal)",
 			"description": "A clear, minimal success feedback sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/success-minimal-001/success-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/success/success.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -238,13 +90,13 @@
 			}
 		},
 		{
-			"name": "error-minimal-001",
+			"name": "audio/minimal/error",
 			"type": "registry:block",
 			"title": "Error (Minimal)",
 			"description": "A clear, minimal error feedback sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/error-minimal-001/error-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/error/error.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -279,13 +131,13 @@
 			}
 		},
 		{
-			"name": "warning-minimal-001",
+			"name": "audio/minimal/warning",
 			"type": "registry:block",
 			"title": "Warning (Minimal)",
 			"description": "A clear, minimal warning feedback sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/warning-minimal-001/warning-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/warning/warning.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -320,13 +172,13 @@
 			}
 		},
 		{
-			"name": "info-minimal-001",
+			"name": "audio/minimal/info",
 			"type": "registry:block",
 			"title": "Info (Minimal)",
 			"description": "A subtle info notification tone.",
 			"files": [
 				{
-					"path": "registry/audx/audio/info-minimal-001/info-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/info/info.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -361,13 +213,13 @@
 			}
 		},
 		{
-			"name": "click-minimal-001",
+			"name": "audio/minimal/click",
 			"type": "registry:block",
 			"title": "Click (Minimal)",
 			"description": "A clean, minimal click sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/click-minimal-001/click-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/click/click.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -402,13 +254,13 @@
 			}
 		},
 		{
-			"name": "back-minimal-001",
+			"name": "audio/minimal/back",
 			"type": "registry:block",
 			"title": "Back (Minimal)",
 			"description": "A subtle back sound for navigation feedback.",
 			"files": [
 				{
-					"path": "registry/audx/audio/back-minimal-001/back-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/back/back.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -443,13 +295,13 @@
 			}
 		},
 		{
-			"name": "enter-minimal-001",
+			"name": "audio/minimal/enter",
 			"type": "registry:block",
 			"title": "Enter (Minimal)",
 			"description": "A clean, minimal enter sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/enter-minimal-001/enter-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/enter/enter.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -484,13 +336,13 @@
 			}
 		},
 		{
-			"name": "delete-minimal-001",
+			"name": "audio/minimal/delete",
 			"type": "registry:block",
 			"title": "Delete (Minimal)",
 			"description": "A subtle delete sound for destructive actions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/delete-minimal-001/delete-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/delete/delete.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -525,13 +377,13 @@
 			}
 		},
 		{
-			"name": "copy-minimal-001",
+			"name": "audio/minimal/copy",
 			"type": "registry:block",
 			"title": "Copy (Minimal)",
 			"description": "A subtle copy clipboard action sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/copy-minimal-001/copy-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/copy/copy.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -566,13 +418,13 @@
 			}
 		},
 		{
-			"name": "paste-minimal-001",
+			"name": "audio/minimal/paste",
 			"type": "registry:block",
 			"title": "Paste (Minimal)",
 			"description": "A subtle paste clipboard action sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/paste-minimal-001/paste-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/paste/paste.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -607,13 +459,13 @@
 			}
 		},
 		{
-			"name": "scroll-minimal-001",
+			"name": "audio/minimal/scroll",
 			"type": "registry:block",
 			"title": "Scroll (Minimal)",
 			"description": "A subtle scroll sound for navigation feedback.",
 			"files": [
 				{
-					"path": "registry/audx/audio/scroll-minimal-001/scroll-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/scroll/scroll.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -648,13 +500,13 @@
 			}
 		},
 		{
-			"name": "hover-minimal-001",
+			"name": "audio/minimal/hover",
 			"type": "registry:block",
 			"title": "Hover (Minimal)",
 			"description": "A clean, minimal hover sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/hover-minimal-001/hover-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/hover/hover.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -689,13 +541,13 @@
 			}
 		},
 		{
-			"name": "toggle-minimal-001",
+			"name": "audio/minimal/toggle",
 			"type": "registry:block",
 			"title": "Toggle (Minimal)",
 			"description": "A clean, minimal toggle sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/toggle-minimal-001/toggle-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/toggle/toggle.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -730,13 +582,13 @@
 			}
 		},
 		{
-			"name": "notify-minimal-001",
+			"name": "audio/minimal/notify",
 			"type": "registry:block",
 			"title": "Notify (Minimal)",
 			"description": "A subtle notify notification tone.",
 			"files": [
 				{
-					"path": "registry/audx/audio/notify-minimal-001/notify-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/notify/notify.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -771,13 +623,13 @@
 			}
 		},
 		{
-			"name": "complete-minimal-001",
+			"name": "audio/minimal/complete",
 			"type": "registry:block",
 			"title": "Complete (Minimal)",
 			"description": "A clear, minimal complete feedback sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/complete-minimal-001/complete-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/complete/complete.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -812,13 +664,13 @@
 			}
 		},
 		{
-			"name": "loading-minimal-001",
+			"name": "audio/minimal/loading",
 			"type": "registry:block",
 			"title": "Loading (Minimal)",
 			"description": "A minimal loading progress indicator sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/loading-minimal-001/loading-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/loading/loading.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -853,13 +705,13 @@
 			}
 		},
 		{
-			"name": "tap-minimal-001",
+			"name": "audio/minimal/tap",
 			"type": "registry:block",
 			"title": "Tap (Minimal)",
 			"description": "A clean, minimal tap sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/tap-minimal-001/tap-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/tap/tap.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -894,13 +746,13 @@
 			}
 		},
 		{
-			"name": "press-minimal-001",
+			"name": "audio/minimal/press",
 			"type": "registry:block",
 			"title": "Press (Minimal)",
 			"description": "A clean, minimal press sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/press-minimal-001/press-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/press/press.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -935,13 +787,13 @@
 			}
 		},
 		{
-			"name": "release-minimal-001",
+			"name": "audio/minimal/release",
 			"type": "registry:block",
 			"title": "Release (Minimal)",
 			"description": "A clean, minimal release sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/release-minimal-001/release-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/release/release.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -976,13 +828,13 @@
 			}
 		},
 		{
-			"name": "drag-minimal-001",
+			"name": "audio/minimal/drag",
 			"type": "registry:block",
 			"title": "Drag (Minimal)",
 			"description": "A clean, minimal drag sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/drag-minimal-001/drag-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/drag/drag.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1017,13 +869,13 @@
 			}
 		},
 		{
-			"name": "drop-minimal-001",
+			"name": "audio/minimal/drop",
 			"type": "registry:block",
 			"title": "Drop (Minimal)",
 			"description": "A clean, minimal drop sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/drop-minimal-001/drop-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/drop/drop.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1058,13 +910,13 @@
 			}
 		},
 		{
-			"name": "select-minimal-001",
+			"name": "audio/minimal/select",
 			"type": "registry:block",
 			"title": "Select (Minimal)",
 			"description": "A clean, minimal select sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/select-minimal-001/select-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/select/select.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1099,13 +951,13 @@
 			}
 		},
 		{
-			"name": "deselect-minimal-001",
+			"name": "audio/minimal/deselect",
 			"type": "registry:block",
 			"title": "Deselect (Minimal)",
 			"description": "A clean, minimal deselect sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/deselect-minimal-001/deselect-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/deselect/deselect.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1140,13 +992,13 @@
 			}
 		},
 		{
-			"name": "focus-minimal-001",
+			"name": "audio/minimal/focus",
 			"type": "registry:block",
 			"title": "Focus (Minimal)",
 			"description": "A clean, minimal focus sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/focus-minimal-001/focus-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/focus/focus.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1181,13 +1033,13 @@
 			}
 		},
 		{
-			"name": "blur-minimal-001",
+			"name": "audio/minimal/blur",
 			"type": "registry:block",
 			"title": "Blur (Minimal)",
 			"description": "A clean, minimal blur sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/blur-minimal-001/blur-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/blur/blur.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1222,13 +1074,13 @@
 			}
 		},
 		{
-			"name": "forward-minimal-001",
+			"name": "audio/minimal/forward",
 			"type": "registry:block",
 			"title": "Forward (Minimal)",
 			"description": "A subtle forward sound for navigation feedback.",
 			"files": [
 				{
-					"path": "registry/audx/audio/forward-minimal-001/forward-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/forward/forward.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1263,13 +1115,13 @@
 			}
 		},
 		{
-			"name": "open-minimal-001",
+			"name": "audio/minimal/open",
 			"type": "registry:block",
 			"title": "Open (Minimal)",
 			"description": "A subtle open sound for navigation feedback.",
 			"files": [
 				{
-					"path": "registry/audx/audio/open-minimal-001/open-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/open/open.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1304,13 +1156,13 @@
 			}
 		},
 		{
-			"name": "close-minimal-001",
+			"name": "audio/minimal/close",
 			"type": "registry:block",
 			"title": "Close (Minimal)",
 			"description": "A subtle close sound for navigation feedback.",
 			"files": [
 				{
-					"path": "registry/audx/audio/close-minimal-001/close-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/close/close.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1345,13 +1197,13 @@
 			}
 		},
 		{
-			"name": "expand-minimal-001",
+			"name": "audio/minimal/expand",
 			"type": "registry:block",
 			"title": "Expand (Minimal)",
 			"description": "A subtle expand sound for navigation feedback.",
 			"files": [
 				{
-					"path": "registry/audx/audio/expand-minimal-001/expand-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/expand/expand.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1386,13 +1238,13 @@
 			}
 		},
 		{
-			"name": "collapse-minimal-001",
+			"name": "audio/minimal/collapse",
 			"type": "registry:block",
 			"title": "Collapse (Minimal)",
 			"description": "A subtle collapse sound for navigation feedback.",
 			"files": [
 				{
-					"path": "registry/audx/audio/collapse-minimal-001/collapse-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/collapse/collapse.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1427,13 +1279,13 @@
 			}
 		},
 		{
-			"name": "tab-minimal-001",
+			"name": "audio/minimal/tab",
 			"type": "registry:block",
 			"title": "Tab (Minimal)",
 			"description": "A subtle tab sound for navigation feedback.",
 			"files": [
 				{
-					"path": "registry/audx/audio/tab-minimal-001/tab-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/tab/tab.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1468,13 +1320,13 @@
 			}
 		},
 		{
-			"name": "swipe-minimal-001",
+			"name": "audio/minimal/swipe",
 			"type": "registry:block",
 			"title": "Swipe (Minimal)",
 			"description": "A subtle swipe sound for navigation feedback.",
 			"files": [
 				{
-					"path": "registry/audx/audio/swipe-minimal-001/swipe-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/swipe/swipe.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1509,13 +1361,13 @@
 			}
 		},
 		{
-			"name": "confirm-minimal-001",
+			"name": "audio/minimal/confirm",
 			"type": "registry:block",
 			"title": "Confirm (Minimal)",
 			"description": "A clear, minimal confirm feedback sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/confirm-minimal-001/confirm-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/confirm/confirm.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1550,13 +1402,13 @@
 			}
 		},
 		{
-			"name": "cancel-minimal-001",
+			"name": "audio/minimal/cancel",
 			"type": "registry:block",
 			"title": "Cancel (Minimal)",
 			"description": "A clear, minimal cancel feedback sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/cancel-minimal-001/cancel-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/cancel/cancel.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1591,13 +1443,13 @@
 			}
 		},
 		{
-			"name": "deny-minimal-001",
+			"name": "audio/minimal/deny",
 			"type": "registry:block",
 			"title": "Deny (Minimal)",
 			"description": "A clear, minimal deny feedback sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/deny-minimal-001/deny-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/deny/deny.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1632,13 +1484,13 @@
 			}
 		},
 		{
-			"name": "undo-minimal-001",
+			"name": "audio/minimal/undo",
 			"type": "registry:block",
 			"title": "Undo (Minimal)",
 			"description": "A clear, minimal undo feedback sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/undo-minimal-001/undo-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/undo/undo.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1673,13 +1525,13 @@
 			}
 		},
 		{
-			"name": "redo-minimal-001",
+			"name": "audio/minimal/redo",
 			"type": "registry:block",
 			"title": "Redo (Minimal)",
 			"description": "A clear, minimal redo feedback sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/redo-minimal-001/redo-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/redo/redo.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1714,13 +1566,13 @@
 			}
 		},
 		{
-			"name": "alert-minimal-001",
+			"name": "audio/minimal/alert",
 			"type": "registry:block",
 			"title": "Alert (Minimal)",
 			"description": "A subtle alert notification tone.",
 			"files": [
 				{
-					"path": "registry/audx/audio/alert-minimal-001/alert-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/alert/alert.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1755,13 +1607,13 @@
 			}
 		},
 		{
-			"name": "message-minimal-001",
+			"name": "audio/minimal/message",
 			"type": "registry:block",
 			"title": "Message (Minimal)",
 			"description": "A subtle message notification tone.",
 			"files": [
 				{
-					"path": "registry/audx/audio/message-minimal-001/message-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/message/message.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1796,13 +1648,13 @@
 			}
 		},
 		{
-			"name": "reminder-minimal-001",
+			"name": "audio/minimal/reminder",
 			"type": "registry:block",
 			"title": "Reminder (Minimal)",
 			"description": "A subtle reminder notification tone.",
 			"files": [
 				{
-					"path": "registry/audx/audio/reminder-minimal-001/reminder-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/reminder/reminder.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1837,13 +1689,13 @@
 			}
 		},
 		{
-			"name": "mention-minimal-001",
+			"name": "audio/minimal/mention",
 			"type": "registry:block",
 			"title": "Mention (Minimal)",
 			"description": "A subtle mention notification tone.",
 			"files": [
 				{
-					"path": "registry/audx/audio/mention-minimal-001/mention-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/mention/mention.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1878,13 +1730,13 @@
 			}
 		},
 		{
-			"name": "show-minimal-001",
+			"name": "audio/minimal/show",
 			"type": "registry:block",
 			"title": "Show (Minimal)",
 			"description": "A clean show transition sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/show-minimal-001/show-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/show/show.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1919,13 +1771,13 @@
 			}
 		},
 		{
-			"name": "hide-minimal-001",
+			"name": "audio/minimal/hide",
 			"type": "registry:block",
 			"title": "Hide (Minimal)",
 			"description": "A clean hide transition sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/hide-minimal-001/hide-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/hide/hide.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -1960,13 +1812,13 @@
 			}
 		},
 		{
-			"name": "slide-minimal-001",
+			"name": "audio/minimal/slide",
 			"type": "registry:block",
 			"title": "Slide (Minimal)",
 			"description": "A clean slide transition sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/slide-minimal-001/slide-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/slide/slide.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2001,13 +1853,13 @@
 			}
 		},
 		{
-			"name": "fade-minimal-001",
+			"name": "audio/minimal/fade",
 			"type": "registry:block",
 			"title": "Fade (Minimal)",
 			"description": "A clean fade transition sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/fade-minimal-001/fade-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/fade/fade.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2042,13 +1894,13 @@
 			}
 		},
 		{
-			"name": "pop-minimal-001",
+			"name": "audio/minimal/pop",
 			"type": "registry:block",
 			"title": "Pop (Minimal)",
 			"description": "A clean pop transition sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/pop-minimal-001/pop-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/pop/pop.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2083,13 +1935,13 @@
 			}
 		},
 		{
-			"name": "clear-minimal-001",
+			"name": "audio/minimal/clear",
 			"type": "registry:block",
 			"title": "Clear (Minimal)",
 			"description": "A subtle clear sound for destructive actions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/clear-minimal-001/clear-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/clear/clear.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2124,13 +1976,13 @@
 			}
 		},
 		{
-			"name": "remove-minimal-001",
+			"name": "audio/minimal/remove",
 			"type": "registry:block",
 			"title": "Remove (Minimal)",
 			"description": "A subtle remove sound for destructive actions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/remove-minimal-001/remove-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/remove/remove.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2165,13 +2017,13 @@
 			}
 		},
 		{
-			"name": "trash-minimal-001",
+			"name": "audio/minimal/trash",
 			"type": "registry:block",
 			"title": "Trash (Minimal)",
 			"description": "A subtle trash sound for destructive actions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/trash-minimal-001/trash-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/trash/trash.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2206,13 +2058,13 @@
 			}
 		},
 		{
-			"name": "shred-minimal-001",
+			"name": "audio/minimal/shred",
 			"type": "registry:block",
 			"title": "Shred (Minimal)",
 			"description": "A subtle shred sound for destructive actions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/shred-minimal-001/shred-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/shred/shred.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2247,13 +2099,13 @@
 			}
 		},
 		{
-			"name": "upload-minimal-001",
+			"name": "audio/minimal/upload",
 			"type": "registry:block",
 			"title": "Upload (Minimal)",
 			"description": "A minimal upload progress indicator sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/upload-minimal-001/upload-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/upload/upload.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2288,13 +2140,13 @@
 			}
 		},
 		{
-			"name": "download-minimal-001",
+			"name": "audio/minimal/download",
 			"type": "registry:block",
 			"title": "Download (Minimal)",
 			"description": "A minimal download progress indicator sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/download-minimal-001/download-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/download/download.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2329,13 +2181,13 @@
 			}
 		},
 		{
-			"name": "refresh-minimal-001",
+			"name": "audio/minimal/refresh",
 			"type": "registry:block",
 			"title": "Refresh (Minimal)",
 			"description": "A minimal refresh progress indicator sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/refresh-minimal-001/refresh-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/refresh/refresh.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2370,13 +2222,13 @@
 			}
 		},
 		{
-			"name": "sync-minimal-001",
+			"name": "audio/minimal/sync",
 			"type": "registry:block",
 			"title": "Sync (Minimal)",
 			"description": "A minimal sync progress indicator sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/sync-minimal-001/sync-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/sync/sync.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2411,13 +2263,13 @@
 			}
 		},
 		{
-			"name": "process-minimal-001",
+			"name": "audio/minimal/process",
 			"type": "registry:block",
 			"title": "Process (Minimal)",
 			"description": "A minimal process progress indicator sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/process-minimal-001/process-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/process/process.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2452,13 +2304,13 @@
 			}
 		},
 		{
-			"name": "cut-minimal-001",
+			"name": "audio/minimal/cut",
 			"type": "registry:block",
 			"title": "Cut (Minimal)",
 			"description": "A subtle cut clipboard action sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/cut-minimal-001/cut-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/cut/cut.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2493,13 +2345,13 @@
 			}
 		},
 		{
-			"name": "snapshot-minimal-001",
+			"name": "audio/minimal/snapshot",
 			"type": "registry:block",
 			"title": "Snapshot (Minimal)",
 			"description": "A subtle snapshot clipboard action sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/snapshot-minimal-001/snapshot-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/snapshot/snapshot.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2534,13 +2386,13 @@
 			}
 		},
 		{
-			"name": "lock-minimal-001",
+			"name": "audio/minimal/lock",
 			"type": "registry:block",
 			"title": "Lock (Minimal)",
 			"description": "A clean lock state change sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/lock-minimal-001/lock-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/lock/lock.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2575,13 +2427,13 @@
 			}
 		},
 		{
-			"name": "unlock-minimal-001",
+			"name": "audio/minimal/unlock",
 			"type": "registry:block",
 			"title": "Unlock (Minimal)",
 			"description": "A clean unlock state change sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/unlock-minimal-001/unlock-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/unlock/unlock.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2616,13 +2468,13 @@
 			}
 		},
 		{
-			"name": "enable-minimal-001",
+			"name": "audio/minimal/enable",
 			"type": "registry:block",
 			"title": "Enable (Minimal)",
 			"description": "A clean enable state change sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/enable-minimal-001/enable-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/enable/enable.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2657,13 +2509,13 @@
 			}
 		},
 		{
-			"name": "disable-minimal-001",
+			"name": "audio/minimal/disable",
 			"type": "registry:block",
 			"title": "Disable (Minimal)",
 			"description": "A clean disable state change sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/disable-minimal-001/disable-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/disable/disable.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2698,13 +2550,13 @@
 			}
 		},
 		{
-			"name": "connect-minimal-001",
+			"name": "audio/minimal/connect",
 			"type": "registry:block",
 			"title": "Connect (Minimal)",
 			"description": "A clean connect state change sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/connect-minimal-001/connect-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/connect/connect.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2739,13 +2591,13 @@
 			}
 		},
 		{
-			"name": "disconnect-minimal-001",
+			"name": "audio/minimal/disconnect",
 			"type": "registry:block",
 			"title": "Disconnect (Minimal)",
 			"description": "A clean disconnect state change sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/disconnect-minimal-001/disconnect-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/disconnect/disconnect.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2780,13 +2632,13 @@
 			}
 		},
 		{
-			"name": "mute-minimal-001",
+			"name": "audio/minimal/mute",
 			"type": "registry:block",
 			"title": "Mute (Minimal)",
 			"description": "A subtle mute media control sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/mute-minimal-001/mute-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/mute/mute.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2821,13 +2673,13 @@
 			}
 		},
 		{
-			"name": "unmute-minimal-001",
+			"name": "audio/minimal/unmute",
 			"type": "registry:block",
 			"title": "Unmute (Minimal)",
 			"description": "A subtle unmute media control sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/unmute-minimal-001/unmute-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/unmute/unmute.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2862,13 +2714,13 @@
 			}
 		},
 		{
-			"name": "record-minimal-001",
+			"name": "audio/minimal/record",
 			"type": "registry:block",
 			"title": "Record (Minimal)",
 			"description": "A subtle record media control sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/record-minimal-001/record-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/record/record.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2903,13 +2755,13 @@
 			}
 		},
 		{
-			"name": "capture-minimal-001",
+			"name": "audio/minimal/capture",
 			"type": "registry:block",
 			"title": "Capture (Minimal)",
 			"description": "A subtle capture media control sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/capture-minimal-001/capture-minimal-001.ts",
+					"path": "registry/audx/audio/minimal/capture/capture.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2944,13 +2796,13 @@
 			}
 		},
 		{
-			"name": "success-playful-001",
+			"name": "audio/playful/success",
 			"type": "registry:block",
 			"title": "Success (Playful)",
 			"description": "An expressive success feedback sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/success-playful-001/success-playful-001.ts",
+					"path": "registry/audx/audio/playful/success/success.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -2985,13 +2837,13 @@
 			}
 		},
 		{
-			"name": "error-playful-001",
+			"name": "audio/playful/error",
 			"type": "registry:block",
 			"title": "Error (Playful)",
 			"description": "An expressive error feedback sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/error-playful-001/error-playful-001.ts",
+					"path": "registry/audx/audio/playful/error/error.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3026,13 +2878,13 @@
 			}
 		},
 		{
-			"name": "warning-playful-001",
+			"name": "audio/playful/warning",
 			"type": "registry:block",
 			"title": "Warning (Playful)",
 			"description": "An expressive warning feedback sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/warning-playful-001/warning-playful-001.ts",
+					"path": "registry/audx/audio/playful/warning/warning.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3067,13 +2919,13 @@
 			}
 		},
 		{
-			"name": "info-playful-001",
+			"name": "audio/playful/info",
 			"type": "registry:block",
 			"title": "Info (Playful)",
 			"description": "A cheerful info notification tone.",
 			"files": [
 				{
-					"path": "registry/audx/audio/info-playful-001/info-playful-001.ts",
+					"path": "registry/audx/audio/playful/info/info.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3108,13 +2960,13 @@
 			}
 		},
 		{
-			"name": "click-playful-001",
+			"name": "audio/playful/click",
 			"type": "registry:block",
 			"title": "Click (Playful)",
 			"description": "A rich, expressive click sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/click-playful-001/click-playful-001.ts",
+					"path": "registry/audx/audio/playful/click/click.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3149,13 +3001,13 @@
 			}
 		},
 		{
-			"name": "back-playful-001",
+			"name": "audio/playful/back",
 			"type": "registry:block",
 			"title": "Back (Playful)",
 			"description": "A playful back sound for navigation feedback.",
 			"files": [
 				{
-					"path": "registry/audx/audio/back-playful-001/back-playful-001.ts",
+					"path": "registry/audx/audio/playful/back/back.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3190,13 +3042,13 @@
 			}
 		},
 		{
-			"name": "enter-playful-001",
+			"name": "audio/playful/enter",
 			"type": "registry:block",
 			"title": "Enter (Playful)",
 			"description": "A rich, expressive enter sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/enter-playful-001/enter-playful-001.ts",
+					"path": "registry/audx/audio/playful/enter/enter.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3231,13 +3083,13 @@
 			}
 		},
 		{
-			"name": "delete-playful-001",
+			"name": "audio/playful/delete",
 			"type": "registry:block",
 			"title": "Delete (Playful)",
 			"description": "A dramatic delete sound for destructive actions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/delete-playful-001/delete-playful-001.ts",
+					"path": "registry/audx/audio/playful/delete/delete.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3272,13 +3124,13 @@
 			}
 		},
 		{
-			"name": "copy-playful-001",
+			"name": "audio/playful/copy",
 			"type": "registry:block",
 			"title": "Copy (Playful)",
 			"description": "A satisfying copy clipboard action sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/copy-playful-001/copy-playful-001.ts",
+					"path": "registry/audx/audio/playful/copy/copy.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3313,13 +3165,13 @@
 			}
 		},
 		{
-			"name": "paste-playful-001",
+			"name": "audio/playful/paste",
 			"type": "registry:block",
 			"title": "Paste (Playful)",
 			"description": "A satisfying paste clipboard action sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/paste-playful-001/paste-playful-001.ts",
+					"path": "registry/audx/audio/playful/paste/paste.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3354,13 +3206,13 @@
 			}
 		},
 		{
-			"name": "scroll-playful-001",
+			"name": "audio/playful/scroll",
 			"type": "registry:block",
 			"title": "Scroll (Playful)",
 			"description": "A playful scroll sound for navigation feedback.",
 			"files": [
 				{
-					"path": "registry/audx/audio/scroll-playful-001/scroll-playful-001.ts",
+					"path": "registry/audx/audio/playful/scroll/scroll.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3395,13 +3247,13 @@
 			}
 		},
 		{
-			"name": "hover-playful-001",
+			"name": "audio/playful/hover",
 			"type": "registry:block",
 			"title": "Hover (Playful)",
 			"description": "A rich, expressive hover sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/hover-playful-001/hover-playful-001.ts",
+					"path": "registry/audx/audio/playful/hover/hover.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3436,13 +3288,13 @@
 			}
 		},
 		{
-			"name": "toggle-playful-001",
+			"name": "audio/playful/toggle",
 			"type": "registry:block",
 			"title": "Toggle (Playful)",
 			"description": "A rich, expressive toggle sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/toggle-playful-001/toggle-playful-001.ts",
+					"path": "registry/audx/audio/playful/toggle/toggle.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3477,13 +3329,13 @@
 			}
 		},
 		{
-			"name": "notify-playful-001",
+			"name": "audio/playful/notify",
 			"type": "registry:block",
 			"title": "Notify (Playful)",
 			"description": "A cheerful notify notification tone.",
 			"files": [
 				{
-					"path": "registry/audx/audio/notify-playful-001/notify-playful-001.ts",
+					"path": "registry/audx/audio/playful/notify/notify.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3518,13 +3370,13 @@
 			}
 		},
 		{
-			"name": "complete-playful-001",
+			"name": "audio/playful/complete",
 			"type": "registry:block",
 			"title": "Complete (Playful)",
 			"description": "An expressive complete feedback sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/complete-playful-001/complete-playful-001.ts",
+					"path": "registry/audx/audio/playful/complete/complete.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3559,13 +3411,13 @@
 			}
 		},
 		{
-			"name": "loading-playful-001",
+			"name": "audio/playful/loading",
 			"type": "registry:block",
 			"title": "Loading (Playful)",
 			"description": "An engaging loading progress indicator sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/loading-playful-001/loading-playful-001.ts",
+					"path": "registry/audx/audio/playful/loading/loading.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3600,13 +3452,13 @@
 			}
 		},
 		{
-			"name": "tap-playful-001",
+			"name": "audio/playful/tap",
 			"type": "registry:block",
 			"title": "Tap (Playful)",
 			"description": "A rich, expressive tap sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/tap-playful-001/tap-playful-001.ts",
+					"path": "registry/audx/audio/playful/tap/tap.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3641,13 +3493,13 @@
 			}
 		},
 		{
-			"name": "press-playful-001",
+			"name": "audio/playful/press",
 			"type": "registry:block",
 			"title": "Press (Playful)",
 			"description": "A rich, expressive press sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/press-playful-001/press-playful-001.ts",
+					"path": "registry/audx/audio/playful/press/press.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3682,13 +3534,13 @@
 			}
 		},
 		{
-			"name": "release-playful-001",
+			"name": "audio/playful/release",
 			"type": "registry:block",
 			"title": "Release (Playful)",
 			"description": "A rich, expressive release sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/release-playful-001/release-playful-001.ts",
+					"path": "registry/audx/audio/playful/release/release.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3723,13 +3575,13 @@
 			}
 		},
 		{
-			"name": "drag-playful-001",
+			"name": "audio/playful/drag",
 			"type": "registry:block",
 			"title": "Drag (Playful)",
 			"description": "A rich, expressive drag sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/drag-playful-001/drag-playful-001.ts",
+					"path": "registry/audx/audio/playful/drag/drag.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3764,13 +3616,13 @@
 			}
 		},
 		{
-			"name": "drop-playful-001",
+			"name": "audio/playful/drop",
 			"type": "registry:block",
 			"title": "Drop (Playful)",
 			"description": "A rich, expressive drop sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/drop-playful-001/drop-playful-001.ts",
+					"path": "registry/audx/audio/playful/drop/drop.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3805,13 +3657,13 @@
 			}
 		},
 		{
-			"name": "select-playful-001",
+			"name": "audio/playful/select",
 			"type": "registry:block",
 			"title": "Select (Playful)",
 			"description": "A rich, expressive select sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/select-playful-001/select-playful-001.ts",
+					"path": "registry/audx/audio/playful/select/select.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3846,13 +3698,13 @@
 			}
 		},
 		{
-			"name": "deselect-playful-001",
+			"name": "audio/playful/deselect",
 			"type": "registry:block",
 			"title": "Deselect (Playful)",
 			"description": "A rich, expressive deselect sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/deselect-playful-001/deselect-playful-001.ts",
+					"path": "registry/audx/audio/playful/deselect/deselect.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3887,13 +3739,13 @@
 			}
 		},
 		{
-			"name": "focus-playful-001",
+			"name": "audio/playful/focus",
 			"type": "registry:block",
 			"title": "Focus (Playful)",
 			"description": "A rich, expressive focus sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/focus-playful-001/focus-playful-001.ts",
+					"path": "registry/audx/audio/playful/focus/focus.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3928,13 +3780,13 @@
 			}
 		},
 		{
-			"name": "blur-playful-001",
+			"name": "audio/playful/blur",
 			"type": "registry:block",
 			"title": "Blur (Playful)",
 			"description": "A rich, expressive blur sound for UI interactions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/blur-playful-001/blur-playful-001.ts",
+					"path": "registry/audx/audio/playful/blur/blur.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -3969,13 +3821,13 @@
 			}
 		},
 		{
-			"name": "forward-playful-001",
+			"name": "audio/playful/forward",
 			"type": "registry:block",
 			"title": "Forward (Playful)",
 			"description": "A playful forward sound for navigation feedback.",
 			"files": [
 				{
-					"path": "registry/audx/audio/forward-playful-001/forward-playful-001.ts",
+					"path": "registry/audx/audio/playful/forward/forward.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4010,13 +3862,13 @@
 			}
 		},
 		{
-			"name": "open-playful-001",
+			"name": "audio/playful/open",
 			"type": "registry:block",
 			"title": "Open (Playful)",
 			"description": "A playful open sound for navigation feedback.",
 			"files": [
 				{
-					"path": "registry/audx/audio/open-playful-001/open-playful-001.ts",
+					"path": "registry/audx/audio/playful/open/open.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4051,13 +3903,13 @@
 			}
 		},
 		{
-			"name": "close-playful-001",
+			"name": "audio/playful/close",
 			"type": "registry:block",
 			"title": "Close (Playful)",
 			"description": "A playful close sound for navigation feedback.",
 			"files": [
 				{
-					"path": "registry/audx/audio/close-playful-001/close-playful-001.ts",
+					"path": "registry/audx/audio/playful/close/close.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4092,13 +3944,13 @@
 			}
 		},
 		{
-			"name": "expand-playful-001",
+			"name": "audio/playful/expand",
 			"type": "registry:block",
 			"title": "Expand (Playful)",
 			"description": "A playful expand sound for navigation feedback.",
 			"files": [
 				{
-					"path": "registry/audx/audio/expand-playful-001/expand-playful-001.ts",
+					"path": "registry/audx/audio/playful/expand/expand.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4133,13 +3985,13 @@
 			}
 		},
 		{
-			"name": "collapse-playful-001",
+			"name": "audio/playful/collapse",
 			"type": "registry:block",
 			"title": "Collapse (Playful)",
 			"description": "A playful collapse sound for navigation feedback.",
 			"files": [
 				{
-					"path": "registry/audx/audio/collapse-playful-001/collapse-playful-001.ts",
+					"path": "registry/audx/audio/playful/collapse/collapse.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4174,13 +4026,13 @@
 			}
 		},
 		{
-			"name": "tab-playful-001",
+			"name": "audio/playful/tab",
 			"type": "registry:block",
 			"title": "Tab (Playful)",
 			"description": "A playful tab sound for navigation feedback.",
 			"files": [
 				{
-					"path": "registry/audx/audio/tab-playful-001/tab-playful-001.ts",
+					"path": "registry/audx/audio/playful/tab/tab.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4215,13 +4067,13 @@
 			}
 		},
 		{
-			"name": "swipe-playful-001",
+			"name": "audio/playful/swipe",
 			"type": "registry:block",
 			"title": "Swipe (Playful)",
 			"description": "A playful swipe sound for navigation feedback.",
 			"files": [
 				{
-					"path": "registry/audx/audio/swipe-playful-001/swipe-playful-001.ts",
+					"path": "registry/audx/audio/playful/swipe/swipe.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4256,13 +4108,13 @@
 			}
 		},
 		{
-			"name": "confirm-playful-001",
+			"name": "audio/playful/confirm",
 			"type": "registry:block",
 			"title": "Confirm (Playful)",
 			"description": "An expressive confirm feedback sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/confirm-playful-001/confirm-playful-001.ts",
+					"path": "registry/audx/audio/playful/confirm/confirm.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4297,13 +4149,13 @@
 			}
 		},
 		{
-			"name": "cancel-playful-001",
+			"name": "audio/playful/cancel",
 			"type": "registry:block",
 			"title": "Cancel (Playful)",
 			"description": "An expressive cancel feedback sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/cancel-playful-001/cancel-playful-001.ts",
+					"path": "registry/audx/audio/playful/cancel/cancel.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4338,13 +4190,13 @@
 			}
 		},
 		{
-			"name": "deny-playful-001",
+			"name": "audio/playful/deny",
 			"type": "registry:block",
 			"title": "Deny (Playful)",
 			"description": "An expressive deny feedback sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/deny-playful-001/deny-playful-001.ts",
+					"path": "registry/audx/audio/playful/deny/deny.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4379,13 +4231,13 @@
 			}
 		},
 		{
-			"name": "undo-playful-001",
+			"name": "audio/playful/undo",
 			"type": "registry:block",
 			"title": "Undo (Playful)",
 			"description": "An expressive undo feedback sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/undo-playful-001/undo-playful-001.ts",
+					"path": "registry/audx/audio/playful/undo/undo.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4420,13 +4272,13 @@
 			}
 		},
 		{
-			"name": "redo-playful-001",
+			"name": "audio/playful/redo",
 			"type": "registry:block",
 			"title": "Redo (Playful)",
 			"description": "An expressive redo feedback sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/redo-playful-001/redo-playful-001.ts",
+					"path": "registry/audx/audio/playful/redo/redo.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4461,13 +4313,13 @@
 			}
 		},
 		{
-			"name": "alert-playful-001",
+			"name": "audio/playful/alert",
 			"type": "registry:block",
 			"title": "Alert (Playful)",
 			"description": "A cheerful alert notification tone.",
 			"files": [
 				{
-					"path": "registry/audx/audio/alert-playful-001/alert-playful-001.ts",
+					"path": "registry/audx/audio/playful/alert/alert.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4502,13 +4354,13 @@
 			}
 		},
 		{
-			"name": "message-playful-001",
+			"name": "audio/playful/message",
 			"type": "registry:block",
 			"title": "Message (Playful)",
 			"description": "A cheerful message notification tone.",
 			"files": [
 				{
-					"path": "registry/audx/audio/message-playful-001/message-playful-001.ts",
+					"path": "registry/audx/audio/playful/message/message.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4543,13 +4395,13 @@
 			}
 		},
 		{
-			"name": "reminder-playful-001",
+			"name": "audio/playful/reminder",
 			"type": "registry:block",
 			"title": "Reminder (Playful)",
 			"description": "A cheerful reminder notification tone.",
 			"files": [
 				{
-					"path": "registry/audx/audio/reminder-playful-001/reminder-playful-001.ts",
+					"path": "registry/audx/audio/playful/reminder/reminder.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4584,13 +4436,13 @@
 			}
 		},
 		{
-			"name": "mention-playful-001",
+			"name": "audio/playful/mention",
 			"type": "registry:block",
 			"title": "Mention (Playful)",
 			"description": "A cheerful mention notification tone.",
 			"files": [
 				{
-					"path": "registry/audx/audio/mention-playful-001/mention-playful-001.ts",
+					"path": "registry/audx/audio/playful/mention/mention.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4625,13 +4477,13 @@
 			}
 		},
 		{
-			"name": "show-playful-001",
+			"name": "audio/playful/show",
 			"type": "registry:block",
 			"title": "Show (Playful)",
 			"description": "A smooth, expressive show transition sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/show-playful-001/show-playful-001.ts",
+					"path": "registry/audx/audio/playful/show/show.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4666,13 +4518,13 @@
 			}
 		},
 		{
-			"name": "hide-playful-001",
+			"name": "audio/playful/hide",
 			"type": "registry:block",
 			"title": "Hide (Playful)",
 			"description": "A smooth, expressive hide transition sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/hide-playful-001/hide-playful-001.ts",
+					"path": "registry/audx/audio/playful/hide/hide.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4707,13 +4559,13 @@
 			}
 		},
 		{
-			"name": "slide-playful-001",
+			"name": "audio/playful/slide",
 			"type": "registry:block",
 			"title": "Slide (Playful)",
 			"description": "A smooth, expressive slide transition sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/slide-playful-001/slide-playful-001.ts",
+					"path": "registry/audx/audio/playful/slide/slide.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4748,13 +4600,13 @@
 			}
 		},
 		{
-			"name": "fade-playful-001",
+			"name": "audio/playful/fade",
 			"type": "registry:block",
 			"title": "Fade (Playful)",
 			"description": "A smooth, expressive fade transition sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/fade-playful-001/fade-playful-001.ts",
+					"path": "registry/audx/audio/playful/fade/fade.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4789,13 +4641,13 @@
 			}
 		},
 		{
-			"name": "pop-playful-001",
+			"name": "audio/playful/pop",
 			"type": "registry:block",
 			"title": "Pop (Playful)",
 			"description": "A smooth, expressive pop transition sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/pop-playful-001/pop-playful-001.ts",
+					"path": "registry/audx/audio/playful/pop/pop.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4830,13 +4682,13 @@
 			}
 		},
 		{
-			"name": "clear-playful-001",
+			"name": "audio/playful/clear",
 			"type": "registry:block",
 			"title": "Clear (Playful)",
 			"description": "A dramatic clear sound for destructive actions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/clear-playful-001/clear-playful-001.ts",
+					"path": "registry/audx/audio/playful/clear/clear.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4871,13 +4723,13 @@
 			}
 		},
 		{
-			"name": "remove-playful-001",
+			"name": "audio/playful/remove",
 			"type": "registry:block",
 			"title": "Remove (Playful)",
 			"description": "A dramatic remove sound for destructive actions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/remove-playful-001/remove-playful-001.ts",
+					"path": "registry/audx/audio/playful/remove/remove.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4912,13 +4764,13 @@
 			}
 		},
 		{
-			"name": "trash-playful-001",
+			"name": "audio/playful/trash",
 			"type": "registry:block",
 			"title": "Trash (Playful)",
 			"description": "A dramatic trash sound for destructive actions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/trash-playful-001/trash-playful-001.ts",
+					"path": "registry/audx/audio/playful/trash/trash.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4953,13 +4805,13 @@
 			}
 		},
 		{
-			"name": "shred-playful-001",
+			"name": "audio/playful/shred",
 			"type": "registry:block",
 			"title": "Shred (Playful)",
 			"description": "A dramatic shred sound for destructive actions.",
 			"files": [
 				{
-					"path": "registry/audx/audio/shred-playful-001/shred-playful-001.ts",
+					"path": "registry/audx/audio/playful/shred/shred.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -4994,13 +4846,13 @@
 			}
 		},
 		{
-			"name": "upload-playful-001",
+			"name": "audio/playful/upload",
 			"type": "registry:block",
 			"title": "Upload (Playful)",
 			"description": "An engaging upload progress indicator sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/upload-playful-001/upload-playful-001.ts",
+					"path": "registry/audx/audio/playful/upload/upload.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -5035,13 +4887,13 @@
 			}
 		},
 		{
-			"name": "download-playful-001",
+			"name": "audio/playful/download",
 			"type": "registry:block",
 			"title": "Download (Playful)",
 			"description": "An engaging download progress indicator sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/download-playful-001/download-playful-001.ts",
+					"path": "registry/audx/audio/playful/download/download.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -5076,13 +4928,13 @@
 			}
 		},
 		{
-			"name": "refresh-playful-001",
+			"name": "audio/playful/refresh",
 			"type": "registry:block",
 			"title": "Refresh (Playful)",
 			"description": "An engaging refresh progress indicator sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/refresh-playful-001/refresh-playful-001.ts",
+					"path": "registry/audx/audio/playful/refresh/refresh.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -5117,13 +4969,13 @@
 			}
 		},
 		{
-			"name": "sync-playful-001",
+			"name": "audio/playful/sync",
 			"type": "registry:block",
 			"title": "Sync (Playful)",
 			"description": "An engaging sync progress indicator sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/sync-playful-001/sync-playful-001.ts",
+					"path": "registry/audx/audio/playful/sync/sync.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -5158,13 +5010,13 @@
 			}
 		},
 		{
-			"name": "process-playful-001",
+			"name": "audio/playful/process",
 			"type": "registry:block",
 			"title": "Process (Playful)",
 			"description": "An engaging process progress indicator sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/process-playful-001/process-playful-001.ts",
+					"path": "registry/audx/audio/playful/process/process.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -5199,13 +5051,13 @@
 			}
 		},
 		{
-			"name": "cut-playful-001",
+			"name": "audio/playful/cut",
 			"type": "registry:block",
 			"title": "Cut (Playful)",
 			"description": "A satisfying cut clipboard action sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/cut-playful-001/cut-playful-001.ts",
+					"path": "registry/audx/audio/playful/cut/cut.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -5240,13 +5092,13 @@
 			}
 		},
 		{
-			"name": "snapshot-playful-001",
+			"name": "audio/playful/snapshot",
 			"type": "registry:block",
 			"title": "Snapshot (Playful)",
 			"description": "A satisfying snapshot clipboard action sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/snapshot-playful-001/snapshot-playful-001.ts",
+					"path": "registry/audx/audio/playful/snapshot/snapshot.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -5281,13 +5133,13 @@
 			}
 		},
 		{
-			"name": "lock-playful-001",
+			"name": "audio/playful/lock",
 			"type": "registry:block",
 			"title": "Lock (Playful)",
 			"description": "An expressive lock state change sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/lock-playful-001/lock-playful-001.ts",
+					"path": "registry/audx/audio/playful/lock/lock.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -5322,13 +5174,13 @@
 			}
 		},
 		{
-			"name": "unlock-playful-001",
+			"name": "audio/playful/unlock",
 			"type": "registry:block",
 			"title": "Unlock (Playful)",
 			"description": "An expressive unlock state change sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/unlock-playful-001/unlock-playful-001.ts",
+					"path": "registry/audx/audio/playful/unlock/unlock.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -5363,13 +5215,13 @@
 			}
 		},
 		{
-			"name": "enable-playful-001",
+			"name": "audio/playful/enable",
 			"type": "registry:block",
 			"title": "Enable (Playful)",
 			"description": "An expressive enable state change sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/enable-playful-001/enable-playful-001.ts",
+					"path": "registry/audx/audio/playful/enable/enable.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -5404,13 +5256,13 @@
 			}
 		},
 		{
-			"name": "disable-playful-001",
+			"name": "audio/playful/disable",
 			"type": "registry:block",
 			"title": "Disable (Playful)",
 			"description": "An expressive disable state change sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/disable-playful-001/disable-playful-001.ts",
+					"path": "registry/audx/audio/playful/disable/disable.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -5445,13 +5297,13 @@
 			}
 		},
 		{
-			"name": "connect-playful-001",
+			"name": "audio/playful/connect",
 			"type": "registry:block",
 			"title": "Connect (Playful)",
 			"description": "An expressive connect state change sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/connect-playful-001/connect-playful-001.ts",
+					"path": "registry/audx/audio/playful/connect/connect.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -5486,13 +5338,13 @@
 			}
 		},
 		{
-			"name": "disconnect-playful-001",
+			"name": "audio/playful/disconnect",
 			"type": "registry:block",
 			"title": "Disconnect (Playful)",
 			"description": "An expressive disconnect state change sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/disconnect-playful-001/disconnect-playful-001.ts",
+					"path": "registry/audx/audio/playful/disconnect/disconnect.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -5527,13 +5379,13 @@
 			}
 		},
 		{
-			"name": "mute-playful-001",
+			"name": "audio/playful/mute",
 			"type": "registry:block",
 			"title": "Mute (Playful)",
 			"description": "A rich mute media control sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/mute-playful-001/mute-playful-001.ts",
+					"path": "registry/audx/audio/playful/mute/mute.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -5568,13 +5420,13 @@
 			}
 		},
 		{
-			"name": "unmute-playful-001",
+			"name": "audio/playful/unmute",
 			"type": "registry:block",
 			"title": "Unmute (Playful)",
 			"description": "A rich unmute media control sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/unmute-playful-001/unmute-playful-001.ts",
+					"path": "registry/audx/audio/playful/unmute/unmute.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -5609,13 +5461,13 @@
 			}
 		},
 		{
-			"name": "record-playful-001",
+			"name": "audio/playful/record",
 			"type": "registry:block",
 			"title": "Record (Playful)",
 			"description": "A rich record media control sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/record-playful-001/record-playful-001.ts",
+					"path": "registry/audx/audio/playful/record/record.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -5650,13 +5502,13 @@
 			}
 		},
 		{
-			"name": "capture-playful-001",
+			"name": "audio/playful/capture",
 			"type": "registry:block",
 			"title": "Capture (Playful)",
 			"description": "A rich capture media control sound.",
 			"files": [
 				{
-					"path": "registry/audx/audio/capture-playful-001/capture-playful-001.ts",
+					"path": "registry/audx/audio/playful/capture/capture.ts",
 					"type": "registry:lib"
 				},
 				{

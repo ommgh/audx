@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useReducer, useRef } from "react";
+import { authClient } from "@/lib/auth-client";
 import {
 	PREVIEW_SOUNDS,
 	SOUND_PROMPT_TEMPLATES,
@@ -303,6 +304,7 @@ export function useThemeEditor(): {
 	saveTheme: () => Promise<void>;
 } {
 	const [state, dispatch] = useReducer(reducer, initialState);
+	const { data: session } = authClient.useSession();
 	const abortRef = useRef<AbortController | null>(null);
 	const blobUrlsRef = useRef<string[]>([]);
 
@@ -394,6 +396,15 @@ export function useThemeEditor(): {
 
 	const approvePreview = useCallback(async () => {
 		if (state.phase !== "preview-ready") return;
+
+		if (!session) {
+			dispatch({
+				type: "SET_ERROR",
+				error: "Sign in to generate full themes",
+			});
+			return;
+		}
+
 		const previewSet = new Set(PREVIEW_SOUNDS);
 		const remainingNames = SEMANTIC_SOUND_NAMES.filter(
 			(n) => !previewSet.has(n),

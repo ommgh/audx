@@ -1,10 +1,11 @@
-# audx
+## <img src="https://res.cloudinary.com/dcwsgwsfw/image/upload/v1777189809/audx-banner-final_rl6wci.png">
+
 
 Open-source library of customizable UI sound effects for modern web apps. Browse, preview, and install audio assets — clicks, scrolls, notifications, and more — with a single command.
 
 Sounds are distributed as TypeScript modules with inline base64-encoded audio, played via the Web Audio API at runtime. No external files to serve, no network requests at play time.
 
-🌐 [audx.dev](https://audx.dev) · 📦 [npm](https://www.npmjs.com/package/@litlab/audx) · 🐛 [Issues](https://github.com/ommgh/audx/issues)
+🌐 [audx.site](https://audx.site) · 📦 [npm](https://www.npmjs.com/package/@litlab/audx) · 🐛 [Issues](https://github.com/ommgh/audx/issues)
 
 ## Quick Start
 
@@ -19,7 +20,7 @@ npx @litlab/audx init
 npx @litlab/audx list
 
 # Add a sound
-npx @litlab/audx add click-001
+npx @litlab/audx add click
 ```
 
 ## Usage
@@ -28,7 +29,7 @@ npx @litlab/audx add click-001
 
 ```tsx
 import { useAudio } from "@/hooks/use-audio";
-import { click001 } from "@/sounds/click-001";
+import { click001 } from "@/sounds/click";
 
 function Button() {
   const [play] = useAudio(click001, { volume: 0.5 });
@@ -41,7 +42,7 @@ function Button() {
 
 ```ts
 import { createAudioEngine } from "@/lib/audio-engine";
-import { click001 } from "@/sounds/click-001";
+import { click001 } from "@/sounds/click";
 
 const engine = createAudioEngine();
 engine.play(click001.dataUri);
@@ -59,7 +60,7 @@ Sounds are organized by category and theme. Some examples:
 | Clipboard | copy, paste |
 | Selection | select, deselect, focus, blur |
 
-Each sound comes in themed variants (e.g. `click-minimal-001`). Browse the full catalog at [audx.dev](https://audx.dev).
+Each sound comes in themed variants (e.g. `click`). Browse the full catalog at [audx.site](https://audx.site).
 
 ## CLI Commands
 
@@ -74,7 +75,6 @@ Each sound comes in themed variants (e.g. `click-minimal-001`). Browse the full 
 | `audx generate "<prompt>"` | AI-generate a sound from a text prompt |
 | `audx theme init` | Create theme configuration |
 | `audx theme set <name>` | Switch active theme |
-| `audx theme map <semantic> <sound>` | Map a semantic name to a sound |
 | `audx theme create <name>` | Create a new theme |
 | `audx theme list` | List all themes |
 | `audx theme generate` | Generate `sound-theme.ts` |
@@ -91,9 +91,7 @@ Swap entire sound palettes by switching themes — no code changes needed.
 
 ```bash
 audx theme init
-audx theme map click click-minimal-001
-audx theme map success success-minimal-001
-audx theme generate
+audx theme set minimal
 ```
 
 ## Configuration
@@ -104,7 +102,7 @@ Running `audx init` creates `audx.config.json`:
 {
   "soundDir": "src/sounds",
   "libDir": "src/lib",
-  "registryUrl": "https://audx.dev",
+  "registryUrl": "https://audx.site",
   "packageManager": "pnpm",
   "aliases": {
     "lib": "@/lib",
@@ -127,7 +125,7 @@ The registry follows the [shadcn/ui](https://ui.shadcn.com) distribution model: 
 
 ```
 audx/
-├── app/              # Next.js website (audx.dev)
+├── app/              # Next.js website (audx.site)
 ├── components/       # Website React components
 ├── hooks/            # Website React hooks
 ├── lib/              # Website utilities

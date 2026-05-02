@@ -1,6 +1,10 @@
+import { put } from "@vercel/blob";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
+import { auth } from "@/lib/auth";
+import prisma from "@/lib/db";
 import { generateSoundSchema } from "@/lib/generate-sound-schema";
+import { checkRateLimit } from "@/lib/rate-limiter";
 
 const ELEVENLABS_URL = "https://api.elevenlabs.io/v1/sound-generation";
 
@@ -29,6 +33,25 @@ export async function POST(request: Request) {
 	try {
 		const body = await request.json();
 		const parsed = generateSoundSchema.parse(body);
+
+		const session = await auth.api.getSession({
+			headers: request.headers,
+		});
+
+		if (!session) {
+			const ip =
+				request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+				"unknown";
+			const rateLimit = checkRateLimit(ip, 2, 86400000);
+			if (!rateLimit.allowed) {
+				return NextResponse.json(
+					{
+						error: "Generation limit reached. Sign in for unlimited access.",
+					},
+					{ status: 429 },
+				);
+			}
+		}
 
 		const apiKey = process.env.ELEVENLABS_API_KEY;
 		if (!apiKey) {
@@ -83,6 +106,24 @@ export async function POST(request: Request) {
 		}
 
 		const audioBuffer = await response.arrayBuffer();
+
+		if (session) {
+			const blob = await put(`sounds/${Date.now()}.mp3`, audioBuffer, {
+				access: "public",
+				contentType: "audio/mpeg",
+			});
+
+			await prisma.generatedSound.create({
+				data: {
+					prompt: parsed.text,
+					blobUrl: blob.url,
+					duration: parsed.duration_seconds ?? 2,
+					sizeKb: Math.round(audioBuffer.byteLength / 1024),
+					userId: session.user.id,
+				},
+			});
+		}
+
 		return new Response(audioBuffer, {
 			status: 200,
 			headers: {

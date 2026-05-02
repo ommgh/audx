@@ -1,4 +1,4 @@
-import { RiSparklingLine } from "@remixicon/react";
+import { RiEditBoxLine } from "@remixicon/react";
 import Link from "next/link";
 import { AppLogo } from "@/components/app-logo";
 import { GithubStartsButton } from "@/components/github-button";
@@ -16,8 +16,8 @@ export function Header() {
 						href="/generate"
 						className="inline-flex items-center gap-1.5 bg-foreground text-background px-3 py-1.5 text-sm font-medium"
 					>
-						<RiSparklingLine size={16} />
-						Generate
+						<RiEditBoxLine size={16} />
+						Customize
 					</Link>
 				</div>
 			</div>

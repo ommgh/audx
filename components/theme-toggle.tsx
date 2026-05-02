@@ -2,6 +2,7 @@
 
 import { RiMoonLine, RiSunLine } from "@remixicon/react";
 import { useTheme } from "next-themes";
+import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
 
 export function ThemeToggle() {
@@ -9,13 +10,14 @@ export function ThemeToggle() {
 
 	return (
 		// biome-ignore lint/a11y/useButtonType: <explanation>
-		<button
+		<Button
 			onClick={() => {
 				const newTheme = resolvedTheme === "dark" ? "light" : "dark";
 				setTheme(newTheme);
 				trackEvent("theme_toggled", { theme: newTheme });
 			}}
-			className="text-muted-foreground hover:text-primary relative flex size-5 items-center justify-center transition-colors focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none focus-visible:rounded-sm"
+			className="p-4"
+			variant={"outline"}
 			aria-label="Toggle theme"
 		>
 			<RiSunLine
@@ -26,6 +28,6 @@ export function ThemeToggle() {
 				size={16}
 				className="absolute opacity-0 transition-opacity dark:opacity-100"
 			/>
-		</button>
+		</Button>
 	);
 }
