@@ -8,17 +8,19 @@ datasource db {
 }
 
 model User {
-  id            String    @id
-  name          String
-  email         String
-  emailVerified Boolean   @default(false)
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt
+  id              String           @id
+  name            String
+  email           String
+  emailVerified   Boolean          @default(false)
+  image           String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @default(now()) @updatedAt
+  dodoCustomerId  String?
   sessions        Session[]
   accounts        Account[]
   generatedThemes GeneratedTheme[]
   generatedSounds GeneratedSound[]
+  payments        Payment[]
 
   @@unique([email])
   @@map("user")
@@ -94,4 +96,19 @@ model GeneratedSound {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("generated_sound")
+}
+
+model Payment {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  paymentId   String   @unique
+  productId   String?
+  status      String
+  amount      Int
+  currency    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("payment")
 }

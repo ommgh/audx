@@ -5,7 +5,7 @@ export const profileRouter = createTRPCRouter({
 	getProfile: protectedProcedure.query(async ({ ctx }) => {
 		const userId = ctx.auth.user.id;
 
-		const [themes, sounds] = await Promise.all([
+		const [themes, sounds, payments] = await Promise.all([
 			prisma.generatedTheme.findMany({
 				where: { userId },
 				select: {
@@ -24,7 +24,21 @@ export const profileRouter = createTRPCRouter({
 					duration: true,
 				},
 			}),
+			prisma.payment.findMany({
+				where: { userId },
+				select: {
+					id: true,
+					paymentId: true,
+					status: true,
+					amount: true,
+					currency: true,
+					createdAt: true,
+				},
+				orderBy: { createdAt: "desc" },
+			}),
 		]);
+
+		const hasPro = payments.some((p) => p.status === "succeeded");
 
 		return {
 			user: {
@@ -32,6 +46,10 @@ export const profileRouter = createTRPCRouter({
 				name: ctx.auth.user.name,
 				email: ctx.auth.user.email,
 				image: ctx.auth.user.image ?? null,
+			},
+			plan: {
+				isPro: hasPro,
+				payments,
 			},
 			themes,
 			sounds,
