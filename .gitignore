@@ -37,13 +37,10 @@ yarn-error.log*
 .zed
 .vscode
 .kiro
-/powers
+./powers
 
 # vercel
 .vercel
-
-# raw sound files (downloaded packs)
-/raw-sounds
 
 # typescript
 *.tsbuildinfo

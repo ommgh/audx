@@ -1,7 +1,0 @@
-src/
-tests/
-tsconfig.json
-vitest.config.ts
-.kiro/
-*.tsbuildinfo
-node_modules/

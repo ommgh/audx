@@ -1,0 +1,80 @@
+{
+	"name": "@litlab/audx",
+	"version": "0.5.0",
+	"description": "Core Engine For Semantic Web Audio",
+	"author": "Om Mishra",
+	"license": "MIT",
+	"homepage": "https://audx.site",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ommgh/audx.git"
+	},
+	"bugs": {
+		"url": "https://github.com/ommgh/audx/issues"
+	},
+	"keywords": [
+		"audio",
+		"sound",
+		"interaction",
+		"synthesizer",
+		"web-audio",
+		"semantic",
+		"haptics",
+		"ui-sounds"
+	],
+	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"bin": "./dist/bin.js",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		},
+		"./react": {
+			"types": "./dist/react.d.ts",
+			"default": "./dist/react.js"
+		},
+		"./bin": "./dist/bin.js",
+		"./package.json": "./package.json"
+	},
+	"files": [
+		"dist",
+		"schemas"
+	],
+	"sideEffects": false,
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"build": "bunchee",
+		"dev": "bunchee --watch",
+		"lint": "biome check --fix --unsafe .",
+		"typecheck": "tsc --noEmit",
+		"prepublishOnly": "bunchee",
+		"test": "vitest run"
+	},
+	"engines": {
+		"node": ">=20.0.0"
+	},
+	"peerDependencies": {
+		"react": ">=18"
+	},
+	"peerDependenciesMeta": {
+		"react": {
+			"optional": true
+		}
+	},
+	"dependencies": {
+		"@clack/prompts": "^0.9.1",
+		"picocolors": "^1.1.1"
+	},
+	"devDependencies": {
+		"@types/node": "^25.2.3",
+		"@types/react": "^19.0.0",
+		"bunchee": "latest",
+		"react": "^19.0.0",
+		"typescript": "^5.9.3",
+		"vitest": "^4.1.3"
+	}
+}

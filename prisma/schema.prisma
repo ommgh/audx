@@ -112,3 +112,62 @@ model Payment {
 
   @@map("payment")
 }
+
+model Patch {
+  id            Int          @id @default(autoincrement())
+  name          String       @unique
+  author        String
+  description   String
+  soundCount    Int          @default(0) @map("sound_count")
+  url           String
+  source        String?
+  sourceUrl     String?      @map("source_url")
+  patchJson     Json?        @map("patch_json")
+  createdAt     DateTime     @default(now()) @map("created_at")
+  version       String?
+  updatedAt     DateTime     @default(now()) @updatedAt @map("updated_at")
+  license       String?
+  compatibility String?
+  featured      Boolean      @default(false)
+  verified      Boolean      @default(false)
+  forkedFrom    Int?         @map("forked_from")
+  sourceTypes   String[]     @default([]) @map("source_types")
+  hasEffects    Boolean      @default(false) @map("has_effects")
+  hasLayers     Boolean      @default(false) @map("has_layers")
+  fileSize      Int          @default(0) @map("file_size")
+
+  // Relations
+  loads         PatchLoad[]
+  sounds        PatchSound[]
+  forkedFromPatch Patch?     @relation("PatchForks", fields: [forkedFrom], references: [id])
+  forks         Patch[]      @relation("PatchForks")
+
+  @@map("patches")
+}
+
+model PatchLoad {
+  id       Int      @id @default(autoincrement())
+  patchId  Int      @map("patch_id")
+  loadedAt DateTime @default(now()) @map("loaded_at")
+
+  // Relations
+  patch    Patch    @relation(fields: [patchId], references: [id], onDelete: Cascade)
+
+  @@index([loadedAt])
+  @@index([patchId])
+  @@map("patch_loads")
+}
+
+model PatchSound {
+  id          Int     @id @default(autoincrement())
+  patchId     Int     @map("patch_id")
+  name        String
+  category    String
+  description String?
+
+  // Relations
+  patch       Patch   @relation(fields: [patchId], references: [id], onDelete: Cascade)
+
+  @@unique([patchId, name])
+  @@map("patch_sounds")
+}
