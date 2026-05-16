@@ -136,62 +136,6 @@ export function ProfileContent() {
 					</div>
 				)}
 			</section>
-
-			<section>
-				<h2 className="text-lg font-semibold tracking-tight">Themes</h2>
-				{data.themes.length === 0 ? (
-					<p className="mt-2 text-sm text-muted-foreground">
-						No themes generated yet.
-					</p>
-				) : (
-					<ul className="mt-3 divide-y divide-border">
-						{data.themes.map((theme) => (
-							<li
-								key={theme.id}
-								className="flex items-center justify-between py-3"
-							>
-								<div>
-									<p className="text-sm font-medium">{theme.name}</p>
-									<p className="text-xs text-muted-foreground">
-										{new Date(theme.createdAt).toLocaleDateString()}
-									</p>
-								</div>
-								<span className="text-xs text-muted-foreground">
-									{theme.assetCount} sounds
-								</span>
-							</li>
-						))}
-					</ul>
-				)}
-			</section>
-
-			<section>
-				<h2 className="text-lg font-semibold tracking-tight">Sounds</h2>
-				{data.sounds.length === 0 ? (
-					<p className="mt-2 text-sm text-muted-foreground">
-						No sounds generated yet.
-					</p>
-				) : (
-					<ul className="mt-3 divide-y divide-border">
-						{data.sounds.map((sound) => (
-							<li
-								key={sound.id}
-								className="flex items-center justify-between py-3"
-							>
-								<div>
-									<p className="text-sm font-medium">{sound.prompt}</p>
-									<p className="text-xs text-muted-foreground">
-										{new Date(sound.createdAt).toLocaleDateString()}
-									</p>
-								</div>
-								<span className="text-xs text-muted-foreground">
-									{sound.duration.toFixed(1)}s
-								</span>
-							</li>
-						))}
-					</ul>
-				)}
-			</section>
 		</div>
 	);
 }
