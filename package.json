@@ -2,15 +2,19 @@
   "name": "audx",
   "version": "0.5.0",
   "private": true,
+  "workspaces": [
+    "package/core"
+  ],
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "bun run --cwd package/core build && next build",
     "start": "next start",
     "lint": "biome check .",
     "postinstall": "prisma generate",
     "test": "vitest --run"
   },
   "dependencies": {
+    "@litlab/audx": "workspace:*",
     "@base-ui/react": "^1.4.0",
     "@dodopayments/better-auth": "^1.6.2",
     "@hookform/resolvers": "^5.2.2",
