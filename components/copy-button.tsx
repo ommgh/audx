@@ -1,55 +1,55 @@
 import { RiCheckLine } from "@remixicon/react";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type CopyButtonProps = {
-  value: string;
-  successText?: string;
-  children?: React.ReactNode;
-  onCopy?: () => void;
+	value: string;
+	successText?: string;
+	children?: React.ReactNode;
+	onCopy?: () => void;
 };
 
 export function CopyButton({
-  value,
-  successText = "Copied!",
-  children,
-  onCopy,
+	value,
+	successText = "Copied!",
+	children,
+	onCopy,
 }: CopyButtonProps) {
-  const [copied, setCopied] = useState(false);
+	const [copied, setCopied] = useState(false);
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(value);
-      setCopied(true);
-      onCopy?.();
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      /* noop */
-    }
-  };
+	const handleCopy = async () => {
+		try {
+			await navigator.clipboard.writeText(value);
+			setCopied(true);
+			onCopy?.();
+			setTimeout(() => setCopied(false), 2000);
+		} catch {
+			/* noop */
+		}
+	};
 
-  return (
-    <Button
-      onClick={handleCopy}
-      className={cn(
-        "inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium transition-[color,background-color,border-color,box-shadow] duration-150 focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none",
-        copied
-          ? "border-primary/30 bg-primary/10 text-primary"
-          : "border-primary/30 bg-primary/5 text-primary hover:bg-primary/10",
-      )}
-    >
-      {copied ? (
-        <>
-          <RiCheckLine size={14} />
-          <span className="hidden sm:inline">{successText}</span>
-        </>
-      ) : (
-        (children ?? <span className="hidden sm:inline">Copy</span>)
-      )}
-      <span className="sr-only" aria-live="polite">
-        {copied ? successText : ""}
-      </span>
-    </Button>
-  );
+	return (
+		<Button
+			onClick={handleCopy}
+			className={cn(
+				"inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium transition-[color,background-color,border-color,box-shadow] duration-150 focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none",
+				copied
+					? "border-primary/30 bg-primary/10 text-primary"
+					: "border-primary/30 bg-primary/5 text-primary hover:bg-primary/10",
+			)}
+		>
+			{copied ? (
+				<>
+					<RiCheckLine size={14} />
+					<span className="hidden sm:inline">{successText}</span>
+				</>
+			) : (
+				(children ?? <span className="hidden sm:inline">Copy</span>)
+			)}
+			<span className="sr-only" aria-live="polite">
+				{copied ? successText : ""}
+			</span>
+		</Button>
+	);
 }

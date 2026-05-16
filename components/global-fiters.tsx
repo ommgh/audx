@@ -1,7 +1,10 @@
+import { RiAddLine } from "@remixicon/react";
+import Link from "next/link";
 import { SoundSearch } from "@/components/audio-search";
-import { NewThemeButton } from "@/components/new-theme-button";
 import { ThemeSelector } from "@/components/theme-selector";
+import { buttonVariants } from "@/components/ui/button";
 import type { ThemeCatalogItem } from "@/lib/audio-catalog";
+import { cn } from "@/lib/utils";
 
 type GlobalFiltersProps = {
 	themes: ThemeCatalogItem[];
@@ -27,7 +30,13 @@ export function GlobalFilters({
 					selectedTheme={selectedTheme}
 					onThemeChange={onThemeChange}
 				/>
-				<NewThemeButton />
+				<Link
+					href="/editor"
+					className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+				>
+					<RiAddLine data-icon="inline-start" />
+					New Theme
+				</Link>
 			</div>
 		</div>
 	);

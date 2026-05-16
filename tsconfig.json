@@ -19,9 +19,7 @@
 			}
 		],
 		"paths": {
-			"@/*": ["./*"],
-			"@litlab/audx": ["./package/core/src/index.ts"],
-			"@litlab/audx/react": ["./package/core/src/react.tsx"]
+			"@/*": ["./*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
