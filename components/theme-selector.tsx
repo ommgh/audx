@@ -9,7 +9,7 @@ import {
 	DropdownMenuRadioItem,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import type { ThemeCatalogItem } from "@/lib/theme-data";
+import type { ThemeCatalogItem } from "@/lib/audio-catalog";
 
 interface ThemeSelectorProps {
 	themes: ThemeCatalogItem[];

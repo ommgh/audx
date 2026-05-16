@@ -1,8 +1,7 @@
 import { Suspense } from "react";
 import { AudioPage } from "@/components/audio-page";
 import { Header } from "@/components/header";
-import { getAllAudio } from "@/lib/audio-data";
-import { getAllThemes } from "@/lib/theme-data";
+import { getAllAudio, getAllThemes } from "@/lib/audio-catalog";
 
 export default function Home() {
 	const items = getAllAudio();

@@ -2,7 +2,7 @@
 
 import { Badge } from "@/components/ui/badge";
 import { useHorizontalScroll } from "@/hooks/use-horizontal-scroll";
-import type { CategoryCount } from "@/lib/theme-data";
+import type { CategoryCount } from "@/lib/audio-catalog";
 
 interface CategoryBarProps {
 	categories: CategoryCount[];

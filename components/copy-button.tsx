@@ -1,7 +1,7 @@
 import { RiCheckLine } from "@remixicon/react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/registry/audx/ui/button";
+import { Button } from "@/components/ui/button";
 
 type CopyButtonProps = {
   value: string;

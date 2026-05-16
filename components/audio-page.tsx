@@ -1,15 +1,17 @@
 "use client";
 
-import { useMemo } from "react";
+import { usePatch } from "@litlab/audx/react";
+import { useCallback, useMemo, useState, useTransition } from "react";
 import { SoundGrid } from "@/components/audio-grid";
 import { CategoryBar } from "@/components/category-bar";
 import { GlobalFilters } from "@/components/global-fiters";
 import { Hero } from "@/components/hero";
-import { useGlobalFilters } from "@/hooks/use-global-filters";
-import { useHoverPreview } from "@/hooks/use-hover-preview";
-import type { AudioCatalogItem } from "@/lib/audio-catalog";
-import type { ThemeCatalogItem } from "@/lib/theme-data";
-import { type CategoryCount, getCategoriesForTheme } from "@/lib/theme-data";
+import {
+	type AudioCatalogItem,
+	type CategoryCount,
+	getCategoriesForItems,
+	type ThemeCatalogItem,
+} from "@/lib/audio-catalog";
 import { cn } from "@/lib/utils";
 
 interface AudioPageProps {
@@ -18,23 +20,73 @@ interface AudioPageProps {
 }
 
 export function AudioPage({ items, themes }: AudioPageProps) {
-	const { deferredItems, isPending, theme, category, setCategory } =
-		useGlobalFilters({
-			items,
-			themes,
-		});
+	const [query, setQuery] = useState("");
+	const [theme, setTheme] = useState(themes[0]?.name ?? "minimal");
+	const [category, setCategory] = useState<string | null>(null);
+	const [isPending, startTransition] = useTransition();
+	const patch = usePatch(`/themes/${theme}.json`);
 
-	const categories: CategoryCount[] = useMemo(
-		() => getCategoriesForTheme(theme),
-		[theme],
+	const themeItems = useMemo(
+		() => items.filter((item) => item.theme === theme),
+		[items, theme],
 	);
 
-	const { onPreviewStart, onPreviewStop } = useHoverPreview();
+	const categories: CategoryCount[] = useMemo(
+		() => getCategoriesForItems(themeItems),
+		[themeItems],
+	);
+
+	const filteredItems = useMemo(() => {
+		const normalizedQuery = query.trim().toLowerCase();
+		return themeItems.filter((item) => {
+			const matchesCategory = !category || item.category === category;
+			const matchesQuery =
+				!normalizedQuery ||
+				item.meta.semanticName.toLowerCase().includes(normalizedQuery) ||
+				item.category.toLowerCase().includes(normalizedQuery) ||
+				item.title.toLowerCase().includes(normalizedQuery);
+
+			return matchesCategory && matchesQuery;
+		});
+	}, [category, query, themeItems]);
+
+	const handleThemeChange = useCallback((nextTheme: string) => {
+		startTransition(() => {
+			setTheme(nextTheme as ThemeCatalogItem["name"]);
+			setCategory(null);
+		});
+	}, []);
+
+	const handleCategoryChange = useCallback((nextCategory: string | null) => {
+		startTransition(() => {
+			setCategory(nextCategory);
+		});
+	}, []);
+
+	const handleClearFilters = useCallback(() => {
+		startTransition(() => {
+			setQuery("");
+			setCategory(null);
+		});
+	}, []);
+
+	const onPreviewStart = useCallback(
+		(audioName: string) => {
+			patch.play(audioName);
+		},
+		[patch],
+	);
 
 	return (
 		<>
 			<Hero items={items} />
-			<GlobalFilters items={items} themes={themes} />
+			<GlobalFilters
+				query={query}
+				onQueryChange={setQuery}
+				themes={themes}
+				selectedTheme={theme}
+				onThemeChange={handleThemeChange}
+			/>
 
 			{/* ── Content ── */}
 			<main
@@ -44,7 +96,7 @@ export function AudioPage({ items, themes }: AudioPageProps) {
 				<CategoryBar
 					categories={categories}
 					selectedCategory={category || null}
-					onCategoryChange={(cat) => setCategory(cat ?? "")}
+					onCategoryChange={handleCategoryChange}
 				/>
 
 				<div
@@ -54,9 +106,9 @@ export function AudioPage({ items, themes }: AudioPageProps) {
 					)}
 				>
 					<SoundGrid
-						items={deferredItems}
+						items={filteredItems}
 						onPreviewStart={onPreviewStart}
-						onPreviewStop={onPreviewStop}
+						onClearFilters={handleClearFilters}
 					/>
 				</div>
 			</main>

@@ -1,29 +1,31 @@
 import { SoundSearch } from "@/components/audio-search";
 import { NewThemeButton } from "@/components/new-theme-button";
 import { ThemeSelector } from "@/components/theme-selector";
-import { useGlobalFilters } from "@/hooks/use-global-filters";
-import type { AudioCatalogItem } from "@/lib/audio-catalog";
-import type { ThemeCatalogItem } from "@/lib/theme-data";
+import type { ThemeCatalogItem } from "@/lib/audio-catalog";
 
 type GlobalFiltersProps = {
-	items: AudioCatalogItem[];
 	themes: ThemeCatalogItem[];
+	query: string;
+	selectedTheme: string;
+	onQueryChange: (query: string) => void;
+	onThemeChange: (theme: string) => void;
 };
 
-export function GlobalFilters({ items, themes }: GlobalFiltersProps) {
-	const { query, setQuery, theme, setTheme } = useGlobalFilters({
-		items,
-		themes,
-	});
-
+export function GlobalFilters({
+	query,
+	themes,
+	selectedTheme,
+	onQueryChange,
+	onThemeChange,
+}: GlobalFiltersProps) {
 	return (
 		<div className="bg-background/95 sticky top-0 z-40 border-y">
 			<div className="mx-auto flex w-full max-w-6xl items-center gap-3 px-6 py-3 border-x">
-				<SoundSearch value={query} onChange={setQuery} />
+				<SoundSearch value={query} onChange={onQueryChange} />
 				<ThemeSelector
 					themes={themes}
-					selectedTheme={theme}
-					onThemeChange={setTheme}
+					selectedTheme={selectedTheme}
+					onThemeChange={onThemeChange}
 				/>
 				<NewThemeButton />
 			</div>
