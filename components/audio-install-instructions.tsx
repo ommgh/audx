@@ -1,11 +1,14 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { SoundCopyBlock } from "@/components/audio-copy-block";
-import { CopyButton } from "@/components/copy-button";
+import { RiCheckLine, RiFileCopyLine } from "@remixicon/react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { PackageManagerSwitcher } from "@/components/package-manager-switcher";
-
-import { DEFAULT_PM, type PackageManager } from "@/lib/package-manager";
+import {
+  DEFAULT_PM,
+  getInstallPrefix,
+  type PackageManager,
+} from "@/lib/package-manager";
+import { cn } from "@/lib/utils";
 
 interface SoundInstallInstructionsProps {
   soundName: string;
@@ -15,26 +18,65 @@ export function SoundInstallInstructions({
   soundName,
 }: SoundInstallInstructionsProps) {
   const [pm, setPm] = useState<PackageManager>(DEFAULT_PM);
+  const [copyState, setCopyState] = useState<"idle" | "done">("idle");
+
+  const prefix = getInstallPrefix(pm);
+  const fullCommand = `${prefix} add ${soundName}`;
+
+  const handleCopy = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(fullCommand);
+      setCopyState("done");
+      setTimeout(() => setCopyState("idle"), 2000);
+    } catch {
+      /* noop */
+    }
+  }, [fullCommand]);
 
   return (
-    <div className="flex flex-col gap-5">
-      {/* Install command */}
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <span className="text-muted-foreground text-[11px] font-semibold uppercase tracking-wide">
-            Install
-          </span>
-          <CopyButton successText="Copied!" />
-        </div>
-        <div className="rounded-lg border border-border/40 bg-secondary/30">
-          <div className="border-b border-border/40 px-3 py-1.5">
-            <PackageManagerSwitcher value={pm} onChange={setPm} />
-          </div>
-          <pre className="overflow-x-auto p-3 text-[13px] leading-relaxed [scrollbar-width:none]"></pre>
-        </div>
-      </div>
+    <div className="flex flex-col gap-2">
+      {/* Package manager tabs */}
+      <PackageManagerSwitcher value={pm} onChange={setPm} />
 
-      {/* Usage code */}
+      {/* Command block */}
+      <div className="relative w-full overflow-hidden rounded-lg border border-border/50 bg-secondary/30">
+        <div
+          className={cn(
+            "overflow-x-auto whitespace-nowrap px-4 py-3 pr-12 font-mono text-sm",
+            "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+          )}
+        >
+          <span className="sr-only">{fullCommand}</span>
+          <span aria-hidden="true" className="text-muted-foreground">
+            {prefix}
+          </span>{" "}
+          <span aria-hidden="true" className="text-foreground font-medium">
+            add{" "}
+          </span>
+          <span aria-hidden="true" className="text-primary">
+            {soundName}
+          </span>
+        </div>
+
+        <button
+          type="button"
+          aria-label="Copy install command"
+          onClick={handleCopy}
+          className={cn(
+            "absolute top-1/2 right-2 -translate-y-1/2 p-2 rounded-md transition-colors duration-150",
+            "focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none",
+            copyState === "done"
+              ? "text-primary"
+              : "text-muted-foreground hover:text-foreground hover:bg-accent",
+          )}
+        >
+          {copyState === "done" ? (
+            <RiCheckLine size={15} />
+          ) : (
+            <RiFileCopyLine size={15} />
+          )}
+        </button>
+      </div>
     </div>
   );
 }

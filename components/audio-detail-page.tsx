@@ -1,12 +1,13 @@
 "use client";
 
+import { usePatch } from "@litlab/audx/react";
 import Link from "next/link";
-import { useMemo } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { SoundInstallInstructions } from "@/components/audio-install-instructions";
 import { PlayerStrip } from "@/components/audio-player";
-
 import type { AudioCatalogItem } from "@/lib/audio-catalog";
 import { generateAudioWaves } from "@/lib/audio-data";
+import type { PlayState } from "@/hooks/use-sound-playback";
 
 /* ── Main page component ── */
 
@@ -15,17 +16,30 @@ interface AudioDetailPageProps {
 }
 
 export function SoundDetailPage({ audio }: AudioDetailPageProps) {
+  const patch = usePatch(`/themes/${audio.meta.theme}.json`);
+  const [playState, setPlayState] = useState<PlayState>("idle");
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleToggle = useCallback(() => {
+    if (playState === "playing") {
+      // no way to stop a patch sound early; just reset the state indicator
+      if (timerRef.current) clearTimeout(timerRef.current);
+      setPlayState("idle");
+      return;
+    }
+
+    patch.play(audio.meta.semanticName);
+    setPlayState("playing");
+
+    // auto-reset after the sound's natural duration
+    const durationMs = audio.meta.duration * 1000 + 100;
+    timerRef.current = setTimeout(() => setPlayState("idle"), durationMs);
+  }, [patch, playState, audio.meta.semanticName, audio.meta.duration]);
+
   return (
     <div className="flex min-h-dvh flex-col">
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground focus:text-sm focus:font-medium"
-      >
-        Skip to Content
-      </a>
-
       {/* ── Back navigation ── */}
-      <nav className="mx-auto w-full max-w-3xl px-6 pt-6 pb-2">
+      <nav className="mx-auto w-full max-w-6xl px-6 pt-6 pb-2 border-x">
         <Link
           href="/"
           className="inline-flex items-center justify-center rounded-lg px-2.5 py-1.5 text-sm text-muted-foreground transition-colors duration-150 hover:text-foreground hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
@@ -37,34 +51,40 @@ export function SoundDetailPage({ audio }: AudioDetailPageProps) {
 
       <main
         id="main-content"
-        className="mx-auto w-full max-w-3xl flex-1 px-6 pb-16"
+        className="mx-auto w-full max-w-6xl border-x flex-1 px-6 pb-16"
       >
-        {/* ── Two-column: visualization (left) + name/description (right) ── */}
+        {/* ── Top section: visualization square (left) + info (right) ── */}
         <section className="flex flex-col sm:flex-row items-start gap-6 pt-4 pb-8">
-          {/* Large sound visualization */}
-          <div className="flex shrink-0 items-center justify-center rounded-2xl border border-border/50 bg-secondary/30 w-full sm:w-40 h-32 sm:h-40">
+          {/* Square visualization */}
+          <div className="shrink-0 flex items-center justify-center rounded-2xl border border-border/50 bg-secondary/30 size-40 overflow-hidden">
             <LargeStaticBars name={audio.name} />
           </div>
 
-          {/* Name and description */}
-          <div className="flex flex-col justify-center min-w-0 flex-1">
-            <h1 className="font-display text-3xl font-bold text-balance sm:text-4xl">
-              {audio.title}
-            </h1>
-            {audio.description ? (
-              <p className="mt-2 text-muted-foreground text-base leading-relaxed text-pretty max-w-xl">
-                {audio.description}
-              </p>
-            ) : null}
+          {/* Title, description, install */}
+          <div className="flex flex-col justify-start gap-3 min-w-0 flex-1 pt-1">
+            <div>
+              <h1 className="font-display text-3xl font-bold text-balance">
+                {audio.title}
+              </h1>
+              {audio.description ? (
+                <p className="mt-1.5 text-muted-foreground text-sm leading-relaxed text-pretty">
+                  {audio.description}
+                </p>
+              ) : null}
+            </div>
+
+            <SoundInstallInstructions soundName={audio.meta.semanticName} />
           </div>
         </section>
 
-        {/* ── Install command block ── */}
-        <section className="pb-8">
-          <SoundInstallInstructions soundName={audio.meta.semanticName} />
+        {/* ── Player strip ── */}
+        <section className="border-y py-4 -mx-6 px-6">
+          <PlayerStrip
+            name={audio.name}
+            playState={playState}
+            onToggle={handleToggle}
+          />
         </section>
-
-        {/* ── Player strip at the bottom ── */}
       </main>
     </div>
   );
@@ -77,13 +97,14 @@ function LargeStaticBars({ name }: { name: string }) {
 
   return (
     <div
-      className="flex items-end justify-center gap-[5px] h-20"
+      className="flex items-end justify-center gap-[5px] w-full px-6"
+      style={{ height: "60%" }}
       aria-hidden="true"
     >
       {bars.map((bar, i) => (
         <span
           key={`${name}-${i}-${bar.height}`}
-          className="w-[6px] rounded-full bg-muted-foreground/25"
+          className="flex-1 max-w-[8px] rounded-full bg-muted-foreground/30"
           style={{ height: `${bar.height}%` }}
         />
       ))}

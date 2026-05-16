@@ -79,7 +79,6 @@ export function PackageManagerSwitcher({
             aria-checked={isActive}
             onClick={() => {
               onChange(pm);
-              trackEvent("package_manager_changed", { value: pm });
             }}
             className={cn(
               "relative z-10 rounded-md px-2.5 py-1 font-mono text-xs font-medium transition-colors duration-150",
