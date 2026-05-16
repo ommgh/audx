@@ -28,18 +28,28 @@ export function getConfig(): WebKitsConfig | null {
 	return null;
 }
 
-export async function ensureConfig(): Promise<WebKitsConfig> {
+export async function ensureConfig(
+	context: "setup" | "themes" = "setup",
+): Promise<WebKitsConfig> {
 	const existing = getConfig();
 	if (existing) return existing;
 
+	const isThemeContext = context === "themes";
 	const output = await p.select({
-		message: "Where should patches be generated?",
-		options: [
-			{ value: ".themes", label: ".themes", hint: "default" },
-			{ value: "src/audio", label: "src/audio" },
-			{ value: "lib/audio", label: "lib/audio" },
-			{ value: "__custom__", label: "Custom path..." },
-		],
+		message: isThemeContext
+			? "Where should themes be installed?"
+			: "Where should AudX be set up?",
+		options: isThemeContext
+			? [
+					{ value: "src/audio", label: "src/audio/themes", hint: "default" },
+					{ value: "lib/audio", label: "lib/audio/themes" },
+					{ value: "__custom__", label: "Custom path..." },
+				]
+			: [
+					{ value: "src/audio", label: "src/audio", hint: "default" },
+					{ value: "lib/audio", label: "lib/audio" },
+					{ value: "__custom__", label: "Custom path..." },
+				],
 	});
 
 	if (p.isCancel(output)) {
@@ -52,14 +62,15 @@ export async function ensureConfig(): Promise<WebKitsConfig> {
 	if (outputDir === "__custom__") {
 		const custom = await p.text({
 			message: "Enter output path",
-			placeholder: ".themes",
-			validate: (v) => (v.length === 0 ? "Path is required" : undefined),
+			placeholder: isThemeContext ? "src/audio/themes" : "src/audio",
+			validate: (v: string) =>
+				v.length === 0 ? "Path is required" : undefined,
 		});
 		if (p.isCancel(custom)) {
 			p.cancel("Cancelled.");
 			process.exit(0);
 		}
-		outputDir = custom as string;
+		outputDir = normalizeConfigOutput(custom as string, context);
 	}
 
 	const config: WebKitsConfig = { output: outputDir };
@@ -72,6 +83,14 @@ export async function ensureConfig(): Promise<WebKitsConfig> {
 	);
 
 	return config;
+}
+
+function normalizeConfigOutput(output: string, context: "setup" | "themes") {
+	const normalized = output.replace(/\/+$/, "");
+	if (context === "themes" && normalized.endsWith("/themes")) {
+		return normalized.slice(0, -"/themes".length);
+	}
+	return normalized;
 }
 
 export interface PatchIndexEntry {
@@ -99,8 +118,14 @@ export interface DiscoveredPatch {
 
 export function getPatchesDir(): string {
 	const config = getConfig();
-	const output = config?.output ?? ".themes";
-	return resolve(process.cwd(), output);
+	const output = config?.output ?? "src/audio";
+	return resolve(process.cwd(), output, "themes");
+}
+
+export function getSoundsDir(): string {
+	const config = getConfig();
+	const output = config?.output ?? "src/audio";
+	return resolve(process.cwd(), output, "a");
 }
 
 export function parseGitHubSource(source: string): {
@@ -374,6 +399,10 @@ function toCamelCase(s: string): string {
 	return id;
 }
 
+export function toIdentifier(s: string): string {
+	return toCamelCase(s);
+}
+
 export function generateModule(data: {
 	name: string;
 	sounds: Record<string, unknown>;
@@ -411,6 +440,16 @@ export function generateModule(data: {
 	);
 
 	return lines.join("\n");
+}
+
+export function generateSoundModule(name: string, definition: unknown): string {
+	const id = toCamelCase(name);
+	return [
+		`import { defineSound } from "@litlab/audx";`,
+		"",
+		`export const ${id} = defineSound(${JSON.stringify(definition, null, 2)});`,
+		"",
+	].join("\n");
 }
 
 export async function regenerateIndex(dir: string): Promise<void> {

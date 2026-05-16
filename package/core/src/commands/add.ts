@@ -11,14 +11,17 @@ import {
 	fetchPatchIndex,
 	fetchPatchJson,
 	generateModule,
+	generateSoundModule,
 	getInstalledPatches,
 	getPatchesDir,
+	getSoundsDir,
 	type InstalledPatch,
 	isGitHubSource,
 	isLocalSource,
 	type PatchIndexEntry,
 	regenerateIndex,
 	registerPatch,
+	toIdentifier,
 	validatePatch,
 } from "./utils.js";
 
@@ -76,7 +79,7 @@ export async function add(args: string[]) {
 		return;
 	}
 
-	await addFromUrl(source, options);
+	await addSoundFromRegistry(source, options);
 }
 
 async function addFromLocal(source: string, options: AddOptions) {
@@ -330,6 +333,57 @@ async function addFromRegistry(options: AddOptions) {
 	p.outro("Done!");
 }
 
+async function addSoundFromRegistry(soundName: string, options: AddOptions) {
+	if (options.list) {
+		p.log.error("--list is only available when browsing themes.");
+		process.exit(1);
+	}
+
+	const s = p.spinner();
+	s.start(`Finding "${soundName}"...`);
+
+	let index: Awaited<ReturnType<typeof fetchPatchIndex>>;
+	try {
+		index = await fetchPatchIndex();
+	} catch (err) {
+		s.stop("Failed to fetch theme index.");
+		p.log.error(String(err));
+		process.exit(1);
+	}
+
+	let found:
+		| {
+				theme: string;
+				definition: unknown;
+		  }
+		| undefined;
+
+	for (const entry of index) {
+		try {
+			const data = await fetchPatchJson(entry.name);
+			if (!validatePatch(data)) continue;
+			const match = Object.entries(data.sounds).find(
+				([name]) => name.toLowerCase() === soundName.toLowerCase(),
+			);
+			if (match) {
+				found = { theme: data.name, definition: match[1] };
+				break;
+			}
+		} catch {}
+	}
+
+	if (!found) {
+		s.stop(`Sound "${soundName}" not found.`);
+		p.log.error("Run `@litlab/audx add` to browse available themes.");
+		process.exit(1);
+	}
+
+	s.stop(`Found "${soundName}" in ${found.theme}`);
+	await writeSound(soundName, found.definition, options);
+	p.note(`  - ${soundName}`, "Installed sound");
+	p.outro("Done!");
+}
+
 function printPatchList(patches: DiscoveredPatch[]) {
 	console.log();
 	for (const patch of patches) {
@@ -426,7 +480,7 @@ async function confirmOverwrites(
 }
 
 async function writePatch(filename: string, data: Record<string, unknown>) {
-	await ensureConfig();
+	await ensureConfig("themes");
 	const dir = getPatchesDir();
 	if (!existsSync(dir)) {
 		mkdirSync(dir, { recursive: true });
@@ -443,4 +497,38 @@ async function writePatch(filename: string, data: Record<string, unknown>) {
 	const target = join(dir, `${slug}.ts`);
 	await writeFile(target, moduleSource, "utf-8");
 	await regenerateIndex(dir);
+}
+
+async function writeSound(
+	name: string,
+	definition: unknown,
+	options: AddOptions,
+) {
+	await ensureConfig("setup");
+	const dir = getSoundsDir();
+	if (!existsSync(dir)) {
+		mkdirSync(dir, { recursive: true });
+	}
+
+	const slug = name
+		.toLowerCase()
+		.replace(/[^a-z0-9]+/g, "-")
+		.replace(/^-|-$/g, "");
+	const target = join(dir, `${slug}.ts`);
+
+	if (existsSync(target) && !options.yes) {
+		const overwrite = await p.confirm({
+			message: `${slug}.ts already exists. Overwrite?`,
+		});
+		if (p.isCancel(overwrite) || !overwrite) {
+			p.cancel("Cancelled.");
+			process.exit(0);
+		}
+	}
+
+	await writeFile(
+		target,
+		generateSoundModule(toIdentifier(name), definition),
+		"utf-8",
+	);
 }

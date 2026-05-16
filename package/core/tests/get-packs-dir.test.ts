@@ -23,13 +23,13 @@ describe("getPatchesDir", () => {
 		rmSync(tempDir, { recursive: true, force: true });
 	});
 
-	it("returns .themes/ when no config exists", () => {
+	it("returns src/audio/themes when no config exists", () => {
 		process.chdir(tempDir);
 		const result = getPatchesDir();
-		expect(result).toBe(join(tempDir, ".themes"));
+		expect(result).toBe(join(tempDir, "src", "audio", "themes"));
 	});
 
-	it("returns custom path from .themes/config.json", () => {
+	it("returns themes path from .themes/config.json", () => {
 		const configDir = join(tempDir, ".themes");
 		mkdirSync(configDir, { recursive: true });
 		writeFileSync(
@@ -38,6 +38,6 @@ describe("getPatchesDir", () => {
 		);
 		process.chdir(tempDir);
 		const result = getPatchesDir();
-		expect(result).toBe(join(tempDir, "src", "sounds"));
+		expect(result).toBe(join(tempDir, "src", "sounds", "themes"));
 	});
 });

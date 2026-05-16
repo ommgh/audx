@@ -2,14 +2,27 @@ import { existsSync, mkdirSync } from "node:fs";
 import { writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import * as p from "@clack/prompts";
+import { add } from "./add.js";
+import { ensureConfig } from "./utils.js";
 
-export async function init(_args: string[]) {
+export async function init(args: string[]) {
+	if (args[0] === "theme") {
+		await themeInit(args.slice(1));
+		return;
+	}
+
 	p.intro("@litlab/audx init");
+	await ensureConfig();
+	await add([]);
+}
+
+export async function themeInit(_args: string[]) {
+	p.intro("@litlab/audx theme init");
 
 	const name = await p.text({
 		message: "Patch name",
 		placeholder: "my-patch",
-		validate: (v) => (v.length === 0 ? "Name is required" : undefined),
+		validate: (v: string) => (v.length === 0 ? "Name is required" : undefined),
 	});
 
 	if (p.isCancel(name)) {
@@ -43,7 +56,7 @@ export async function init(_args: string[]) {
 		.replace(/^-|-$/g, "");
 
 	const filename = `${slug}.json`;
-	const dir = resolve(process.cwd(), ".themes");
+	const dir = resolve(process.cwd(), ".audx", "themes");
 	if (!existsSync(dir)) {
 		mkdirSync(dir, { recursive: true });
 	}
@@ -60,7 +73,7 @@ export async function init(_args: string[]) {
 	}
 
 	const patch = {
-		$schema: "../node_modules/@litlab/audx/schemas/patch.schema.json",
+		$schema: "../../node_modules/@litlab/audx/schemas/patch.schema.json",
 		name: name as string,
 		author: (author as string) || undefined,
 		version: "1.0.0",
@@ -71,6 +84,6 @@ export async function init(_args: string[]) {
 
 	await writeFile(target, `${JSON.stringify(patch, null, 2)}\n`, "utf-8");
 
-	p.log.success(`Created .themes/${filename}`);
+	p.log.success(`Created .audx/themes/${filename}`);
 	p.outro("Add sounds to the `sounds` object to get started.");
 }

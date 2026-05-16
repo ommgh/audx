@@ -29,7 +29,7 @@ describe("getInstalledPatches", () => {
 	});
 
 	it("returns patches from .ts files in the output directory", async () => {
-		const outDir = join(tempDir, ".themes");
+		const outDir = join(tempDir, "src", "audio", "themes");
 		mkdirSync(outDir, { recursive: true });
 
 		const moduleContent = [
@@ -58,7 +58,7 @@ describe("getInstalledPatches", () => {
 	});
 
 	it("skips index.ts", async () => {
-		const outDir = join(tempDir, ".themes");
+		const outDir = join(tempDir, "src", "audio", "themes");
 		mkdirSync(outDir, { recursive: true });
 
 		writeFileSync(
@@ -84,7 +84,7 @@ describe("getInstalledPatches", () => {
 	});
 
 	it("skips non-.ts files", async () => {
-		const outDir = join(tempDir, ".themes");
+		const outDir = join(tempDir, "src", "audio", "themes");
 		mkdirSync(outDir, { recursive: true });
 
 		writeFileSync(join(outDir, "readme.md"), "# hello");

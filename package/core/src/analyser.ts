@@ -6,20 +6,20 @@ import type { AnalyserOptions } from "./types";
  * for zero-allocation reads in animation loops.
  */
 export type AudioAnalyser = {
-  /** The underlying Web Audio `AnalyserNode`. */
-  node: AnalyserNode;
-  /** Returns byte-scaled frequency magnitudes (0 – 255). */
-  getFrequencyData: () => Uint8Array;
-  /** Returns byte-scaled time-domain waveform (0 – 255). */
-  getTimeDomainData: () => Uint8Array;
-  /** Returns frequency magnitudes in dB. */
-  getFloatFrequencyData: () => Float32Array;
-  /** Returns time-domain waveform as floats (-1 to 1). */
-  getFloatTimeDomainData: () => Float32Array;
-  /** Number of frequency bins (half of `fftSize`). */
-  frequencyBinCount: number;
-  /** Disconnects the analyser and releases resources. */
-  dispose: () => void;
+	/** The underlying Web Audio `AnalyserNode`. */
+	node: AnalyserNode;
+	/** Returns byte-scaled frequency magnitudes (0 – 255). */
+	getFrequencyData: () => Uint8Array;
+	/** Returns byte-scaled time-domain waveform (0 – 255). */
+	getTimeDomainData: () => Uint8Array;
+	/** Returns frequency magnitudes in dB. */
+	getFloatFrequencyData: () => Float32Array;
+	/** Returns time-domain waveform as floats (-1 to 1). */
+	getFloatTimeDomainData: () => Float32Array;
+	/** Number of frequency bins (half of `fftSize`). */
+	frequencyBinCount: number;
+	/** Disconnects the analyser and releases resources. */
+	dispose: () => void;
 };
 
 /**
@@ -31,49 +31,49 @@ export type AudioAnalyser = {
  * @param opts - FFT size, smoothing, and dB range overrides
  */
 export function createAnalyser(opts?: AnalyserOptions): AudioAnalyser {
-  const ctx = getContext();
-  const node = ctx.createAnalyser();
+	const ctx = getContext();
+	const node = ctx.createAnalyser();
 
-  node.fftSize = opts?.fftSize ?? 2048;
-  node.smoothingTimeConstant = opts?.smoothingTimeConstant ?? 0.8;
-  if (opts?.minDecibels !== undefined) node.minDecibels = opts.minDecibels;
-  if (opts?.maxDecibels !== undefined) node.maxDecibels = opts.maxDecibels;
+	node.fftSize = opts?.fftSize ?? 2048;
+	node.smoothingTimeConstant = opts?.smoothingTimeConstant ?? 0.8;
+	if (opts?.minDecibels !== undefined) node.minDecibels = opts.minDecibels;
+	if (opts?.maxDecibels !== undefined) node.maxDecibels = opts.maxDecibels;
 
-  const freqData = new Uint8Array(node.frequencyBinCount);
-  const timeData = new Uint8Array(node.fftSize);
-  const floatFreqData = new Float32Array(node.frequencyBinCount);
-  const floatTimeData = new Float32Array(node.fftSize);
+	const freqData = new Uint8Array(node.frequencyBinCount);
+	const timeData = new Uint8Array(node.fftSize);
+	const floatFreqData = new Float32Array(node.frequencyBinCount);
+	const floatTimeData = new Float32Array(node.fftSize);
 
-  return {
-    node,
-    frequencyBinCount: node.frequencyBinCount,
+	return {
+		node,
+		frequencyBinCount: node.frequencyBinCount,
 
-    getFrequencyData() {
-      node.getByteFrequencyData(freqData);
-      return freqData;
-    },
+		getFrequencyData() {
+			node.getByteFrequencyData(freqData);
+			return freqData;
+		},
 
-    getTimeDomainData() {
-      node.getByteTimeDomainData(timeData);
-      return timeData;
-    },
+		getTimeDomainData() {
+			node.getByteTimeDomainData(timeData);
+			return timeData;
+		},
 
-    getFloatFrequencyData() {
-      node.getFloatFrequencyData(floatFreqData);
-      return floatFreqData;
-    },
+		getFloatFrequencyData() {
+			node.getFloatFrequencyData(floatFreqData);
+			return floatFreqData;
+		},
 
-    getFloatTimeDomainData() {
-      node.getFloatTimeDomainData(floatTimeData);
-      return floatTimeData;
-    },
+		getFloatTimeDomainData() {
+			node.getFloatTimeDomainData(floatTimeData);
+			return floatTimeData;
+		},
 
-    dispose() {
-      try {
-        node.disconnect();
-      } catch (_) {}
-    },
-  };
+		dispose() {
+			try {
+				node.disconnect();
+			} catch (_) {}
+		},
+	};
 }
 
 /**
@@ -86,18 +86,18 @@ export function createAnalyser(opts?: AnalyserOptions): AudioAnalyser {
  * @param opts - FFT size, smoothing, and dB range overrides
  */
 export function createMasterAnalyser(opts?: AnalyserOptions): AudioAnalyser {
-  const bus = getMasterBus();
-  const analyser = createAnalyser(opts);
+	const bus = getMasterBus();
+	const analyser = createAnalyser(opts);
 
-  bus.connect(analyser.node);
+	bus.connect(analyser.node);
 
-  const originalDispose = analyser.dispose;
-  analyser.dispose = () => {
-    try {
-      bus.disconnect(analyser.node);
-    } catch (_) {}
-    originalDispose();
-  };
+	const originalDispose = analyser.dispose;
+	analyser.dispose = () => {
+		try {
+			bus.disconnect(analyser.node);
+		} catch (_) {}
+		originalDispose();
+	};
 
-  return analyser;
+	return analyser;
 }

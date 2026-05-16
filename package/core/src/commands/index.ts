@@ -2,7 +2,7 @@ import * as p from "@clack/prompts";
 import { add } from "./add.js";
 import { check } from "./check.js";
 import { find } from "./find.js";
-import { init } from "./init.js";
+import { init, themeInit } from "./init.js";
 import { list } from "./list.js";
 import { remove } from "./remove.js";
 import { update } from "./update.js";
@@ -22,6 +22,14 @@ const COMMANDS: Record<string, (args: string[]) => Promise<void>> = {
 	update,
 	upgrade: update,
 	init,
+	theme: async (args) => {
+		if (args[0] !== "init") {
+			p.log.error(`Unknown theme command: ${args[0] ?? ""}`);
+			p.log.message("Run @litlab/audx theme init to create a new theme.");
+			process.exit(1);
+		}
+		await themeInit(args.slice(1));
+	},
 };
 
 function showBanner() {
@@ -32,7 +40,8 @@ function showBanner() {
 	p.log.message(
 		[
 			"Patches",
-			"  add [source]    Install sound patches",
+			"  add [sound]     Install an individual sound",
+			"  add             Browse and install themes",
 			"  find [query]    Search for patches",
 			"  list            List installed patches",
 			"  remove          Remove installed patches",
@@ -48,7 +57,11 @@ function showBanner() {
 	);
 
 	p.log.message(
-		["Project", "  init            Create a new sound patch"].join("\n"),
+		[
+			"Project",
+			"  init            Set up AudX and install themes",
+			"  theme init      Create a new local theme JSON",
+		].join("\n"),
 	);
 
 	p.outro("try: npx @litlab/audx add ommgh/audio");
@@ -62,7 +75,9 @@ function showHelp() {
 			"Usage: @litlab/audx <command> [options]",
 			"",
 			"Manage Patches:",
-			"  add [source]    Install sound patches",
+			"  add [sound]     Install an individual sound",
+			"  add             Browse and install themes",
+			"  add <source>    Install themes from a source",
 			"  find [query]    Search for patches in the registry",
 			"  list, ls        List installed patches",
 			"  remove, rm      Remove installed patches",
@@ -72,7 +87,8 @@ function showHelp() {
 			"  update          Update all installed patches",
 			"",
 			"Project:",
-			"  init            Create a new sound patch",
+			"  init            Set up AudX and install themes",
+			"  theme init      Create a new local theme JSON",
 		].join("\n"),
 	);
 
