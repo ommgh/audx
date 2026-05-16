@@ -1,5 +1,5 @@
 {
-	"$schema": "../packages/audio/schemas/patch.schema.json",
+	"$schema": "../package/core/schemas/patch.schema.json",
 	"name": "Soft",
 	"author": "Om Mishra",
 	"version": "1.0.0",
