@@ -18,8 +18,6 @@ model User {
   dodoCustomerId  String?
   sessions        Session[]
   accounts        Account[]
-  generatedThemes GeneratedTheme[]
-  generatedSounds GeneratedSound[]
   payments        Payment[]
 
   @@unique([email])
@@ -71,32 +69,7 @@ model Verification {
   @@map("verification")
 }
 
-model GeneratedTheme {
-  id           String   @id @default(cuid())
-  name         String
-  prompt       String
-  blobIndexUrl String
-  assetCount   Int
-  createdAt    DateTime @default(now())
-  userId       String
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, name])
-  @@map("generated_theme")
-}
-
-model GeneratedSound {
-  id        String   @id @default(cuid())
-  prompt    String
-  blobUrl   String
-  duration  Float
-  sizeKb    Int
-  createdAt DateTime @default(now())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("generated_sound")
-}
 
 model Payment {
   id          String   @id @default(cuid())
@@ -136,7 +109,7 @@ model Patch {
   hasLayers     Boolean      @default(false) @map("has_layers")
   fileSize      Int          @default(0) @map("file_size")
 
-  // Relations
+
   loads         PatchLoad[]
   sounds        PatchSound[]
   forkedFromPatch Patch?     @relation("PatchForks", fields: [forkedFrom], references: [id])
@@ -150,7 +123,7 @@ model PatchLoad {
   patchId  Int      @map("patch_id")
   loadedAt DateTime @default(now()) @map("loaded_at")
 
-  // Relations
+
   patch    Patch    @relation(fields: [patchId], references: [id], onDelete: Cascade)
 
   @@index([loadedAt])
@@ -165,7 +138,7 @@ model PatchSound {
   category    String
   description String?
 
-  // Relations
+
   patch       Patch   @relation(fields: [patchId], references: [id], onDelete: Cascade)
 
   @@unique([patchId, name])
