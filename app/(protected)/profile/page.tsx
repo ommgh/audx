@@ -2,13 +2,13 @@ import { ProfileContent } from "@/components/profile-content";
 import { requireAuth } from "@/lib/auth-utils";
 
 const Page = async () => {
-	await requireAuth();
+  await requireAuth();
 
-	return (
-		<main className="mx-auto w-full max-w-6xl border-x px-6 py-10">
-			<ProfileContent />
-		</main>
-	);
+  return (
+    <main className="max-w-6xl mx-auto border-x border-border min-h-dvh p-4">
+      <ProfileContent />
+    </main>
+  );
 };
 
 export default Page;

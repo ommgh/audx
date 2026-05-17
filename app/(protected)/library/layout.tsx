@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { ProtectedHeader } from "../_componets/protected-header";
 
 export default function ThemesLayout({ children }: { children: ReactNode }) {
   return (
