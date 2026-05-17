@@ -20,7 +20,7 @@ export async function POST(request: Request) {
 		}
 
 		const productId = process.env.DODO_PAYMENTS_PRODUCT_ID as string;
-		const baseUrl = process.env.BETTER_AUTH_URL || "http://localhost:3000";
+		const baseUrl = process.env.BETTER_AUTH_URL;
 
 		const checkoutSession = await dodoPayments.checkoutSessions.create({
 			product_cart: [{ product_id: productId, quantity: 1 }],
