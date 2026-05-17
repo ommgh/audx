@@ -31,9 +31,9 @@ describe("parseAddOptions", () => {
 		expect(result.options.list).toBe(true);
 	});
 
-	it("parses --patch flag with value", () => {
-		const result = parseAddOptions(["--patch", "core"]);
-		expect(result.options.patch).toBe("core");
+	it("parses --theme flag with value", () => {
+		const result = parseAddOptions(["--theme", "core"]);
+		expect(result.options.theme).toBe("core");
 		expect(result.source).toBeUndefined();
 	});
 
@@ -41,14 +41,14 @@ describe("parseAddOptions", () => {
 		const result = parseAddOptions([
 			"ommgh/audio",
 			"-y",
-			"--patch",
+			"--theme",
 			"core",
 			"-l",
 		]);
 		expect(result.source).toBe("ommgh/audio");
 		expect(result.options.yes).toBe(true);
 		expect(result.options.list).toBe(true);
-		expect(result.options.patch).toBe("core");
+		expect(result.options.theme).toBe("core");
 	});
 
 	it("returns undefined source when no positional args", () => {
@@ -64,27 +64,27 @@ describe("parseAddOptions", () => {
 });
 
 describe("parseRemoveOptions", () => {
-	it("parses patch names as positional args", () => {
+	it("parses theme names as positional args", () => {
 		const result = parseRemoveOptions(["core", "minimal"]);
-		expect(result.patches).toEqual(["core", "minimal"]);
+		expect(result.themes).toEqual(["core", "minimal"]);
 		expect(result.options).toEqual({});
 	});
 
 	it("parses --yes flag", () => {
 		const result = parseRemoveOptions(["core", "--yes"]);
-		expect(result.patches).toEqual(["core"]);
+		expect(result.themes).toEqual(["core"]);
 		expect(result.options.yes).toBe(true);
 	});
 
 	it("parses -y shorthand", () => {
 		const result = parseRemoveOptions(["-y", "core"]);
-		expect(result.patches).toEqual(["core"]);
+		expect(result.themes).toEqual(["core"]);
 		expect(result.options.yes).toBe(true);
 	});
 
 	it("handles empty args", () => {
 		const result = parseRemoveOptions([]);
-		expect(result.patches).toEqual([]);
+		expect(result.themes).toEqual([]);
 		expect(result.options).toEqual({});
 	});
 });

@@ -1,8 +1,8 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://audx.site/schemas/patch.schema.json",
-	"title": "@litlab/audx Sound Patch",
-	"description": "Schema for @litlab/audx sound patch JSON files",
+	"$id": "https://audx.site/schemas/theme.schema.json",
+	"title": "@litlab/audx Sound Theme",
+	"description": "Schema for @litlab/audx sound theme JSON files",
 	"type": "object",
 	"required": ["name", "sounds"],
 	"properties": {
@@ -11,7 +11,7 @@
 		},
 		"name": {
 			"type": "string",
-			"description": "Display name of the patch"
+			"description": "Display name of the theme"
 		},
 		"author": {
 			"type": "string"

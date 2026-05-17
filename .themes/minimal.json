@@ -1,5 +1,5 @@
 {
-	"$schema": "../package/core/schemas/patch.schema.json",
+	"$schema": "../package/core/schemas/theme.schema.json",
 	"name": "Minimal",
 	"author": "Om Mishra",
 	"version": "1.0.0",

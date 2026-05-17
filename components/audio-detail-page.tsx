@@ -16,7 +16,7 @@ interface AudioDetailPageProps {
 }
 
 export function SoundDetailPage({ audio }: AudioDetailPageProps) {
-	const patch = usePatch(`/themes/${audio.meta.theme}.json`);
+	const patch = usePatch(`/api/audio/theme/${audio.meta.theme}`);
 	const [playState, setPlayState] = useState<PlayState>("idle");
 	const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 

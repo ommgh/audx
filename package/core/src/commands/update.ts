@@ -3,33 +3,33 @@ import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import * as p from "@clack/prompts";
 import {
-	fetchPatchIndex,
-	fetchPatchJson,
+	fetchThemeIndex,
+	fetchThemeJson,
 	generateModule,
-	getInstalledPatches,
-	getPatchesDir,
+	getInstalledThemes,
+	getThemesDir,
 	regenerateIndex,
-	validatePatch,
+	validateTheme,
 } from "./utils.js";
 
 export async function update(_args: string[]) {
 	p.intro("@litlab/audx update");
 
-	const installed = await getInstalledPatches();
+	const installed = await getInstalledThemes();
 
 	if (installed.length === 0) {
-		p.log.warn("No patches installed.");
-		p.outro("Install patches with npx @litlab/audx add");
+		p.log.warn("No themes installed.");
+		p.outro("Install themes with npx @litlab/audx add");
 		return;
 	}
 
 	const s = p.spinner();
 	s.start("Fetching registry...");
 
-	let registry: Awaited<ReturnType<typeof fetchPatchIndex>>;
+	let registry: Awaited<ReturnType<typeof fetchThemeIndex>>;
 	try {
-		registry = await fetchPatchIndex();
-		s.stop(`Found ${registry.length} registry patch(es)`);
+		registry = await fetchThemeIndex();
+		s.stop(`Found ${registry.length} registry theme(es)`);
 	} catch (err) {
 		s.stop("Failed to fetch registry.");
 		p.log.error(String(err));
@@ -43,26 +43,26 @@ export async function update(_args: string[]) {
 	);
 
 	if (toUpdate.length === 0) {
-		p.log.warn("No installed patches found in the registry.");
+		p.log.warn("No installed themes found in the registry.");
 		p.outro("");
 		return;
 	}
 
 	const dl = p.spinner();
-	dl.start(`Updating ${toUpdate.length} patch(es)...`);
+	dl.start(`Updating ${toUpdate.length} theme(es)...`);
 
 	let successCount = 0;
 	let failCount = 0;
 
-	const dir = getPatchesDir();
+	const dir = getThemesDir();
 	if (!existsSync(dir)) {
 		mkdirSync(dir, { recursive: true });
 	}
 
 	for (const entry of toUpdate) {
 		try {
-			const data = await fetchPatchJson(entry.name);
-			if (!validatePatch(data)) {
+			const data = await fetchThemeJson(entry.name);
+			if (!validateTheme(data)) {
 				failCount++;
 				continue;
 			}
@@ -85,10 +85,10 @@ export async function update(_args: string[]) {
 
 	await regenerateIndex(dir);
 
-	dl.stop(`Updated ${successCount} patch(es)`);
+	dl.stop(`Updated ${successCount} theme(es)`);
 
 	if (failCount > 0) {
-		p.log.warn(`Failed to update ${failCount} patch(es)`);
+		p.log.warn(`Failed to update ${failCount} theme(es)`);
 	}
 
 	p.outro("Done!");

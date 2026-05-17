@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import * as View from "@/app/library/[name]/_components/view";
-import { getPatchByName, getPatchSounds } from "@/lib/data/patches";
+import { getThemeByName, getThemeSounds } from "@/lib/data/themes";
 
 export const dynamic = "force-dynamic";
 
@@ -11,19 +11,19 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const { name } = await params;
-	const patch = await getPatchByName(name);
-	if (!patch) return { title: "Not Found" };
+	const theme = await getThemeByName(name);
+	if (!theme) return { title: "Not Found" };
 
-	const title = `${patch.name} by ${patch.author}`;
+	const title = `${theme.name} by ${theme.author}`;
 	const url = `https://audx.site/library/${name}`;
 
 	return {
 		title,
-		description: patch.description,
+		description: theme.description,
 		alternates: { canonical: url },
 		openGraph: {
 			title,
-			description: patch.description ?? undefined,
+			description: theme.description ?? undefined,
 			url,
 		},
 	};
@@ -32,14 +32,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: Props) {
 	const { name } = await params;
 
-	const patch = await getPatchByName(name);
+	const theme = await getThemeByName(name);
 
-	if (!patch) notFound();
+	if (!theme) notFound();
 
-	const sounds = await getPatchSounds(patch.id);
+	const sounds = await getThemeSounds(theme.id);
 
 	return (
-		<View.Root patch={patch} sounds={sounds}>
+		<View.Root theme={theme} sounds={sounds}>
 			<View.Breadcrumb />
 			<View.Main>
 				<View.Header />

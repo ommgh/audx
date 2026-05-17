@@ -35,16 +35,16 @@ const COMMANDS: Record<string, (args: string[]) => Promise<void>> = {
 function showBanner() {
 	p.intro("@litlab/audx");
 
-	p.log.message("Manage sound patches for your project.");
+	p.log.message("Manage sound themes for your project.");
 
 	p.log.message(
 		[
-			"Patches",
+			"Themes",
 			"  add [sound]     Install an individual sound",
 			"  add             Browse and install themes",
-			"  find [query]    Search for patches",
-			"  list            List installed patches",
-			"  remove          Remove installed patches",
+			"  find [query]    Search for themes",
+			"  list            List installed themes",
+			"  remove          Remove installed themes",
 		].join("\n"),
 	);
 
@@ -52,7 +52,7 @@ function showBanner() {
 		[
 			"Updates",
 			"  check           Check for updates",
-			"  update          Update installed patches",
+			"  update          Update installed themes",
 		].join("\n"),
 	);
 
@@ -74,17 +74,17 @@ function showHelp() {
 		[
 			"Usage: @litlab/audx <command> [options]",
 			"",
-			"Manage Patches:",
+			"Manage Themes:",
 			"  add [sound]     Install an individual sound",
 			"  add             Browse and install themes",
 			"  add <source>    Install themes from a source",
-			"  find [query]    Search for patches in the registry",
-			"  list, ls        List installed patches",
-			"  remove, rm      Remove installed patches",
+			"  find [query]    Search for themes in the registry",
+			"  list, ls        List installed themes",
+			"  remove, rm      Remove installed themes",
 			"",
 			"Updates:",
 			"  check           Check for available updates",
-			"  update          Update all installed patches",
+			"  update          Update all installed themes",
 			"",
 			"Project:",
 			"  init            Set up AudX and install themes",
@@ -95,9 +95,9 @@ function showHelp() {
 	p.log.message(
 		[
 			"Add Options:",
-			"  -l, --list      Preview available patches without installing",
+			"  -l, --list      Preview available themes without installing",
 			"  -y, --yes       Skip confirmation prompts",
-			"  --patch <name>  Install a specific patch by name",
+			"  --theme <name>  Install a specific theme by name",
 			"",
 			"Remove Options:",
 			"  -y, --yes       Skip confirmation prompts",
@@ -110,7 +110,7 @@ function showHelp() {
 			"  ./local/path                    Local file or directory",
 			"  owner/repo                      GitHub shorthand",
 			"  https://github.com/user/repo    Full GitHub URL",
-			"  https://...patch.json           Direct URL to a patch file",
+			"  https://...theme.json           Direct URL to a theme file",
 			"  (no argument)                   Browse the registry",
 		].join("\n"),
 	);
@@ -128,7 +128,7 @@ function showHelp() {
 			"  @litlab/audx add ommgh/audio",
 			"  @litlab/audx add ./.themes/",
 			"  @litlab/audx add ommgh/audio --list",
-			"  @litlab/audx add --patch core -y",
+			"  @litlab/audx add --theme core -y",
 			"  @litlab/audx remove core -y",
 			"  @litlab/audx find ambient",
 			"  @litlab/audx check",

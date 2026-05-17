@@ -86,7 +86,7 @@ model Payment {
   @@map("payment")
 }
 
-model Patch {
+model Theme {
   id            Int          @id @default(autoincrement())
   name          String       @unique
   author        String
@@ -95,7 +95,7 @@ model Patch {
   url           String
   source        String?
   sourceUrl     String?      @map("source_url")
-  patchJson     Json?        @map("patch_json")
+  themeJson     Json?        @map("theme_json")
   createdAt     DateTime     @default(now()) @map("created_at")
   version       String?
   updatedAt     DateTime     @default(now()) @updatedAt @map("updated_at")
@@ -110,37 +110,37 @@ model Patch {
   fileSize      Int          @default(0) @map("file_size")
 
 
-  loads         PatchLoad[]
-  sounds        PatchSound[]
-  forkedFromPatch Patch?     @relation("PatchForks", fields: [forkedFrom], references: [id])
-  forks         Patch[]      @relation("PatchForks")
+  loads         ThemeLoad[]
+  sounds        ThemeSound[]
+  forkedFromTheme Theme?     @relation("ThemeForks", fields: [forkedFrom], references: [id])
+  forks         Theme[]      @relation("ThemeForks")
 
-  @@map("patches")
+  @@map("themes")
 }
 
-model PatchLoad {
+model ThemeLoad {
   id       Int      @id @default(autoincrement())
-  patchId  Int      @map("patch_id")
+  themeId  Int      @map("theme_id")
   loadedAt DateTime @default(now()) @map("loaded_at")
 
 
-  patch    Patch    @relation(fields: [patchId], references: [id], onDelete: Cascade)
+  theme    Theme    @relation(fields: [themeId], references: [id], onDelete: Cascade)
 
   @@index([loadedAt])
-  @@index([patchId])
-  @@map("patch_loads")
+  @@index([themeId])
+  @@map("theme_loads")
 }
 
-model PatchSound {
+model ThemeSound {
   id          Int     @id @default(autoincrement())
-  patchId     Int     @map("patch_id")
+  themeId     Int     @map("theme_id")
   name        String
   category    String
   description String?
 
 
-  patch       Patch   @relation(fields: [patchId], references: [id], onDelete: Cascade)
+  theme       Theme   @relation(fields: [themeId], references: [id], onDelete: Cascade)
 
-  @@unique([patchId, name])
-  @@map("patch_sounds")
+  @@unique([themeId, name])
+  @@map("theme_sounds")
 }

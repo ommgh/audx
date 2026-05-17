@@ -2,9 +2,9 @@ import { mkdirSync, realpathSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { getPatchesDir } from "../src/commands/utils.js";
+import { getThemesDir } from "../src/commands/utils.js";
 
-describe("getPatchesDir", () => {
+describe("getThemesDir", () => {
 	let tempDir: string;
 	let originalCwd: string;
 
@@ -25,7 +25,7 @@ describe("getPatchesDir", () => {
 
 	it("returns src/audio/themes when no config exists", () => {
 		process.chdir(tempDir);
-		const result = getPatchesDir();
+		const result = getThemesDir();
 		expect(result).toBe(join(tempDir, "src", "audio", "themes"));
 	});
 
@@ -37,7 +37,7 @@ describe("getPatchesDir", () => {
 			JSON.stringify({ output: "src/sounds" }),
 		);
 		process.chdir(tempDir);
-		const result = getPatchesDir();
+		const result = getThemesDir();
 		expect(result).toBe(join(tempDir, "src", "sounds", "themes"));
 	});
 });

@@ -1,7 +1,7 @@
 import type { SoundDefinition, SoundPatch } from "@litlab/audx";
-import minimalPatch from "@/.themes/minimal.json";
-import playfulPatch from "@/.themes/playful.json";
-import { CATEGORIES } from "@/demo/cat";
+import minimalTheme from "@/.themes/minimal.json";
+import playfulTheme from "@/.themes/playful.json";
+import { CATEGORIES } from "@/lib/audio-taxonomy";
 
 export type AudioThemeName = "minimal" | "playful";
 
@@ -31,24 +31,24 @@ export type CategoryCount = {
 	count: number;
 };
 
-const PATCHES: Record<AudioThemeName, SoundPatch> = {
-	minimal: minimalPatch as SoundPatch,
-	playful: playfulPatch as SoundPatch,
+const THEMES: Record<AudioThemeName, SoundPatch> = {
+	minimal: minimalTheme as SoundPatch,
+	playful: playfulTheme as SoundPatch,
 };
 
 export function getAllThemes(): ThemeCatalogItem[] {
-	return Object.entries(PATCHES).map(([name, patch]) => ({
+	return Object.entries(THEMES).map(([name, theme]) => ({
 		name: name as AudioThemeName,
-		displayName: patch.name,
-		description: patch.description,
-		soundCount: Object.keys(patch.sounds).length,
-		mappedCount: Object.keys(patch.sounds).length,
+		displayName: theme.name,
+		description: theme.description,
+		soundCount: Object.keys(theme.sounds).length,
+		mappedCount: Object.keys(theme.sounds).length,
 	}));
 }
 
 export function getAllAudio(): AudioCatalogItem[] {
-	return Object.entries(PATCHES).flatMap(([theme, patch]) =>
-		Object.entries(patch.sounds).map(([soundName, definition]) =>
+	return Object.entries(THEMES).flatMap(([theme, themeData]) =>
+		Object.entries(themeData.sounds).map(([soundName, definition]) =>
 			createAudioItem(theme as AudioThemeName, soundName, definition),
 		),
 	);
@@ -87,7 +87,7 @@ function createAudioItem(
 	return {
 		name: `audio/${theme}/${soundName}`,
 		title: toTitle(soundName),
-		category: CATEGORIES[soundName] ?? "other",
+		category: getCategory(soundName),
 		theme,
 		meta: {
 			theme,
@@ -95,6 +95,10 @@ function createAudioItem(
 			duration: getDuration(definition),
 		},
 	};
+}
+
+function getCategory(soundName: string): string {
+	return CATEGORIES[soundName] ?? "other";
 }
 
 function getDuration(definition: SoundDefinition): number {

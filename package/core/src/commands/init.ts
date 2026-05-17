@@ -20,8 +20,8 @@ export async function themeInit(_args: string[]) {
 	p.intro("@litlab/audx theme init");
 
 	const name = await p.text({
-		message: "Patch name",
-		placeholder: "my-patch",
+		message: "Theme name",
+		placeholder: "my-theme",
 		validate: (v: string) => (v.length === 0 ? "Name is required" : undefined),
 	});
 
@@ -42,7 +42,7 @@ export async function themeInit(_args: string[]) {
 
 	const description = await p.text({
 		message: "Description",
-		placeholder: "What does this patch sound like?",
+		placeholder: "What does this theme sound like?",
 	});
 
 	if (p.isCancel(description)) {
@@ -72,8 +72,8 @@ export async function themeInit(_args: string[]) {
 		}
 	}
 
-	const patch = {
-		$schema: "../../node_modules/@litlab/audx/schemas/patch.schema.json",
+	const theme = {
+		$schema: "../../node_modules/@litlab/audx/schemas/theme.schema.json",
 		name: name as string,
 		author: (author as string) || undefined,
 		version: "1.0.0",
@@ -82,7 +82,7 @@ export async function themeInit(_args: string[]) {
 		sounds: {},
 	};
 
-	await writeFile(target, `${JSON.stringify(patch, null, 2)}\n`, "utf-8");
+	await writeFile(target, `${JSON.stringify(theme, null, 2)}\n`, "utf-8");
 
 	p.log.success(`Created .audx/themes/${filename}`);
 	p.outro("Add sounds to the `sounds` object to get started.");

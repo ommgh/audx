@@ -35,9 +35,9 @@ describe("generateModule", () => {
 		expect(output).not.toContain("tab-switch: SoundDefinition =");
 	});
 
-	it("includes a patch comment for scanning", () => {
-		const data = { name: "My Patch", sounds: {} };
+	it("includes a theme comment for scanning", () => {
+		const data = { name: "My Theme", sounds: {} };
 		const output = generateModule(data);
-		expect(output).toContain("// patch: My Patch");
+		expect(output).toContain("// theme: My Theme");
 	});
 });

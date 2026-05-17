@@ -1,22 +1,22 @@
 import * as p from "@clack/prompts";
-import { getInstalledPatches, getPatchesDir } from "./utils.js";
+import { getInstalledThemes, getThemesDir } from "./utils.js";
 
 export async function list(_args: string[]) {
 	p.intro("@litlab/audx list");
 
-	const patches = await getInstalledPatches();
+	const themes = await getInstalledThemes();
 
-	if (patches.length === 0) {
-		p.log.warn(`No patches found in ${getPatchesDir()}`);
-		p.outro("Run `@litlab/audx add` to install patches.");
+	if (themes.length === 0) {
+		p.log.warn(`No themes found in ${getThemesDir()}`);
+		p.outro("Run `@litlab/audx add` to install themes.");
 		return;
 	}
 
-	const rows = patches.map(
-		(patch) =>
-			`  ${patch.name.padEnd(16)} ${String(patch.soundCount).padStart(3)} sounds   ${patch.description ?? ""}`,
+	const rows = themes.map(
+		(theme) =>
+			`  ${theme.name.padEnd(16)} ${String(theme.soundCount).padStart(3)} sounds   ${theme.description ?? ""}`,
 	);
 
-	p.note(rows.join("\n"), `${patches.length} patch(es) installed`);
-	p.outro(getPatchesDir());
+	p.note(rows.join("\n"), `${themes.length} theme(es) installed`);
+	p.outro(getThemesDir());
 }

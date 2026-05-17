@@ -3,7 +3,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
-	discoverPatchesFromLocal,
+	discoverThemesFromLocal,
 	isLocalSource,
 } from "../src/commands/utils.js";
 
@@ -27,7 +27,7 @@ describe("isLocalSource", () => {
 	});
 
 	it("returns true for an existing file", () => {
-		const file = join(tempDir, "patch.json");
+		const file = join(tempDir, "theme.json");
 		writeFileSync(file, "{}");
 		expect(isLocalSource(file)).toBe(true);
 	});
@@ -37,7 +37,7 @@ describe("isLocalSource", () => {
 	});
 
 	it("returns false for HTTP URLs", () => {
-		expect(isLocalSource("https://example.com/patch.json")).toBe(false);
+		expect(isLocalSource("https://example.com/theme.json")).toBe(false);
 	});
 
 	it("returns false for owner/repo shorthand", () => {
@@ -45,7 +45,7 @@ describe("isLocalSource", () => {
 	});
 });
 
-describe("discoverPatchesFromLocal", () => {
+describe("discoverThemesFromLocal", () => {
 	let tempDir: string;
 
 	beforeEach(() => {
@@ -60,7 +60,7 @@ describe("discoverPatchesFromLocal", () => {
 		rmSync(tempDir, { recursive: true, force: true });
 	});
 
-	it("discovers a single patch file", async () => {
+	it("discovers a single theme file", async () => {
 		const file = join(tempDir, "core.json");
 		writeFileSync(
 			file,
@@ -71,40 +71,40 @@ describe("discoverPatchesFromLocal", () => {
 			}),
 		);
 
-		const patches = await discoverPatchesFromLocal(file);
-		expect(patches).toHaveLength(1);
-		expect(patches[0].name).toBe("Core");
-		expect(patches[0].soundCount).toBe(3);
-		expect(patches[0].description).toBe("Core UI sounds");
+		const themes = await discoverThemesFromLocal(file);
+		expect(themes).toHaveLength(1);
+		expect(themes[0].name).toBe("Core");
+		expect(themes[0].soundCount).toBe(3);
+		expect(themes[0].description).toBe("Core UI sounds");
 	});
 
-	it("discovers patches from a directory", async () => {
+	it("discovers themes from a directory", async () => {
 		writeFileSync(
-			join(tempDir, "patch-a.json"),
+			join(tempDir, "theme-a.json"),
 			JSON.stringify({ name: "A", sounds: { click: {} } }),
 		);
 		writeFileSync(
-			join(tempDir, "patch-b.json"),
+			join(tempDir, "theme-b.json"),
 			JSON.stringify({ name: "B", sounds: { pop: {}, toggle: {} } }),
 		);
 		writeFileSync(
-			join(tempDir, "not-a-patch.json"),
+			join(tempDir, "not-a-theme.json"),
 			JSON.stringify({ foo: 1 }),
 		);
 
-		const patches = await discoverPatchesFromLocal(tempDir);
-		expect(patches).toHaveLength(2);
+		const themes = await discoverThemesFromLocal(tempDir);
+		expect(themes).toHaveLength(2);
 
-		const names = patches.map((p) => p.name).sort();
+		const names = themes.map((p) => p.name).sort();
 		expect(names).toEqual(["A", "B"]);
 	});
 
-	it("throws for an invalid single patch file", async () => {
+	it("throws for an invalid single theme file", async () => {
 		const file = join(tempDir, "bad.json");
 		writeFileSync(file, JSON.stringify({ foo: "bar" }));
 
-		await expect(discoverPatchesFromLocal(file)).rejects.toThrow(
-			"not a valid sound patch",
+		await expect(discoverThemesFromLocal(file)).rejects.toThrow(
+			"not a valid sound theme",
 		);
 	});
 
@@ -118,14 +118,14 @@ describe("discoverPatchesFromLocal", () => {
 			JSON.stringify({ name: "Real", sounds: { y: {} } }),
 		);
 
-		const patches = await discoverPatchesFromLocal(tempDir);
-		expect(patches).toHaveLength(1);
-		expect(patches[0].name).toBe("Real");
+		const themes = await discoverThemesFromLocal(tempDir);
+		expect(themes).toHaveLength(1);
+		expect(themes[0].name).toBe("Real");
 	});
 
-	it("returns empty array for directory with no valid patches", async () => {
+	it("returns empty array for directory with no valid themes", async () => {
 		writeFileSync(join(tempDir, "readme.txt"), "not json");
-		const patches = await discoverPatchesFromLocal(tempDir);
-		expect(patches).toEqual([]);
+		const themes = await discoverThemesFromLocal(tempDir);
+		expect(themes).toEqual([]);
 	});
 });

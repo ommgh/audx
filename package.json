@@ -11,6 +11,7 @@
     "start": "next start",
     "lint": "biome check .",
     "postinstall": "prisma generate",
+    "seed": "tsx prisma/seed.ts",
     "test": "vitest --run"
   },
   "dependencies": {
@@ -48,7 +49,7 @@
     "sonner": "^2.0.7",
     "superjson": "^2.2.6",
     "tailwind-merge": "^3.3.1",
-    "tsx": "^4.21.0",
+    "tsx": "^4.22.1",
     "tw-animate-css": "^1.3.6",
     "vaul": "^1.1.2",
     "zod": "^4.3.6"

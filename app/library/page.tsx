@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
 import { View } from "@/app/library/_components/view";
-import { getPatchesAllTime } from "@/lib/data/patches";
+import { getThemesAllTime } from "@/lib/data/themes";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
 	title: "Library",
-	description: "Browse and discover curated sound patches for your UI.",
+	description: "Browse and discover curated sound themes for your UI.",
 	alternates: { canonical: "https://audx.site/library" },
 	openGraph: {
 		title: "Library",
-		description: "Browse and discover curated sound patches for your UI.",
+		description: "Browse and discover curated sound themes for your UI.",
 		url: "https://audx.site/library",
 	},
 };
 
-export default async function PatchesPage() {
-	const patches = await getPatchesAllTime();
+export default async function ThemesPage() {
+	const themes = await getThemesAllTime();
 
-	return <View patches={patches} />;
+	return <View themes={themes} />;
 }

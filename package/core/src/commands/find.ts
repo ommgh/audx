@@ -1,5 +1,5 @@
 import * as p from "@clack/prompts";
-import { fetchPatchIndex } from "./utils.js";
+import { fetchThemeIndex } from "./utils.js";
 
 export async function find(args: string[]) {
 	const query = args.join(" ").toLowerCase();
@@ -9,10 +9,10 @@ export async function find(args: string[]) {
 	const s = p.spinner();
 	s.start("Fetching registry...");
 
-	let index: Awaited<ReturnType<typeof fetchPatchIndex>>;
+	let index: Awaited<ReturnType<typeof fetchThemeIndex>>;
 	try {
-		index = await fetchPatchIndex();
-		s.stop(`Found ${index.length} patch(es) in registry`);
+		index = await fetchThemeIndex();
+		s.stop(`Found ${index.length} theme(es) in registry`);
 	} catch (err) {
 		s.stop("Failed to fetch registry.");
 		p.log.error(String(err));
@@ -20,7 +20,7 @@ export async function find(args: string[]) {
 	}
 
 	if (index.length === 0) {
-		p.log.warn("No patches available in the registry.");
+		p.log.warn("No themes available in the registry.");
 		p.outro("");
 		return;
 	}
@@ -34,12 +34,12 @@ export async function find(args: string[]) {
 		: index;
 
 	if (matches.length === 0) {
-		p.log.warn(`No patches found for "${query}"`);
+		p.log.warn(`No themes found for "${query}"`);
 		p.outro("");
 		return;
 	}
 
-	p.log.info("Install with npx @litlab/audx add --patch <name>");
+	p.log.info("Install with npx @litlab/audx add --theme <name>");
 
 	for (const entry of matches) {
 		const tags =

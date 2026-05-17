@@ -4,31 +4,31 @@ import { join } from "node:path";
 import * as p from "@clack/prompts";
 import pc from "picocolors";
 import {
-	type DiscoveredPatch,
-	discoverPatchesFromGitHub,
-	discoverPatchesFromLocal,
+	type DiscoveredTheme,
+	discoverThemesFromGitHub,
+	discoverThemesFromLocal,
 	ensureConfig,
-	fetchPatchIndex,
-	fetchPatchJson,
+	fetchThemeIndex,
+	fetchThemeJson,
 	generateModule,
 	generateSoundModule,
-	getInstalledPatches,
-	getPatchesDir,
+	getInstalledThemes,
 	getSoundsDir,
-	type InstalledPatch,
+	getThemesDir,
+	type InstalledTheme,
 	isGitHubSource,
 	isLocalSource,
-	type PatchIndexEntry,
 	regenerateIndex,
-	registerPatch,
+	registerTheme,
+	type ThemeIndexEntry,
 	toIdentifier,
-	validatePatch,
+	validateTheme,
 } from "./utils.js";
 
 export interface AddOptions {
 	list?: boolean;
 	yes?: boolean;
-	patch?: string;
+	theme?: string;
 }
 
 export function parseAddOptions(args: string[]): {
@@ -44,8 +44,8 @@ export function parseAddOptions(args: string[]): {
 			options.yes = true;
 		} else if (arg === "-l" || arg === "--list") {
 			options.list = true;
-		} else if (arg === "--patch") {
-			options.patch = args[++i];
+		} else if (arg === "--theme") {
+			options.theme = args[++i];
 		} else if (arg && !arg.startsWith("-")) {
 			source = arg;
 		}
@@ -84,12 +84,12 @@ export async function add(args: string[]) {
 
 async function addFromLocal(source: string, options: AddOptions) {
 	const s = p.spinner();
-	s.start("Scanning local path for patches...");
+	s.start("Scanning local path for themes...");
 
-	let discovered: DiscoveredPatch[];
+	let discovered: DiscoveredTheme[];
 	try {
-		discovered = await discoverPatchesFromLocal(source);
-		s.stop(`Found ${discovered.length} patch(es)`);
+		discovered = await discoverThemesFromLocal(source);
+		s.stop(`Found ${discovered.length} theme(es)`);
 	} catch (err) {
 		s.stop("Failed to scan local path.");
 		p.log.error(String(err));
@@ -97,59 +97,59 @@ async function addFromLocal(source: string, options: AddOptions) {
 	}
 
 	if (discovered.length === 0) {
-		p.log.warn("No valid sound patches found at this path.");
-		p.outro("Patches must be JSON files with a name and sounds object.");
+		p.log.warn("No valid sound themes found at this path.");
+		p.outro("Themes must be JSON files with a name and sounds object.");
 		return;
 	}
 
 	if (options.list) {
-		printPatchList(discovered);
+		printThemeList(discovered);
 		return;
 	}
 
-	const toInstall = selectPatches(discovered, options);
+	const toInstall = selectThemes(discovered, options);
 	if (!toInstall || toInstall.length === 0) return;
 
-	const installed = await getInstalledPatches();
-	const installedNames = new Set(installed.map((p: InstalledPatch) => p.name));
+	const installed = await getInstalledThemes();
+	const installedNames = new Set(installed.map((p: InstalledTheme) => p.name));
 
 	const final = options.yes
 		? toInstall
-		: await confirmOverwrites(toInstall, installedNames);
+		: await confirmThemeOverwrites(toInstall, installedNames);
 	if (!final || final.length === 0) return;
 
 	const dl = p.spinner();
-	dl.start(`Installing ${final.length} patch(es)...`);
+	dl.start(`Installing ${final.length} theme(es)...`);
 
 	const results: string[] = [];
-	for (const patch of final) {
+	for (const theme of final) {
 		try {
-			const raw = await readFile(patch.downloadUrl, "utf-8");
+			const raw = await readFile(theme.downloadUrl, "utf-8");
 			const data = JSON.parse(raw) as Record<string, unknown>;
-			if (!validatePatch(data)) {
-				p.log.warn(`Skipping ${patch.name}: invalid patch format`);
+			if (!validateTheme(data)) {
+				p.log.warn(`Skipping ${theme.name}: invalid theme format`);
 				continue;
 			}
-			await writePatch(patch.name, data);
+			await writeTheme(theme.name, data);
 			results.push(data.name);
 		} catch (err) {
-			p.log.warn(`Failed to install ${patch.name}: ${err}`);
+			p.log.warn(`Failed to install ${theme.name}: ${err}`);
 		}
 	}
 
-	dl.stop(`Installed ${results.length} patch(es)`);
-	p.note(results.map((n) => `  - ${n}`).join("\n"), "Installed patches");
+	dl.stop(`Installed ${results.length} theme(es)`);
+	p.note(results.map((n) => `  - ${n}`).join("\n"), "Installed themes");
 	p.outro("Done!");
 }
 
 async function addFromGitHub(source: string, options: AddOptions) {
 	const s = p.spinner();
-	s.start("Scanning repository for patches...");
+	s.start("Scanning repository for themes...");
 
-	let discovered: DiscoveredPatch[];
+	let discovered: DiscoveredTheme[];
 	try {
-		discovered = await discoverPatchesFromGitHub(source);
-		s.stop(`Found ${discovered.length} patch(es)`);
+		discovered = await discoverThemesFromGitHub(source);
+		s.stop(`Found ${discovered.length} theme(es)`);
 	} catch (err) {
 		s.stop("Failed to scan repository.");
 		p.log.error(String(err));
@@ -157,20 +157,20 @@ async function addFromGitHub(source: string, options: AddOptions) {
 	}
 
 	if (discovered.length === 0) {
-		p.log.warn("No valid sound patches found in this repository.");
-		p.outro("Patches must be JSON files with a name and sounds object.");
+		p.log.warn("No valid sound themes found in this repository.");
+		p.outro("Themes must be JSON files with a name and sounds object.");
 		return;
 	}
 
 	if (options.list) {
-		printPatchList(discovered);
+		printThemeList(discovered);
 		return;
 	}
 
-	const installed = await getInstalledPatches();
-	const installedNames = new Set(installed.map((p: InstalledPatch) => p.name));
+	const installed = await getInstalledThemes();
+	const installedNames = new Set(installed.map((p: InstalledTheme) => p.name));
 
-	const toInstall = await resolvePatchSelection(
+	const toInstall = await resolveThemeSelection(
 		discovered,
 		installedNames,
 		options,
@@ -178,40 +178,40 @@ async function addFromGitHub(source: string, options: AddOptions) {
 	if (!toInstall || toInstall.length === 0) return;
 
 	const dl = p.spinner();
-	dl.start(`Installing ${toInstall.length} patch(es)...`);
+	dl.start(`Installing ${toInstall.length} theme(es)...`);
 
 	const results: string[] = [];
-	for (const patch of toInstall) {
+	for (const theme of toInstall) {
 		try {
-			const data = await fetchPatchJson(patch.downloadUrl);
-			if (!validatePatch(data)) {
-				p.log.warn(`Skipping ${patch.name}: invalid patch format`);
+			const data = await fetchThemeJson(theme.downloadUrl);
+			if (!validateTheme(data)) {
+				p.log.warn(`Skipping ${theme.name}: invalid theme format`);
 				continue;
 			}
-			await writePatch(patch.name, data);
-			registerPatch(patch.downloadUrl);
+			await writeTheme(theme.name, data);
+			registerTheme(theme.downloadUrl);
 			results.push(data.name);
 		} catch (err) {
-			p.log.warn(`Failed to install ${patch.name}: ${err}`);
+			p.log.warn(`Failed to install ${theme.name}: ${err}`);
 		}
 	}
 
-	dl.stop(`Installed ${results.length} patch(es)`);
+	dl.stop(`Installed ${results.length} theme(es)`);
 
-	p.note(results.map((n) => `  - ${n}`).join("\n"), "Installed patches");
+	p.note(results.map((n) => `  - ${n}`).join("\n"), "Installed themes");
 	p.outro("Done!");
 }
 
 async function addFromUrl(url: string, options: AddOptions) {
 	const s = p.spinner();
-	s.start("Fetching patch...");
+	s.start("Fetching theme...");
 
 	try {
-		const data = await fetchPatchJson(url);
-		if (!validatePatch(data)) {
-			s.stop("Invalid patch format.");
+		const data = await fetchThemeJson(url);
+		if (!validateTheme(data)) {
+			s.stop("Invalid theme format.");
 			p.log.error(
-				"The fetched JSON is not a valid sound patch (missing name or sounds).",
+				"The fetched JSON is not a valid sound theme (missing name or sounds).",
 			);
 			process.exit(1);
 		}
@@ -225,10 +225,10 @@ async function addFromUrl(url: string, options: AddOptions) {
 			return;
 		}
 
-		await writePatch(data.name, data);
-		registerPatch(url);
+		await writeTheme(data.name, data);
+		registerTheme(url);
 	} catch (err) {
-		s.stop("Failed to fetch patch.");
+		s.stop("Failed to fetch theme.");
 		p.log.error(String(err));
 		process.exit(1);
 	}
@@ -236,14 +236,14 @@ async function addFromUrl(url: string, options: AddOptions) {
 
 async function addFromRegistry(options: AddOptions) {
 	const s = p.spinner();
-	s.start("Fetching available patches...");
+	s.start("Fetching available themes...");
 
-	let index: Awaited<ReturnType<typeof fetchPatchIndex>>;
+	let index: Awaited<ReturnType<typeof fetchThemeIndex>>;
 	try {
-		index = await fetchPatchIndex();
-		s.stop(`Found ${index.length} patches`);
+		index = await fetchThemeIndex();
+		s.stop(`Found ${index.length} themes`);
 	} catch (err) {
-		s.stop("Failed to fetch patch index.");
+		s.stop("Failed to fetch theme index.");
 		p.log.error(String(err));
 		process.exit(1);
 	}
@@ -257,27 +257,27 @@ async function addFromRegistry(options: AddOptions) {
 		return;
 	}
 
-	const installed = await getInstalledPatches();
-	const installedNames = new Set(installed.map((p: InstalledPatch) => p.name));
+	const installed = await getInstalledThemes();
+	const installedNames = new Set(installed.map((p: InstalledTheme) => p.name));
 
 	let names: string[];
 
-	if (options.patch) {
-		const patchName = options.patch;
-		names = [patchName];
+	if (options.theme) {
+		const themeName = options.theme;
+		names = [themeName];
 		const match = index.find(
-			(e: PatchIndexEntry) => e.name.toLowerCase() === patchName.toLowerCase(),
+			(e: ThemeIndexEntry) => e.name.toLowerCase() === themeName.toLowerCase(),
 		);
 		if (!match) {
-			p.log.error(`Patch "${patchName}" not found in registry.`);
+			p.log.error(`Theme "${themeName}" not found in registry.`);
 			process.exit(1);
 		}
 	} else if (options.yes) {
-		names = index.map((e: PatchIndexEntry) => e.name);
+		names = index.map((e: ThemeIndexEntry) => e.name);
 	} else {
 		const selected = await p.multiselect({
-			message: "Select patches to install",
-			options: index.map((entry: PatchIndexEntry) => ({
+			message: "Select themes to install",
+			options: index.map((entry: ThemeIndexEntry) => ({
 				value: entry.name,
 				label: `${entry.name}${installedNames.has(entry.name) ? " (installed)" : ""}`,
 				hint: entry.description,
@@ -291,7 +291,7 @@ async function addFromRegistry(options: AddOptions) {
 
 		names = selected as string[];
 		if (names.length === 0) {
-			p.outro("No patches selected.");
+			p.outro("No themes selected.");
 			return;
 		}
 	}
@@ -300,7 +300,7 @@ async function addFromRegistry(options: AddOptions) {
 		const existing = names.filter((n) => installedNames.has(n));
 		if (existing.length > 0) {
 			const overwrite = await p.confirm({
-				message: `${existing.length} patch(es) already installed. Overwrite?`,
+				message: `${existing.length} theme(es) already installed. Overwrite?`,
 			});
 			if (p.isCancel(overwrite) || !overwrite) {
 				p.cancel("Cancelled.");
@@ -310,26 +310,26 @@ async function addFromRegistry(options: AddOptions) {
 	}
 
 	const dl = p.spinner();
-	dl.start(`Downloading ${names.length} patch(es)...`);
+	dl.start(`Downloading ${names.length} theme(es)...`);
 
 	const results: string[] = [];
 	for (const name of names) {
 		try {
-			const data = await fetchPatchJson(name);
-			if (!validatePatch(data)) {
-				p.log.warn(`Skipping ${name}: invalid patch format`);
+			const data = await fetchThemeJson(name);
+			if (!validateTheme(data)) {
+				p.log.warn(`Skipping ${name}: invalid theme format`);
 				continue;
 			}
-			await writePatch(name, data);
+			await writeTheme(name, data);
 			results.push(data.name);
 		} catch (err) {
 			p.log.warn(`Failed to download ${name}: ${err}`);
 		}
 	}
 
-	dl.stop(`Downloaded ${results.length} patch(es)`);
+	dl.stop(`Downloaded ${results.length} theme(es)`);
 
-	p.note(results.map((n) => `  - ${n}`).join("\n"), "Installed patches");
+	p.note(results.map((n) => `  - ${n}`).join("\n"), "Installed themes");
 	p.outro("Done!");
 }
 
@@ -342,9 +342,9 @@ async function addSoundFromRegistry(soundName: string, options: AddOptions) {
 	const s = p.spinner();
 	s.start(`Finding "${soundName}"...`);
 
-	let index: Awaited<ReturnType<typeof fetchPatchIndex>>;
+	let index: Awaited<ReturnType<typeof fetchThemeIndex>>;
 	try {
-		index = await fetchPatchIndex();
+		index = await fetchThemeIndex();
 	} catch (err) {
 		s.stop("Failed to fetch theme index.");
 		p.log.error(String(err));
@@ -360,8 +360,8 @@ async function addSoundFromRegistry(soundName: string, options: AddOptions) {
 
 	for (const entry of index) {
 		try {
-			const data = await fetchPatchJson(entry.name);
-			if (!validatePatch(data)) continue;
+			const data = await fetchThemeJson(entry.name);
+			if (!validateTheme(data)) continue;
 			const match = Object.entries(data.sounds).find(
 				([name]) => name.toLowerCase() === soundName.toLowerCase(),
 			);
@@ -384,28 +384,28 @@ async function addSoundFromRegistry(soundName: string, options: AddOptions) {
 	p.outro("Done!");
 }
 
-function printPatchList(patches: DiscoveredPatch[]) {
+function printThemeList(themes: DiscoveredTheme[]) {
 	console.log();
-	for (const patch of patches) {
-		const desc = patch.description ? `  ${pc.dim(patch.description)}` : "";
+	for (const theme of themes) {
+		const desc = theme.description ? `  ${pc.dim(theme.description)}` : "";
 		console.log(
-			`  ${pc.bold(patch.name)}  ${pc.dim(`${patch.soundCount} sounds`)}${desc}`,
+			`  ${pc.bold(theme.name)}  ${pc.dim(`${theme.soundCount} sounds`)}${desc}`,
 		);
 	}
 	console.log();
 }
 
-function selectPatches(
-	discovered: DiscoveredPatch[],
+function selectThemes(
+	discovered: DiscoveredTheme[],
 	options: AddOptions,
-): DiscoveredPatch[] {
-	if (options.patch) {
-		const patchName = options.patch;
+): DiscoveredTheme[] {
+	if (options.theme) {
+		const themeName = options.theme;
 		const match = discovered.filter(
-			(d) => d.name.toLowerCase() === patchName.toLowerCase(),
+			(d) => d.name.toLowerCase() === themeName.toLowerCase(),
 		);
 		if (match.length === 0) {
-			p.log.error(`Patch "${patchName}" not found.`);
+			p.log.error(`Theme "${themeName}" not found.`);
 			process.exit(1);
 		}
 		return match;
@@ -414,18 +414,18 @@ function selectPatches(
 	return discovered;
 }
 
-async function resolvePatchSelection(
-	discovered: DiscoveredPatch[],
+async function resolveThemeSelection(
+	discovered: DiscoveredTheme[],
 	installedNames: Set<string>,
 	options: AddOptions,
-): Promise<DiscoveredPatch[]> {
-	if (options.patch) {
-		const patchName = options.patch;
+): Promise<DiscoveredTheme[]> {
+	if (options.theme) {
+		const themeName = options.theme;
 		const match = discovered.filter(
-			(d) => d.name.toLowerCase() === patchName.toLowerCase(),
+			(d) => d.name.toLowerCase() === themeName.toLowerCase(),
 		);
 		if (match.length === 0) {
-			p.log.error(`Patch "${patchName}" not found.`);
+			p.log.error(`Theme "${themeName}" not found.`);
 			process.exit(1);
 		}
 		return match;
@@ -435,21 +435,21 @@ async function resolvePatchSelection(
 
 	if (discovered.length === 1) return discovered;
 
-	return await promptPatchSelection(discovered, installedNames);
+	return await promptThemeSelection(discovered, installedNames);
 }
 
-async function promptPatchSelection(
-	discovered: DiscoveredPatch[],
+async function promptThemeSelection(
+	discovered: DiscoveredTheme[],
 	installedNames: Set<string>,
 ) {
 	const selected = await p.multiselect({
-		message: "Select patches to install",
-		options: discovered.map((patch) => ({
-			value: patch.name,
-			label: `${patch.name}${installedNames.has(patch.name) ? " (installed)" : ""}`,
-			hint: patch.description
-				? `${patch.soundCount} sounds — ${patch.description}`
-				: `${patch.soundCount} sounds`,
+		message: "Select themes to install",
+		options: discovered.map((theme) => ({
+			value: theme.name,
+			label: `${theme.name}${installedNames.has(theme.name) ? " (installed)" : ""}`,
+			hint: theme.description
+				? `${theme.soundCount} sounds — ${theme.description}`
+				: `${theme.soundCount} sounds`,
 		})),
 	});
 
@@ -462,26 +462,26 @@ async function promptPatchSelection(
 	return discovered.filter((d) => names.has(d.name));
 }
 
-async function confirmOverwrites(
-	patches: DiscoveredPatch[],
+async function confirmThemeOverwrites(
+	themes: DiscoveredTheme[],
 	installedNames: Set<string>,
-): Promise<DiscoveredPatch[]> {
-	const existing = patches.filter((patch) => installedNames.has(patch.name));
-	if (existing.length === 0) return patches;
+): Promise<DiscoveredTheme[]> {
+	const existing = themes.filter((theme) => installedNames.has(theme.name));
+	if (existing.length === 0) return themes;
 
 	const overwrite = await p.confirm({
-		message: `${existing.length} patch(es) already installed. Overwrite?`,
+		message: `${existing.length} theme(es) already installed. Overwrite?`,
 	});
 	if (p.isCancel(overwrite) || !overwrite) {
 		p.cancel("Cancelled.");
 		process.exit(0);
 	}
-	return patches;
+	return themes;
 }
 
-async function writePatch(filename: string, data: Record<string, unknown>) {
+async function writeTheme(filename: string, data: Record<string, unknown>) {
 	await ensureConfig("themes");
-	const dir = getPatchesDir();
+	const dir = getThemesDir();
 	if (!existsSync(dir)) {
 		mkdirSync(dir, { recursive: true });
 	}

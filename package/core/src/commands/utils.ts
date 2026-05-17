@@ -93,14 +93,14 @@ function normalizeConfigOutput(output: string, context: "setup" | "themes") {
 	return normalized;
 }
 
-export interface PatchIndexEntry {
+export interface ThemeIndexEntry {
 	name: string;
 	file: string;
 	description: string;
 	tags: string[];
 }
 
-export interface InstalledPatch {
+export interface InstalledTheme {
 	file: string;
 	name: string;
 	description?: string;
@@ -108,7 +108,7 @@ export interface InstalledPatch {
 	soundCount: number;
 }
 
-export interface DiscoveredPatch {
+export interface DiscoveredTheme {
 	name: string;
 	path: string;
 	downloadUrl: string;
@@ -116,7 +116,7 @@ export interface DiscoveredPatch {
 	soundCount: number;
 }
 
-export function getPatchesDir(): string {
+export function getThemesDir(): string {
 	const config = getConfig();
 	const output = config?.output ?? "src/audio";
 	return resolve(process.cwd(), output, "themes");
@@ -166,9 +166,9 @@ interface GitHubTreeItem {
 	type: string;
 }
 
-export async function discoverPatchesFromGitHub(
+export async function discoverThemesFromGitHub(
 	source: string,
-): Promise<DiscoveredPatch[]> {
+): Promise<DiscoveredTheme[]> {
 	const parsed = parseGitHubSource(source);
 	if (!parsed) {
 		throw new Error(
@@ -199,7 +199,7 @@ export async function discoverPatchesFromGitHub(
 		return true;
 	});
 
-	const patches: DiscoveredPatch[] = [];
+	const themes: DiscoveredTheme[] = [];
 
 	for (const file of jsonFiles) {
 		const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${file.path}`;
@@ -207,9 +207,9 @@ export async function discoverPatchesFromGitHub(
 			const r = await fetch(rawUrl);
 			if (!r.ok) continue;
 			const data = (await r.json()) as Record<string, unknown>;
-			if (!validatePatch(data)) continue;
+			if (!validateTheme(data)) continue;
 
-			patches.push({
+			themes.push({
 				name: data.name,
 				path: file.path,
 				downloadUrl: rawUrl,
@@ -219,7 +219,7 @@ export async function discoverPatchesFromGitHub(
 		} catch {}
 	}
 
-	return patches;
+	return themes;
 }
 
 export function isGitHubSource(source: string): boolean {
@@ -234,16 +234,16 @@ export function isLocalSource(source: string): boolean {
 	return existsSync(abs);
 }
 
-export async function discoverPatchesFromLocal(
+export async function discoverThemesFromLocal(
 	source: string,
-): Promise<DiscoveredPatch[]> {
+): Promise<DiscoveredTheme[]> {
 	const abs = isAbsolute(source) ? source : resolve(process.cwd(), source);
 
 	if (abs.endsWith(".json")) {
 		const raw = await readFile(abs, "utf-8");
 		const data = JSON.parse(raw) as Record<string, unknown>;
-		if (!validatePatch(data)) {
-			throw new Error(`${source} is not a valid sound patch.`);
+		if (!validateTheme(data)) {
+			throw new Error(`${source} is not a valid sound theme.`);
 		}
 		return [
 			{
@@ -257,7 +257,7 @@ export async function discoverPatchesFromLocal(
 	}
 
 	const files = await readdir(abs);
-	const patches: DiscoveredPatch[] = [];
+	const themes: DiscoveredTheme[] = [];
 
 	for (const file of files) {
 		if (!file.endsWith(".json") || file === "index.json") continue;
@@ -265,8 +265,8 @@ export async function discoverPatchesFromLocal(
 			const filePath = join(abs, file);
 			const raw = await readFile(filePath, "utf-8");
 			const data = JSON.parse(raw) as Record<string, unknown>;
-			if (!validatePatch(data)) continue;
-			patches.push({
+			if (!validateTheme(data)) continue;
+			themes.push({
 				name: data.name,
 				path: filePath,
 				downloadUrl: filePath,
@@ -276,33 +276,33 @@ export async function discoverPatchesFromLocal(
 		} catch {}
 	}
 
-	return patches;
+	return themes;
 }
 
-export async function fetchPatchIndex(): Promise<PatchIndexEntry[]> {
-	const res = await fetch(`${REGISTRY_BASE}/patches`);
+export async function fetchThemeIndex(): Promise<ThemeIndexEntry[]> {
+	const res = await fetch(`${REGISTRY_BASE}/audio/themes`);
 	if (!res.ok) {
-		throw new Error(`Failed to fetch patch index: ${res.status}`);
+		throw new Error(`Failed to fetch theme index: ${res.status}`);
 	}
-	return res.json() as Promise<PatchIndexEntry[]>;
+	return res.json() as Promise<ThemeIndexEntry[]>;
 }
 
-export async function fetchPatchJson(
+export async function fetchThemeJson(
 	nameOrUrl: string,
 ): Promise<Record<string, unknown>> {
 	const url = nameOrUrl.startsWith("http")
 		? nameOrUrl
-		: `${REGISTRY_BASE}/patch/${nameOrUrl}`;
+		: `${REGISTRY_BASE}/audio/theme/${nameOrUrl}`;
 	const res = await fetch(url);
 	if (!res.ok) {
-		throw new Error(`Failed to fetch patch: ${res.status}`);
+		throw new Error(`Failed to fetch theme: ${res.status}`);
 	}
 	return res.json() as Promise<Record<string, unknown>>;
 }
 
-export async function registerPatch(url: string): Promise<void> {
+export async function registerTheme(url: string): Promise<void> {
 	try {
-		await fetch(`${REGISTRY_BASE}/patches`, {
+		await fetch(`${REGISTRY_BASE}/audio/themes`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ url }),
@@ -310,7 +310,7 @@ export async function registerPatch(url: string): Promise<void> {
 	} catch {}
 }
 
-export function validatePatch(
+export function validateTheme(
 	data: Record<string, unknown>,
 ): data is { name: string; sounds: Record<string, unknown> } {
 	return (
@@ -320,21 +320,21 @@ export function validatePatch(
 	);
 }
 
-export async function getInstalledPatches(): Promise<InstalledPatch[]> {
-	const dir = getPatchesDir();
+export async function getInstalledThemes(): Promise<InstalledTheme[]> {
+	const dir = getThemesDir();
 	if (!existsSync(dir)) return [];
 
 	const files = await readdir(dir);
-	const patches: InstalledPatch[] = [];
+	const themes: InstalledTheme[] = [];
 
 	for (const file of files) {
 		if (!file.endsWith(".ts") || file === "index.ts") continue;
 		try {
 			const raw = await readFile(join(dir, file), "utf-8");
-			const nameMatch = raw.match(/^\/\/ patch: (.+)$/m);
+			const nameMatch = raw.match(/^\/\/ theme: (.+)$/m);
 			const exportCount = (raw.match(/^export const /gm) ?? []).length;
 			const name = nameMatch?.[1] ?? basename(file, ".ts");
-			patches.push({
+			themes.push({
 				file,
 				name,
 				soundCount: Math.max(0, exportCount - 1),
@@ -342,7 +342,7 @@ export async function getInstalledPatches(): Promise<InstalledPatch[]> {
 		} catch {}
 	}
 
-	return patches;
+	return themes;
 }
 
 const RESERVED = new Set([
@@ -412,7 +412,7 @@ export function generateModule(data: {
 
 	const lines: string[] = [
 		`// ${data.name} — generated by @litlab/audx (do not edit)`,
-		`// patch: ${data.name}`,
+		`// theme: ${data.name}`,
 		`import type { SoundDefinition, SoundPatch } from "@litlab/audx";`,
 		"",
 	];

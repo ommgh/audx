@@ -1,24 +1,24 @@
 import * as p from "@clack/prompts";
-import { fetchPatchIndex, getInstalledPatches } from "./utils.js";
+import { fetchThemeIndex, getInstalledThemes } from "./utils.js";
 
 export async function check(_args: string[]) {
 	p.intro("@litlab/audx check");
 
-	const installed = await getInstalledPatches();
+	const installed = await getInstalledThemes();
 
 	if (installed.length === 0) {
-		p.log.warn("No patches installed.");
-		p.outro("Install patches with npx @litlab/audx add");
+		p.log.warn("No themes installed.");
+		p.outro("Install themes with npx @litlab/audx add");
 		return;
 	}
 
 	const s = p.spinner();
 	s.start("Checking for updates...");
 
-	let registry: Awaited<ReturnType<typeof fetchPatchIndex>>;
+	let registry: Awaited<ReturnType<typeof fetchThemeIndex>>;
 	try {
-		registry = await fetchPatchIndex();
-		s.stop(`Checked ${registry.length} registry patch(es)`);
+		registry = await fetchThemeIndex();
+		s.stop(`Checked ${registry.length} registry theme(es)`);
 	} catch (err) {
 		s.stop("Failed to fetch registry.");
 		p.log.error(String(err));
@@ -40,20 +40,20 @@ export async function check(_args: string[]) {
 	}
 
 	if (available.length === 0) {
-		p.log.warn("No installed patches found in the registry.");
+		p.log.warn("No installed themes found in the registry.");
 		p.outro("");
 		return;
 	}
 
 	p.note(
 		available.map((name) => `  ↑ ${name}`).join("\n"),
-		`${available.length} patch(es) available`,
+		`${available.length} theme(es) available`,
 	);
 
 	if (notInRegistry.length > 0) {
 		p.log.warn(
 			[
-				`${notInRegistry.length} patch(es) not found in registry:`,
+				`${notInRegistry.length} theme(es) not found in registry:`,
 				...notInRegistry.map((name) => `  • ${name}`),
 			].join("\n"),
 		);

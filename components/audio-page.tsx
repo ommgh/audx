@@ -24,7 +24,7 @@ export function AudioPage({ items, themes }: AudioPageProps) {
 	const [theme, setTheme] = useState(themes[0]?.name ?? "minimal");
 	const [category, setCategory] = useState<string | null>(null);
 	const [isPending, startTransition] = useTransition();
-	const patch = usePatch(`/themes/${theme}.json`);
+	const patch = usePatch(`/api/audio/theme/${theme}`);
 
 	const themeItems = useMemo(
 		() => items.filter((item) => item.theme === theme),
