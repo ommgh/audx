@@ -3,9 +3,15 @@
 
 Open-source library of customizable UI sound effects for modern web apps. Browse, preview, and install audio assets — clicks, scrolls, notifications, and more — with a single command.
 
+---
 
+[![skills.sh](https://skills.sh/b/ommgh/audx)](https://skills.sh/ommgh/audx)
+[![npm](https://img.shields.io/npm/v/%40litlab%2Faudx)](https://www.npmjs.com/package/@litlab/audx)
+[![license](https://img.shields.io/github/license/ommgh/audx)](LICENSE)
+[![CI](https://github.com/ommgh/audx/actions/workflows/publish.yml/badge.svg)](https://github.com/ommgh/audx/actions/workflows/publish.yml)
+[![Website](https://img.shields.io/website?down_color=red&down_message=offline&up_color=green&up_message=online&url=https%3A%2F%2Faudx.site)](https://audx.site)
 
-🌐 [audx.site](https://audx.site) · 📦 [npm](https://www.npmjs.com/package/@litlab/audx) · 🐛 [Issues](https://github.com/ommgh/audx/issues)
+---
 
 ## Quick Start
 
