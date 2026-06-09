@@ -22,7 +22,7 @@ export function GlobalFilters({
 	onThemeChange,
 }: GlobalFiltersProps) {
 	return (
-		<div className="bg-background/95 sticky top-0 z-40 border-y">
+		<div className="bg-background/95 top-0 z-40 border-y">
 			<div className="mx-auto flex w-full max-w-6xl items-center gap-3 px-6 py-3 border-x">
 				<SoundSearch value={query} onChange={onQueryChange} />
 				<ThemeSelector
@@ -35,7 +35,7 @@ export function GlobalFilters({
 					className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
 				>
 					<RiAddLine data-icon="inline-start" />
-					New Theme
+					<span className="hidden lg:inline">New Theme</span>
 				</Link>
 			</div>
 		</div>
