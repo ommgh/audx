@@ -11,6 +11,7 @@ export type AudioCatalogItem = {
 	description?: string;
 	category: string;
 	theme: AudioThemeName;
+	definition: SoundDefinition;
 	meta: {
 		theme: AudioThemeName;
 		semanticName: string;
@@ -89,6 +90,7 @@ function createAudioItem(
 		title: toTitle(soundName),
 		category: getCategory(soundName),
 		theme,
+		definition,
 		meta: {
 			theme,
 			semanticName: soundName,

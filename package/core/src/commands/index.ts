@@ -98,6 +98,8 @@ function showHelp() {
 			"  -l, --list      Preview available themes without installing",
 			"  -y, --yes       Skip confirmation prompts",
 			"  --theme <name>  Install a specific theme by name",
+			"  --data <value>  Install an encoded customized sound definition",
+			"  --tune <token>  Apply compact editor settings (requires --theme)",
 			"",
 			"Remove Options:",
 			"  -y, --yes       Skip confirmation prompts",

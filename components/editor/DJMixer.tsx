@@ -1,309 +1,243 @@
-import { BarVisualizer } from "@/components/editor/bar-visualizer";
-import { Matrix, wave, loader, pulse, vu } from "@/components/editor/matrix";
-import { cn } from "@/lib/utils";
-const DECK_A_STATE = "speaking" as const;
-const DECK_B_STATE = "listening" as const;
+"use client";
 
-function Knob({
-  label,
-  value,
-  color = "primary",
-}: {
-  label: string;
-  value: number; // 0–1
-  color?: "primary" | "secondary" | "accent";
-}) {
-  const angle = -135 + value * 270;
-  return (
-    <div className="flex flex-col items-center gap-1">
-      <div
-        className="relative h-9 w-9 rounded-full border"
-        style={{
-          background:
-            "radial-gradient(circle at 35% 35%, hsl(var(--muted)), hsl(var(--background)))",
-          borderColor: "hsl(var(--border))",
-          boxShadow:
-            "inset 0 1px 3px rgba(0,0,0,.4), 0 1px 0 rgba(255,255,255,.05)",
-        }}
-      >
-        {/* tick */}
-        <div
-          className="absolute inset-0 flex items-center justify-center"
-          style={{ transform: `rotate(${angle}deg)` }}
-        >
-          <div
-            className="h-3.5 w-0.5 origin-bottom -translate-y-1.5 rounded-full"
-            style={{
-              background:
-                color === "primary"
-                  ? "hsl(var(--primary))"
-                  : color === "secondary"
-                    ? "hsl(var(--secondary-foreground))"
-                    : "hsl(var(--muted-foreground))",
-            }}
-          />
-        </div>
-      </div>
-      <span className="text-muted-foreground text-[10px] uppercase tracking-widest">
-        {label}
-      </span>
-    </div>
-  );
+import { defineSound, type SoundDefinition } from "@litlab/audx";
+import {
+	RiCheckLine,
+	RiFileCopyLine,
+	RiPlayFill,
+	RiResetLeftLine,
+	RiStopFill,
+} from "@remixicon/react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { PackageManagerSwitcher } from "@/components/package-manager-switcher";
+import { Button } from "@/components/ui/button";
+import {
+	DEFAULT_PM,
+	getInstallPrefix,
+	type PackageManager,
+} from "@/lib/package-manager";
+import {
+	customizeSound,
+	DEFAULT_CUSTOMIZATION,
+	encodeSoundCustomization,
+	type SoundCustomization,
+	type Waveform,
+} from "@/lib/sound-customization";
+
+type DJMixerProps = {
+	definition: SoundDefinition;
+	soundName: string;
+	theme: string;
+};
+
+type SliderProps = {
+	label: string;
+	value: number;
+	min: number;
+	max: number;
+	step: number;
+	display: string;
+	onChange: (value: number) => void;
+};
+
+function Slider({
+	label,
+	value,
+	min,
+	max,
+	step,
+	display,
+	onChange,
+}: SliderProps) {
+	return (
+		<label className="grid gap-2">
+			<span className="flex items-center justify-between gap-4 text-xs">
+				<span className="font-medium">{label}</span>
+				<span className="font-mono text-muted-foreground">{display}</span>
+			</span>
+			<input
+				type="range"
+				min={min}
+				max={max}
+				step={step}
+				value={value}
+				onChange={(event) => onChange(Number(event.target.value))}
+				className="h-1.5 w-full cursor-pointer accent-primary"
+			/>
+		</label>
+	);
 }
 
-function Fader({
-  label,
-  value,
-  vertical = false,
-}: {
-  label: string;
-  value: number;
-  vertical?: boolean;
-}) {
-  if (vertical) {
-    return (
-      <div className="flex flex-col items-center gap-1.5">
-        <div className="bg-muted relative h-28 w-4 overflow-hidden rounded-full">
-          <div
-            className="bg-primary/20 absolute right-0 bottom-0 left-0 rounded-full transition-all"
-            style={{ height: `${value * 100}%` }}
-          />
-          <div
-            className="bg-primary absolute right-0 left-0 h-1.5 rounded-full"
-            style={{ bottom: `calc(${value * 100}% - 3px)` }}
-          />
-        </div>
-        <span className="text-muted-foreground text-[10px] uppercase tracking-widest">
-          {label}
-        </span>
-      </div>
-    );
-  }
+export function DJMixer({ definition, soundName, theme }: DJMixerProps) {
+	const [settings, setSettings] = useState<SoundCustomization>(
+		DEFAULT_CUSTOMIZATION,
+	);
+	const [pm, setPm] = useState<PackageManager>(DEFAULT_PM);
+	const [isPlaying, setIsPlaying] = useState(false);
+	const [copied, setCopied] = useState(false);
+	const voiceRef = useRef<ReturnType<ReturnType<typeof defineSound>> | null>(
+		null,
+	);
+	const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  return (
-    <div className="flex flex-col items-center gap-1.5">
-      <span className="text-muted-foreground text-[10px] uppercase tracking-widest">
-        {label}
-      </span>
-      <div className="bg-muted relative h-4 w-36 overflow-hidden rounded-full">
-        <div
-          className="bg-primary/20 absolute top-0 bottom-0 left-0 rounded-full"
-          style={{ width: `${value * 100}%` }}
-        />
-        <div
-          className="bg-primary absolute top-0 bottom-0 w-1.5 rounded-full"
-          style={{ left: `calc(${value * 100}% - 3px)` }}
-        />
-      </div>
-    </div>
-  );
-}
+	const customizedDefinition = useMemo(
+		() => customizeSound(definition, settings),
+		[definition, settings],
+	);
+	const tuning = useMemo(() => encodeSoundCustomization(settings), [settings]);
+	const command = `${getInstallPrefix(pm)} add ${soundName} --theme ${theme} --tune ${tuning} -y`;
 
-function DeckLabel({
-  letter,
-  bpm,
-  track,
-  active,
-}: {
-  letter: string;
-  bpm: number;
-  track: string;
-  active?: boolean;
-}) {
-  return (
-    <div className="flex items-start justify-between gap-4">
-      <div className="flex items-center gap-2">
-        <div
-          className={cn(
-            "flex h-7 w-7 items-center justify-center rounded font-mono text-sm font-bold",
-            active
-              ? "bg-primary text-primary-foreground"
-              : "bg-muted text-muted-foreground",
-          )}
-        >
-          {letter}
-        </div>
-        <div>
-          <p className="text-sm leading-none font-medium">{track}</p>
-          <p className="text-muted-foreground mt-0.5 font-mono text-xs">
-            {bpm} BPM
-          </p>
-        </div>
-      </div>
-      <div
-        className={cn(
-          "mt-0.5 h-2 w-2 rounded-full",
-          active ? "bg-primary animate-pulse" : "bg-muted",
-        )}
-      />
-    </div>
-  );
-}
+	const stopPreview = useCallback(() => {
+		voiceRef.current?.stop();
+		voiceRef.current = null;
+		if (timerRef.current) clearTimeout(timerRef.current);
+		setIsPlaying(false);
+	}, []);
 
-function Deck({
-  letter,
-  track,
-  bpm,
-  active,
-  matrixFrames,
-  vuLevels,
-}: {
-  letter: string;
-  track: string;
-  bpm: number;
-  active?: boolean;
-  matrixFrames?: typeof wave;
-  vuLevels?: number[];
-}) {
-  return (
-    <div className="bg-card border-border flex flex-col gap-4 rounded-xl border p-4">
-      <DeckLabel letter={letter} bpm={bpm} track={track} active={active} />
+	useEffect(() => stopPreview, [stopPreview]);
 
-      {/* Visualizer */}
-      <BarVisualizer
-        state={active ? DECK_A_STATE : DECK_B_STATE}
-        barCount={18}
-        demo
-        minHeight={8}
-        maxHeight={100}
-        centerAlign
-        className="h-24 rounded-lg"
-      />
+	const update = <K extends keyof SoundCustomization>(
+		key: K,
+		value: SoundCustomization[K],
+	) => {
+		stopPreview();
+		setSettings((current) => ({ ...current, [key]: value }));
+	};
 
-      {/* Matrix display */}
-      <div className="flex items-center justify-between gap-3">
-        <div className="bg-muted/60 flex flex-1 items-center justify-center rounded-lg py-3">
-          {vuLevels ? (
-            <Matrix
-              rows={7}
-              cols={vuLevels.length}
-              mode="vu"
-              levels={vuLevels}
-              size={8}
-              gap={2}
-              palette={{
-                on: "hsl(var(--primary))",
-                off: "hsl(var(--primary))",
-              }}
-            />
-          ) : (
-            <Matrix
-              rows={7}
-              cols={7}
-              frames={matrixFrames}
-              fps={12}
-              size={8}
-              gap={2}
-              palette={{
-                on: "hsl(var(--primary))",
-                off: "hsl(var(--primary))",
-              }}
-            />
-          )}
-        </div>
+	const playPreview = useCallback(() => {
+		if (isPlaying) {
+			stopPreview();
+			return;
+		}
 
-        {/* Channel faders */}
-        <div className="flex gap-2">
-          <Fader label="HI" value={0.8} vertical />
-          <Fader label="MID" value={0.6} vertical />
-          <Fader label="LO" value={0.75} vertical />
-        </div>
-      </div>
+		const play = defineSound(customizedDefinition);
+		voiceRef.current = play();
+		setIsPlaying(true);
+		timerRef.current = setTimeout(
+			() => setIsPlaying(false),
+			Math.max(250, 2500 * settings.duration),
+		);
+	}, [customizedDefinition, isPlaying, settings.duration, stopPreview]);
 
-      {/* EQ knobs */}
-      <div className="flex items-center justify-around">
-        <Knob label="Gain" value={0.72} color="primary" />
-        <Knob label="Trim" value={0.55} color="secondary" />
-        <Knob label="Cue" value={0.3} color="accent" />
-        <Knob label="FX" value={0.45} color="accent" />
-      </div>
-    </div>
-  );
-}
+	const copyCommand = useCallback(async () => {
+		try {
+			await navigator.clipboard.writeText(command);
+			setCopied(true);
+			setTimeout(() => setCopied(false), 2000);
+		} catch {
+			/* Clipboard access can be unavailable outside a secure context. */
+		}
+	}, [command]);
 
-function CrossFader() {
-  return (
-    <div className="bg-card border-border flex flex-col items-center gap-5 rounded-xl border p-5">
-      {/* Center matrix — loader animation */}
-      <div className="bg-muted/60 rounded-lg p-3">
-        <Matrix
-          rows={7}
-          cols={7}
-          frames={pulse}
-          fps={16}
-          size={9}
-          gap={2}
-          palette={{
-            on: "hsl(var(--primary))",
-            off: "hsl(var(--primary))",
-          }}
-          brightness={1.1}
-        />
-      </div>
+	return (
+		<div className="space-y-4">
+			<div className="flex flex-wrap items-center justify-between gap-3">
+				<div>
+					<h2 className="text-lg font-semibold tracking-tight">Sound editor</h2>
+					<p className="text-xs text-muted-foreground">
+						Preview changes, then install this exact definition.
+					</p>
+				</div>
+				<div className="flex items-center gap-2">
+					<Button
+						type="button"
+						variant="outline"
+						onClick={() => {
+							stopPreview();
+							setSettings(DEFAULT_CUSTOMIZATION);
+						}}
+					>
+						<RiResetLeftLine />
+						Reset
+					</Button>
+					<Button type="button" onClick={playPreview}>
+						{isPlaying ? <RiStopFill /> : <RiPlayFill />}
+						{isPlaying ? "Stop" : "Preview"}
+					</Button>
+				</div>
+			</div>
 
-      {/* Crossfader */}
-      <div className="w-full">
-        <Fader label="Crossfader" value={0.42} />
-      </div>
+			<div className="grid gap-5 rounded-xl border bg-card p-4 sm:grid-cols-2 lg:grid-cols-3">
+				<Slider
+					label="Pitch"
+					value={settings.pitch}
+					min={-12}
+					max={12}
+					step={1}
+					display={`${settings.pitch > 0 ? "+" : ""}${settings.pitch} st`}
+					onChange={(value) => update("pitch", value)}
+				/>
+				<Slider
+					label="Length"
+					value={settings.duration}
+					min={0.25}
+					max={3}
+					step={0.05}
+					display={`${settings.duration.toFixed(2)}x`}
+					onChange={(value) => update("duration", value)}
+				/>
+				<Slider
+					label="Volume"
+					value={settings.gain}
+					min={0}
+					max={2}
+					step={0.05}
+					display={`${Math.round(settings.gain * 100)}%`}
+					onChange={(value) => update("gain", value)}
+				/>
+				<Slider
+					label="Pan"
+					value={settings.pan}
+					min={-1}
+					max={1}
+					step={0.05}
+					display={
+						settings.pan === 0
+							? "center"
+							: settings.pan < 0
+								? `${Math.round(Math.abs(settings.pan) * 100)}% L`
+								: `${Math.round(settings.pan * 100)}% R`
+					}
+					onChange={(value) => update("pan", value)}
+				/>
+				<label className="grid gap-2">
+					<span className="text-xs font-medium">Waveform</span>
+					<select
+						value={settings.waveform}
+						onChange={(event) =>
+							update("waveform", event.target.value as Waveform | "original")
+						}
+						className="h-8 border border-input bg-background px-2 text-xs outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50"
+					>
+						<option value="original">Original</option>
+						<option value="sine">Sine</option>
+						<option value="triangle">Triangle</option>
+						<option value="square">Square</option>
+						<option value="sawtooth">Sawtooth</option>
+					</select>
+				</label>
+			</div>
 
-      {/* Master / Headphone knobs */}
-      <div className="flex w-full items-center justify-around">
-        <Knob label="Master" value={0.8} color="primary" />
-        <Knob label="Monitor" value={0.6} color="secondary" />
-        <Knob label="Booth" value={0.5} color="accent" />
-      </div>
-
-      {/* Beat / BPM matrix counter */}
-      <div className="bg-muted/60 w-full rounded-lg p-3">
-        <div className="flex items-center justify-center gap-1">
-          <Matrix
-            rows={7}
-            cols={7}
-            frames={wave}
-            fps={24}
-            size={7}
-            gap={1.5}
-            palette={{
-              on: "hsl(var(--primary))",
-              off: "hsl(var(--primary))",
-            }}
-          />
-        </div>
-        <p className="text-muted-foreground mt-2 text-center font-mono text-[10px] uppercase tracking-widest">
-          Beat sync
-        </p>
-      </div>
-    </div>
-  );
-}
-
-export function DJMixer() {
-  const vuA = [0.9, 0.75, 0.85, 0.6, 0.7, 0.55, 0.8, 0.65];
-  const vuB = [0.5, 0.6, 0.45, 0.7, 0.55, 0.65, 0.4, 0.5];
-
-  return (
-    <div className="space-y-3">
-      <div className="flex items-center gap-2">
-        <div className="bg-primary h-2 w-2 rounded-full" />
-        <h2 className="text-lg font-semibold tracking-tight">
-          Mixer [ Preview ]
-        </h2>
-        <span className="text-muted-foreground bg-muted rounded-full px-2 py-0.5 text-xs">
-          coming soon
-        </span>
-      </div>
-
-      <div className="mt-2 grid grid-cols-1 gap-3 lg:grid-cols-[1fr_auto_1fr]">
-        <Deck letter="A" track="Neon Drift" bpm={128} active vuLevels={vuA} />
-        <CrossFader />
-        <Deck
-          letter="B"
-          track="Orbital Haze"
-          bpm={132}
-          matrixFrames={loader}
-          vuLevels={vuB}
-        />
-      </div>
-    </div>
-  );
+			<div className="space-y-2">
+				<PackageManagerSwitcher value={pm} onChange={setPm} />
+				<div className="relative overflow-hidden rounded-lg border border-border/50 bg-secondary/30">
+					<code className="block overflow-x-auto whitespace-nowrap px-4 py-3 pr-12 text-xs [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+						{command}
+					</code>
+					<button
+						type="button"
+						aria-label="Copy customized install command"
+						onClick={copyCommand}
+						className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-foreground"
+					>
+						{copied ? <RiCheckLine size={15} /> : <RiFileCopyLine size={15} />}
+					</button>
+				</div>
+				<p className="text-xs text-muted-foreground">
+					The short tuning token reproduces these exact settings from the{" "}
+					<code>{theme}</code> theme.
+				</p>
+			</div>
+		</div>
+	);
 }
