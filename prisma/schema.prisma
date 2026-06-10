@@ -19,6 +19,7 @@ model User {
   sessions        Session[]
   accounts        Account[]
   payments        Payment[]
+  userThemes      UserTheme[]
 
   @@unique([email])
   @@map("user")
@@ -143,4 +144,39 @@ model ThemeSound {
 
   @@unique([themeId, name])
   @@map("theme_sounds")
+}
+
+model UserTheme {
+  id            Int          @id @default(autoincrement())
+  userId        String       @map("user_id")
+  name          String
+  description   String?
+  themeJson     Json?        @map("theme_json")
+  soundCount    Int          @default(0) @map("sound_count")
+  sourceTypes   String[]     @default([]) @map("source_types")
+  hasEffects    Boolean      @default(false) @map("has_effects")
+  hasLayers     Boolean      @default(false) @map("has_layers")
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @default(now()) @updatedAt @map("updated_at")
+
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sounds        UserThemeSound[]
+
+  @@unique([userId, name])
+  @@index([userId])
+  @@index([createdAt])
+  @@map("user_themes")
+}
+
+model UserThemeSound {
+  id          Int     @id @default(autoincrement())
+  userThemeId Int     @map("user_theme_id")
+  name        String
+  category    String
+  description String?
+
+  userTheme   UserTheme @relation(fields: [userThemeId], references: [id], onDelete: Cascade)
+
+  @@unique([userThemeId, name])
+  @@map("user_theme_sounds")
 }

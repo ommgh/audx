@@ -7,7 +7,15 @@ import { useCallback, useMemo, useRef, useState } from "react";
 import type { ThemeWithStats } from "@/lib/data/themes";
 import { Card } from "../card";
 
-export function View({ themes }: { themes: ThemeWithStats[] }) {
+export function View({
+  themes,
+  userThemes,
+  isLoggedIn,
+}: {
+  themes: ThemeWithStats[];
+  userThemes?: any[];
+  isLoggedIn?: boolean;
+}) {
   const [activeThemeId, setActiveThemeId] = useState<number | null>(null);
   const stopByThemeIdRef = useRef<Map<number, () => void>>(new Map());
 
@@ -39,7 +47,7 @@ export function View({ themes }: { themes: ThemeWithStats[] }) {
       .withOptions({ shallow: true, throttleMs: 300 }),
   );
 
-  const filtered = useMemo(() => {
+  const filteredPresets = useMemo(() => {
     const term = query.trim().toLowerCase();
     if (!term) return themes;
     return themes.filter(
@@ -49,6 +57,21 @@ export function View({ themes }: { themes: ThemeWithStats[] }) {
         p.description.toLowerCase().includes(term),
     );
   }, [themes, query]);
+
+  const filteredUserThemes = useMemo(() => {
+    if (!userThemes || !isLoggedIn) return [];
+    const term = query.trim().toLowerCase();
+    if (!term) return userThemes;
+    return userThemes.filter(
+      (p) =>
+        p.name.toLowerCase().includes(term) ||
+        p.author.toLowerCase().includes(term) ||
+        p.description.toLowerCase().includes(term),
+    );
+  }, [userThemes, isLoggedIn, query]);
+
+  const hasContent =
+    filteredPresets.length > 0 || filteredUserThemes.length > 0;
 
   return (
     <div className="w-full px-6 pt-8 pb-12">
@@ -66,7 +89,7 @@ export function View({ themes }: { themes: ThemeWithStats[] }) {
         />
       </Field.Root>
 
-      {filtered.length === 0 ? (
+      {!hasContent ? (
         <div className="flex flex-col items-center justify-center py-12 bg-muted text-center">
           <div className="flex items-center justify-center p-2 mb-4 text-muted-foreground bg-background shadow-sm">
             <RiFileSearchLine size={48} aria-hidden="true" />
@@ -79,17 +102,46 @@ export function View({ themes }: { themes: ThemeWithStats[] }) {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4">
-          {filtered.map((theme) => (
-            <Card
-              key={theme.id}
-              theme={theme}
-              isActive={activeThemeId === theme.id}
-              registerStop={registerStop}
-              requestPlay={requestPlay}
-              clearActive={clearActive}
-            />
-          ))}
+        <div className="space-y-12">
+          {filteredPresets.length > 0 && (
+            <section>
+              <h2 className="mb-6 text-lg font-semibold text-foreground">
+                Presets
+              </h2>
+              <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4">
+                {filteredPresets.map((theme) => (
+                  <Card
+                    key={theme.id}
+                    theme={theme}
+                    isActive={activeThemeId === theme.id}
+                    registerStop={registerStop}
+                    requestPlay={requestPlay}
+                    clearActive={clearActive}
+                  />
+                ))}
+              </div>
+            </section>
+          )}
+
+          {filteredUserThemes.length > 0 && (
+            <section>
+              <h2 className="mb-6 text-lg font-semibold text-foreground">
+                Generated Themes
+              </h2>
+              <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4">
+                {filteredUserThemes.map((theme) => (
+                  <Card
+                    key={theme.id}
+                    theme={theme}
+                    isActive={activeThemeId === theme.id}
+                    registerStop={registerStop}
+                    requestPlay={requestPlay}
+                    clearActive={clearActive}
+                  />
+                ))}
+              </div>
+            </section>
+          )}
         </div>
       )}
     </div>

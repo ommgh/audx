@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 
 import { getThemesAllTime } from "@/lib/data/themes";
+import { getUserThemes, type UserThemeWithStats } from "@/lib/data/user-themes";
+import { auth } from "@/lib/auth";
 import { View } from "./_components/view";
 
 export const dynamic = "force-dynamic";
@@ -17,7 +20,19 @@ export const metadata: Metadata = {
 };
 
 export default async function ThemesPage() {
-  const themes = await getThemesAllTime();
+  const [themes, session] = await Promise.all([
+    getThemesAllTime(),
+    auth.api.getSession({
+      headers: await headers(),
+    }),
+  ]);
 
-  return <View themes={themes} />;
+  let userThemes: UserThemeWithStats[] = [];
+  if (session?.user?.id) {
+    userThemes = await getUserThemes(session.user.id);
+  }
+
+  return (
+    <View themes={themes} userThemes={userThemes} isLoggedIn={!!session} />
+  );
 }
