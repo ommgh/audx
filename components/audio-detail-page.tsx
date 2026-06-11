@@ -8,7 +8,7 @@ import { SoundInstallInstructions } from "@/components/audio-install-instruction
 import { PlayerStrip } from "@/components/player/audio-player";
 import type { AudioCatalogItem } from "@/lib/audio-catalog";
 import { generateAudioWaves } from "@/lib/audio-data";
-import { DJMixer } from "./editor/DJMixer";
+import { AudioEditor } from "./editor/audio-editor";
 
 type PlayState = "idle" | "loading" | "playing";
 /* ── Main page component ── */
@@ -88,7 +88,7 @@ export function SoundDetailPage({ audio }: AudioDetailPageProps) {
           />
         </section>
         <section className="py-4">
-          <DJMixer
+          <AudioEditor
             definition={audio.definition}
             soundName={audio.meta.semanticName}
             theme={audio.meta.theme}

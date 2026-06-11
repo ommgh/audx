@@ -9,7 +9,7 @@ import {
 import { useEffect, useState } from "react";
 
 import { cn } from "@/lib/utils";
-import { ThemeGenerator } from "@/components/editor/ThemeGenerator";
+import { ThemeGenerator } from "@/components/editor/theme-generator";
 import { authClient } from "@/lib/auth-client";
 
 function InstallCommand() {

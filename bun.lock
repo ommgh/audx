@@ -4,6 +4,7 @@
     "": {
       "name": "audx",
       "dependencies": {
+        "@audio-ui/react": "^0.0.7",
         "@base-ui/react": "^1.4.0",
         "@dodopayments/better-auth": "^1.6.2",
         "@hookform/resolvers": "^5.2.2",
@@ -60,7 +61,7 @@
     },
     "package/core": {
       "name": "@litlab/audx",
-      "version": "0.5.5",
+      "version": "0.6.0",
       "bin": "./dist/bin.js",
       "dependencies": {
         "@clack/prompts": "^0.9.1",
@@ -106,6 +107,10 @@
     "@asamuzakjp/generational-cache": ["@asamuzakjp/generational-cache@1.0.1", "", {}, "sha512-wajfB8KqzMCN2KGNFdLkReeHncd0AslUSrvHVvvYWuU8ghncRJoA50kT3zP9MVL0+9g4/67H+cdvBskj9THPzg=="],
 
     "@asamuzakjp/nwsapi": ["@asamuzakjp/nwsapi@2.3.9", "", {}, "sha512-n8GuYSrI9bF7FFZ/SjhwevlHc8xaVlb/7HmHelnc/PZXBD2ZR49NnN9sMMuDdEGPeeRQ5d0hqlSlEpgCX3Wl0Q=="],
+
+    "@audio-ui/react": ["@audio-ui/react@0.0.7", "", { "dependencies": { "@audio-ui/utils": "latest" }, "peerDependencies": { "@types/react": "^18 || ^19", "react": "^18 || ^19", "react-dom": "^18 || ^19" }, "optionalPeers": ["@types/react"] }, "sha512-Kb/O2Z8Kmjy+GNMeaA3BuSNLBg5FAKKT1BMl6k7LDtmCtmsCFCmNV97iloeo4FpkulO1t6XxAqtRIC1xn+Td5Q=="],
+
+    "@audio-ui/utils": ["@audio-ui/utils@0.0.4", "", {}, "sha512-3YwTeGosycK0Gl/bpGRXGnXIZO4pS+VmFgJjSmdUNYq7BQV5ZTuvBNZ/cBcPdDv+Zyx72HmdmQhhUSTbLzUwjA=="],
 
     "@babel/code-frame": ["@babel/code-frame@7.27.1", "", { "dependencies": { "@babel/helper-validator-identifier": "7.27.1", "js-tokens": "4.0.0", "picocolors": "1.1.1" } }, "sha512-cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg=="],
 
