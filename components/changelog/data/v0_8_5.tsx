@@ -3,12 +3,12 @@ import Link from "next/link";
 import TimelineItem from "@/components/changelog/timeline";
 import Accordion from "@/components/changelog/badge-accordian";
 import { buttonVariants } from "@/components/ui/button";
-import { accordionDataV0_8_0 } from "./changelog-data";
+import { accordionDataV0_8_5 } from "./changelog-data";
 
-function v0_8_0() {
+function v0_8_5() {
   return (
     <div className="w-full min-w-0">
-      <TimelineItem date="June 10, 2024" version="v0.8.0">
+      <TimelineItem date="June 10, 2024" version="v0.8.5">
         <div className="w-full min-w-0 space-y-4 break-words">
           <div className="space-y-3">
             <h3 className="text-xl font-semibold">
@@ -41,11 +41,11 @@ function v0_8_0() {
           <Link className={buttonVariants()} href="#">
             Read More
           </Link>
-          <Accordion data={accordionDataV0_8_0} />
+          <Accordion data={accordionDataV0_8_5} />
         </div>
       </TimelineItem>
     </div>
   );
 }
 
-export default v0_8_0;
+export default v0_8_5;

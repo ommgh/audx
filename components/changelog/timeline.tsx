@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import V0_8_0 from "./data/v0_8_0";
+import V0_8_5 from "./data/v0_8_5";
 import V0_6_0 from "./data/v0_6_0";
 import V0_5_0 from "./data/v0_5_0";
 
@@ -30,7 +30,7 @@ function TimelineSection() {
     <section>
       <div className="mx-auto w-full max-w-4xl min-w-0 px-4 py-10 md:px-8 md:py-16">
         <div className="flex w-full min-w-0 flex-col items-start">
-          <V0_8_0 />
+          <V0_8_5 />
           <V0_6_0 />
           <V0_5_0 />
         </div>
