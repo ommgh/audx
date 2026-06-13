@@ -8,12 +8,22 @@ type CopyCodeProps = {
   language?: string;
 };
 
-const codeExample = `// Example of updated API usage
-const agent = new AIAgent({
-  model: "Shadcn/studio",
-  reasoning: "enhanced",
-  multiModal: true,
-});`;
+const codeExample = `
+  import { SoundProvider } from "@litlab/audx/react";
+  function App() {
+    const [enabled, setEnabled] = useState(true);
+    const [volume, setVolume] = useState(0.8);
+    return (
+      <SoundProvider
+        enabled={enabled}
+        volume={volume}
+        onEnabledChange={setEnabled}
+        onVolumeChange={setVolume}
+      >
+        {children}
+      </SoundProvider>
+    );
+  }`;
 
 export default function CopyCodeBlock() {
   return (
@@ -23,7 +33,7 @@ export default function CopyCodeBlock() {
   );
 }
 
-function CopyCode({ code = "javascript" }: CopyCodeProps) {
+function CopyCode({ code = "typescript" }: CopyCodeProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -59,6 +69,12 @@ function CopyCode({ code = "javascript" }: CopyCodeProps) {
   const highlightCode = (code: string) => {
     let result = code;
 
+    // 0. Escape HTML special characters so React tags aren't treated as actual HTML
+    result = result
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+
     // 1. Strings (blue) - process first to protect content
     result = result.replace(
       /"([^"]*)"/g,
@@ -71,12 +87,12 @@ function CopyCode({ code = "javascript" }: CopyCodeProps) {
 
     // 2. Keywords (red/green)
     result = result.replace(
-      /\b(const|let|var|new|false)\b/g,
+      /\b(const|let|var|new|false|import|from|function|return)\b/g,
       '<span class="text-red-600 dark:text-red-400">$1</span>',
     );
 
     result = result.replace(
-      /\b(AIAgent|true)\b/g,
+      /\b(AIAgent|true|SoundProvider|useState|App)\b/g,
       '<span class="text-green-600 dark:text-green-400">$1</span>',
     );
 

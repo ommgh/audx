@@ -1,84 +1,81 @@
-export const accordionDataV1_3_0 = [
+export const accordionDataV0_8_0 = [
   {
     type: "new",
     items: [
-      "Sync All button for project-wide updates",
-      "Component different viewer with inline changelog",
-      "Scoped sync choose which namespaces or folders to update",
+      "Added the Visual Audio Editor for precise wave editing",
+      "Introduced the Theme Generator to visually customize audio themes",
+      "New Library section for managing and viewing user-generated themes",
     ],
   },
   {
     type: "updates",
     items: [
-      "Faster load times in component explorer (-30%)",
-      "Auto-preview for dark/light theme variants",
-      "TypeScript types now update automatically when syncing",
+      "Updated the CLI tool to support installing custom created sounds directly",
+      "Improved performance when rendering complex audio waveforms",
+      "Refined the UI layout to better accommodate the new library features",
     ],
   },
   {
     type: "bugfixes",
     items: [
-      "Fixed sync conflicts with large component libraries",
-      "Resolved memory leak in diff viewer",
-      "Fixed incorrect version detection for nested components",
+      "Fixed an issue where large audio files could cause memory spikes during playback",
+      "Resolved a bug causing the CLI to fail when the output directory contained spaces",
+      "Fixed incorrect timeline scaling for long audio tracks",
     ],
-    badges: ["/v1/components/sync", "/v1/components/pull", "--interactive"],
+    badges: ["cli", "editor", "themes"],
   },
 ];
-export const accordionDataV1_2_0 = [
+export const accordionDataV0_6_0 = [
   {
     type: "new",
     items: [
-      "Live Preview mode instantly test UI changes inside the dashboard",
-      "One-click Deployment push updates to production without leaving Studio",
-      "Multi-environment support manage dev, staging, and production easily",
-      "Multi-environment support manage dev, staging, and production easily",
+      "Real-time audio effect previews directly in the playback engine",
+      "Multi-track audio support for layering multiple sound sources",
+      "Export capabilities for high-quality FLAC and WAV formats",
     ],
   },
   {
     type: "updates",
     items: [
-      "Improved preview performance for heavy UI blocks (+40% faster)",
-      "Smarter auto-refresh reloads only the updated section, not the full screen",
+      "Upgraded the audio processing engine for 40% faster rendering",
+      "Enhanced timeline zoom behavior to keep playhead centered",
     ],
   },
   {
     type: "bugfixes",
     items: [
-      "Fixed deployment logs not showing real-time events",
-      "Corrected spacing token mismatch in forms, modals, and bento blocks",
-      "Fixed incorrect color export in some frameworks (React / Vue)",
-      "Resolved UI flicker when switching between preview modes",
-      "Corrected environment variables not syncing in some workspaces",
+      "Fixed audio crackling during high-CPU usage scenarios",
+      "Corrected track volume sliders occasionally resetting on load",
+      "Resolved an issue with MP3 metadata not saving properly on export",
+      "Fixed UI stutter when rapidly toggling mute states",
     ],
   },
 ];
-export const accordionDataV1_1_0 = [
+export const accordionDataV0_5_0 = [
   {
     type: "new",
     items: [
-      "Complete token overhaul unified color, spacing & typography system",
-      "Preset Themes instantly apply predefined light/dark palettes",
-      "Global token inspector view & edit all tokens in one place",
-      "Preview share links generate temporary links to share progress with your team",
+      "Complete overhaul of the audio playback engine for lower latency",
+      "New preset soundscapes and ambient loops for quick prototyping",
+      "Global spectrum analyzer to view frequency bands across all tracks",
+      "Shareable project links to collaborate with team members on mixes",
     ],
   },
   {
     type: "updates",
     items: [
-      "Smarter token fallback logic for consistent theming across components",
-      "Improved OKLCH color handling for better contrast & accessibility",
-      "Faster token rendering in the design preview (25% boost)",
-      "Better error handling during build failures with clearer actions",
-      "Updated environment variable manager for easier key/value edits",
+      "Smarter audio buffering for uninterrupted playback on low-end devices",
+      "Improved EQ interface with more granular control points",
+      "Faster waveform rendering when opening projects",
+      "Clearer error messages when importing unsupported audio formats",
     ],
   },
   {
     type: "bugfixes",
     items: [
-      "Fixed broken references causing inconsistent button colors",
-      "Corrected spacing token mismatch in forms and modals",
-      "Resolved theme switching lag in large projects",
+      "Fixed broken project references when moving source files",
+      "Corrected UI misalignment in the track effects panel",
+      "Resolved lag when applying heavy reverb plugins",
     ],
   },
 ];
