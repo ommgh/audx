@@ -74,18 +74,6 @@ const PRESETS: Record<string, PresetTheme> = {
       waveform: "triangle",
     },
   },
-  digital: {
-    name: "Digital",
-    description: "Crisp synthetic ticks for product interfaces.",
-    controls: {
-      character: 0.15,
-      brightness: 0.75,
-      motion: 0.45,
-      duration: 0.9,
-      gain: 0.6,
-      waveform: "square",
-    },
-  },
 };
 
 const CATEGORY_TUNING: Record<
@@ -432,7 +420,7 @@ export function ThemeGenerator({
         </div>
 
         <div className="grid min-w-0 gap-4 sm:grid-cols-2 lg:grid-cols-1">
-          <div className="rounded-2xl border border-border/60 bg-background/70 p-4 shadow-sm">
+          <div className="relative rounded-2xl border border-border/60 bg-background/70 p-4 pb-9 shadow-sm">
             <div className="mb-4 flex items-center justify-between gap-3">
               <span className="font-semibold text-sm">Dynamics</span>
               <span className="font-mono text-muted-foreground text-xs">
@@ -477,7 +465,7 @@ export function ThemeGenerator({
                 </span>
               </div>
             </div>
-            <p className="absolute bottom-0 text-muted-foreground text-xs">
+            <p className="absolute bottom-4 left-4 right-4 text-muted-foreground text-xs">
               Double-click knobs to return to their default values
             </p>
           </div>
@@ -553,10 +541,9 @@ export function ThemeGenerator({
       <div className="space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h3 className="text-sm font-medium">Fixed sound library</h3>
+            <h3 className="text-sm font-medium">Generated Library</h3>
             <p className="text-muted-foreground text-xs">
-              Browse and preview the canonical sounds. No sounds are added or
-              removed.
+              Browse and preview the generated theme sounds
             </p>
           </div>
           <Button type="button" onClick={() => playPreview()}>
@@ -626,10 +613,9 @@ export function ThemeGenerator({
 
       <div className="grid gap-4 border bg-card p-4 lg:grid-cols-[0.8fr_1.2fr]">
         <div>
-          <h3 className="text-sm font-medium">Generated theme package</h3>
+          <h3 className="text-sm font-medium">Save your theme</h3>
           <p className="mt-1 text-muted-foreground text-xs leading-relaxed">
-            Your saved theme includes the same fixed sound names as Minimal and
-            Playful, generated from the controls above.
+            Save theme to your library, generated from the controls above.
           </p>
           <div className="mt-4 grid grid-cols-3 gap-2 text-center">
             <div className="border bg-secondary/30 p-3">
@@ -638,11 +624,12 @@ export function ThemeGenerator({
             </div>
             <div className="border bg-secondary/30 p-3">
               <div className="font-mono text-lg">{categories.length}</div>
-              <div className="text-muted-foreground text-[11px]">groups</div>
+              <div className="text-muted-foreground text-[11px]">
+                categories
+              </div>
             </div>
-            <div className="border bg-secondary/30 p-3">
+            <div className="border bg-secondary/30 p-6">
               <div className="font-mono text-lg">JSON</div>
-              <div className="text-muted-foreground text-[11px]">hidden</div>
             </div>
           </div>
         </div>
@@ -686,7 +673,7 @@ export function ThemeGenerator({
                   className="mb-1.5 block font-medium text-xs"
                   htmlFor="theme-description"
                 >
-                  Description optional
+                  Description (optional)
                 </label>
                 <textarea
                   className="h-20 w-full resize-none border border-input bg-background px-3 py-2 text-xs outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50"
@@ -716,9 +703,7 @@ export function ThemeGenerator({
                 type="button"
               >
                 <RiDownloadCloud2Line />
-                {isSaving
-                  ? "Saving..."
-                  : `Save complete ${SOUND_NAMES.length}-sound theme`}
+                {isSaving ? "Saving..." : `Save Theme`}
               </Button>
             </div>
           ) : (
