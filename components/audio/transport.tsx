@@ -3,6 +3,7 @@
 import { Transport as TransportPrimitive } from "@audio-ui/react";
 import { cva, type VariantProps } from "class-variance-authority";
 import type React from "react";
+import { useInteractionSound } from "@/hooks/use-interaction-sound";
 import { cn } from "@/lib/utils";
 
 const transportSliderVariants = cva("", {
@@ -48,7 +49,7 @@ const transportTrackVariants = cva(
     defaultVariants: {
       size: "default",
     },
-  }
+  },
 );
 
 const transportThumbVariants = cva(
@@ -81,7 +82,7 @@ const transportThumbVariants = cva(
     defaultVariants: {
       size: "default",
     },
-  }
+  },
 );
 
 const transportThumbMarkVariants = cva("bg-primary opacity-50", {
@@ -134,12 +135,14 @@ function Transport({
   orientation,
   ...props
 }: TransportProps) {
+  const playInteraction = useInteractionSound();
+
   return (
     <TransportPrimitive.Root
       bufferedValue={bufferedValue}
       className={cn(
         "relative data-[orientation=vertical]:h-full data-[orientation=horizontal]:w-full",
-        className
+        className,
       )}
       max={max}
       min={min}
@@ -149,11 +152,13 @@ function Transport({
       {...props}
     >
       <TransportPrimitive.Slider
+        onPointerDown={() => playInteraction("slide", { volume: 0.55 })}
+        onPointerUp={() => playInteraction("drop", { volume: 0.5 })}
         className={cn(
           "relative flex w-full touch-none select-none items-center data-disabled:opacity-50",
           "data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-40 data-[orientation=vertical]:w-auto data-[orientation=vertical]:flex-col",
           "data-[orientation=horizontal]:w-full data-[orientation=horizontal]:min-w-32",
-          transportSliderVariants({ size })
+          transportSliderVariants({ size }),
         )}
       >
         <TransportPrimitive.Track className={transportTrackVariants({ size })}>
@@ -161,14 +166,14 @@ function Transport({
             className={cn(
               "absolute z-0 select-none bg-primary/40",
               "data-[orientation=horizontal]:inset-y-0 data-[orientation=horizontal]:left-0",
-              "data-[orientation=vertical]:inset-x-0 data-[orientation=vertical]:bottom-0"
+              "data-[orientation=vertical]:inset-x-0 data-[orientation=vertical]:bottom-0",
             )}
           />
           <TransportPrimitive.Range
             className={cn(
               "absolute select-none bg-primary",
               "data-[orientation=horizontal]:inset-y-0 data-[orientation=horizontal]:left-0",
-              "data-[orientation=vertical]:inset-x-0 data-[orientation=vertical]:bottom-0"
+              "data-[orientation=vertical]:inset-x-0 data-[orientation=vertical]:bottom-0",
             )}
           />
         </TransportPrimitive.Track>
@@ -181,7 +186,7 @@ function Transport({
               size === "sm" &&
                 "data-[orientation=horizontal]:px-1 data-[orientation=vertical]:px-0.5 data-[orientation=horizontal]:py-0.5 data-[orientation=vertical]:py-1",
               size === "lg" &&
-                "data-[orientation=horizontal]:px-2 data-[orientation=vertical]:px-1 data-[orientation=horizontal]:py-1 data-[orientation=vertical]:py-2"
+                "data-[orientation=horizontal]:px-2 data-[orientation=vertical]:px-1 data-[orientation=horizontal]:py-1 data-[orientation=vertical]:py-2",
             )}
           >
             <TransportPrimitive.ThumbMark

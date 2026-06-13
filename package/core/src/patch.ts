@@ -94,7 +94,7 @@ export async function loadPatch(
 	source: string | SoundPatch,
 ): Promise<AudioPatch> {
 	if (typeof source === "string") {
-		const response = await fetch(source);
+		const response = await fetch(source, { cache: "no-store" });
 		if (!response.ok)
 			throw new Error(
 				`Failed to load patch from ${source}: ${response.status}`,

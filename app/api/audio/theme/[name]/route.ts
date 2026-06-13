@@ -10,10 +10,9 @@ export const dynamic = "force-dynamic";
 export const preferredRegion = "iad1";
 
 const SLUG_RE = /^[a-z0-9-]+$/;
-const THEMES_DIR = resolve(process.cwd(), "../../.themes");
+const THEMES_DIR = resolve(process.cwd(), ".themes");
 const CACHE_HEADERS = {
-	"Cache-Control":
-		"public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400",
+	"Cache-Control": "no-store, max-age=0",
 };
 
 export async function GET(
@@ -21,15 +20,6 @@ export async function GET(
 	{ params }: { params: Promise<{ name: string }> },
 ) {
 	const { name } = await params;
-
-	if (SLUG_RE.test(name)) {
-		const localPath = resolve(THEMES_DIR, `${name}.json`);
-		if (existsSync(localPath)) {
-			const data = JSON.parse(await readFile(localPath, "utf-8"));
-			recordLoad(name);
-			return NextResponse.json(data, { headers: CACHE_HEADERS });
-		}
-	}
 
 	const theme = await prisma.theme.findFirst({
 		where: { name: { equals: name, mode: "insensitive" } },
@@ -41,6 +31,15 @@ export async function GET(
 	});
 
 	if (!theme) {
+		if (SLUG_RE.test(name)) {
+			const localPath = resolve(THEMES_DIR, `${name}.json`);
+			if (existsSync(localPath)) {
+				const data = JSON.parse(await readFile(localPath, "utf-8"));
+				recordLoad(data.name ?? name);
+				return NextResponse.json(data, { headers: CACHE_HEADERS });
+			}
+		}
+
 		const session = await auth.api.getSession({ headers: await headers() });
 
 		if (session?.user?.id) {

@@ -2,51 +2,57 @@
 
 import { RiArrowDropDownLine, RiPaletteLine } from "@remixicon/react";
 import { Button } from "@/components/ui/button";
+import { useInteractionSound } from "@/hooks/use-interaction-sound";
 import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuRadioGroup,
-	DropdownMenuRadioItem,
-	DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { ThemeCatalogItem } from "@/lib/audio-catalog";
 
 interface ThemeSelectorProps {
-	themes: ThemeCatalogItem[];
-	selectedTheme: string;
-	onThemeChange: (themeName: string) => void;
+  themes: ThemeCatalogItem[];
+  selectedTheme: string;
+  onThemeChange: (themeName: string) => void;
 }
 
 export function ThemeSelector({
-	themes,
-	selectedTheme,
-	onThemeChange,
+  themes,
+  selectedTheme,
+  onThemeChange,
 }: ThemeSelectorProps) {
-	const selected = themes.find((t) => t.name === selectedTheme);
+  const selected = themes.find((t) => t.name === selectedTheme);
+  const playInteraction = useInteractionSound();
 
-	return (
-		<DropdownMenu>
-			<DropdownMenuTrigger
-				render={
-					<Button variant="outline" size="lg">
-						<RiPaletteLine data-icon="inline-start" />
-						{selected?.displayName ?? "Select theme"}
-						<RiArrowDropDownLine />
-					</Button>
-				}
-			/>
-			<DropdownMenuContent>
-				<DropdownMenuRadioGroup
-					value={selectedTheme}
-					onValueChange={(value) => onThemeChange(value as string)}
-				>
-					{themes.map((theme) => (
-						<DropdownMenuRadioItem key={theme.name} value={theme.name}>
-							{theme.displayName}
-						</DropdownMenuRadioItem>
-					))}
-				</DropdownMenuRadioGroup>
-			</DropdownMenuContent>
-		</DropdownMenu>
-	);
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        render={
+          <Button
+            variant="outline"
+            size="lg"
+            onClick={() => playInteraction("open")}
+          >
+            <RiPaletteLine data-icon="inline-start" />
+            {selected?.displayName ?? "Select theme"}
+            <RiArrowDropDownLine />
+          </Button>
+        }
+      />
+      <DropdownMenuContent>
+        <DropdownMenuRadioGroup
+          value={selectedTheme}
+          onValueChange={(value) => onThemeChange(value as string)}
+        >
+          {themes.map((theme) => (
+            <DropdownMenuRadioItem key={theme.name} value={theme.name}>
+              {theme.displayName}
+            </DropdownMenuRadioItem>
+          ))}
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
 }

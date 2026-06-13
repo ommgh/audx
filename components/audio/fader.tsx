@@ -2,6 +2,7 @@
 
 import { Fader as FaderPrimitive } from "@audio-ui/react";
 import { cva, type VariantProps } from "class-variance-authority";
+import { useInteractionSound } from "@/hooks/use-interaction-sound";
 import { cn } from "@/lib/utils";
 
 const faderVariants = cva("", {
@@ -47,7 +48,7 @@ const faderTrackVariants = cva(
     defaultVariants: {
       size: "default",
     },
-  }
+  },
 );
 
 const faderThumbVariants = cva(
@@ -80,7 +81,7 @@ const faderThumbVariants = cva(
     defaultVariants: {
       size: "default",
     },
-  }
+  },
 );
 
 const faderThumbMarkVariants = cva("bg-primary opacity-50", {
@@ -114,8 +115,7 @@ const faderThumbMarkVariants = cva("bg-primary opacity-50", {
 });
 
 interface FaderProps
-  extends FaderPrimitive.RootProps,
-    VariantProps<typeof faderVariants> {
+  extends FaderPrimitive.RootProps, VariantProps<typeof faderVariants> {
   thumbMarks?: number | false;
 }
 
@@ -126,22 +126,26 @@ export function Fader({
   thumbMarks = 3,
   ...props
 }: FaderProps) {
+  const playInteraction = useInteractionSound();
+
   return (
     <FaderPrimitive.Root
       className={cn(
         "relative data-[orientation=vertical]:h-full data-[orientation=horizontal]:w-full",
-        className
+        className,
       )}
       orientation={orientation}
       {...props}
     >
       <FaderPrimitive.Slider
+        onPointerDown={() => playInteraction("slide", { volume: 0.55 })}
+        onPointerUp={() => playInteraction("drop", { volume: 0.5 })}
         className={cn(
           "relative flex w-full touch-none select-none items-center",
           "data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-40 data-[orientation=vertical]:w-auto data-[orientation=vertical]:flex-col",
           "data-[orientation=horizontal]:w-full data-[orientation=horizontal]:min-w-32",
           "data-[disabled=true]:pointer-events-none data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50",
-          faderVariants({ size })
+          faderVariants({ size }),
         )}
       >
         <FaderPrimitive.Track className={faderTrackVariants({ size })}>
@@ -149,7 +153,7 @@ export function Fader({
             className={cn(
               "absolute select-none bg-primary",
               "data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full",
-              "data-[orientation=vertical]:bottom-0"
+              "data-[orientation=vertical]:bottom-0",
             )}
           />
         </FaderPrimitive.Track>
@@ -157,7 +161,7 @@ export function Fader({
         <FaderPrimitive.Thumb
           className={cn(
             faderThumbVariants({ size }),
-            "data-[disabled=true]:cursor-not-allowed"
+            "data-[disabled=true]:cursor-not-allowed",
           )}
         >
           <FaderPrimitive.ThumbInner
@@ -168,7 +172,7 @@ export function Fader({
               size === "sm" &&
                 "data-[orientation=horizontal]:px-1 data-[orientation=vertical]:px-0.5 data-[orientation=horizontal]:py-0.5 data-[orientation=vertical]:py-1",
               size === "lg" &&
-                "data-[orientation=horizontal]:px-2 data-[orientation=vertical]:px-1 data-[orientation=horizontal]:py-1 data-[orientation=vertical]:py-2"
+                "data-[orientation=horizontal]:px-2 data-[orientation=vertical]:px-1 data-[orientation=horizontal]:py-1 data-[orientation=vertical]:py-2",
             )}
           >
             {thumbMarks !== false &&

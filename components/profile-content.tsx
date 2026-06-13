@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 import { useState } from "react";
 import { useTRPC } from "@/trpc/client";
 
@@ -57,6 +58,31 @@ export function ProfileContent() {
 			<section>
 				<h1 className="text-2xl font-bold tracking-tight">{data.user.name}</h1>
 				<p className="mt-1 text-sm text-muted-foreground">{data.user.email}</p>
+			</section>
+
+			<section>
+				<div className="flex items-center justify-between">
+					<h2 className="text-lg font-semibold tracking-tight">Libraries</h2>
+					<Link
+						href="/library"
+						className="text-sm font-medium text-primary underline-offset-4 hover:underline"
+					>
+						See all
+					</Link>
+				</div>
+				{data.libraries.length > 0 ? (
+					<ul className="mt-3 space-y-2 text-sm">
+						{data.libraries.map((library) => (
+							<li key={library.id} className="border border-border px-3 py-2">
+								{library.name}
+							</li>
+						))}
+					</ul>
+				) : (
+					<p className="mt-3 text-sm text-muted-foreground">
+						No generated libraries yet.
+					</p>
+				)}
 			</section>
 
 			<section>

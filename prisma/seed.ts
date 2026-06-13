@@ -74,6 +74,15 @@ async function main() {
 
     console.log(`Upserted theme: ${record.name} (id=${record.id})`);
 
+    await prisma.themeSound.deleteMany({
+      where: {
+        themeId: record.id,
+        name: {
+          notIn: Object.keys(theme.sounds),
+        },
+      },
+    });
+
     // Upsert each sound
     for (const [soundName] of Object.entries(theme.sounds)) {
       await prisma.themeSound.upsert({
