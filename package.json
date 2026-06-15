@@ -20,6 +20,7 @@
     "@dodopayments/better-auth": "^1.6.2",
     "@hookform/resolvers": "^5.2.2",
     "@litlab/audx": "workspace:*",
+    "@next/third-parties": "^16.2.9",
     "@prisma/adapter-neon": "^7.8.0",
     "@prisma/client": "^7.8.0",
     "@radix-ui/react-label": "^2.1.7",
