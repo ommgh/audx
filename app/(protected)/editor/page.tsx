@@ -31,7 +31,7 @@ function InstallCommand() {
 
       <p className="text-muted-foreground max-w-xl text-sm leading-relaxed">
         Add the{" "}
-        <span className="text-foreground font-medium">create-sound</span> skill
+        <span className="text-foreground font-medium">create-audio</span> skill
         to your coding agent. It teaches your agent to generate a{" "}
         <code className="bg-muted rounded px-1 py-0.5 text-xs">
           SoundDefinition
@@ -75,7 +75,7 @@ function InstallCommand() {
           agent-skills
         </a>{" "}
         format — run{" "}
-        <code className="bg-muted rounded px-1 py-0.5">/create-sound</code> to
+        <code className="bg-muted rounded px-1 py-0.5">/create-audio</code> to
         create new sounds and themes.
       </p>
     </div>

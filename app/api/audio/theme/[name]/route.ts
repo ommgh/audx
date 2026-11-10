@@ -1,18 +1,18 @@
-import { existsSync } from "node:fs";
-import { readFile } from "node:fs/promises";
-import { resolve } from "node:path";
 import { headers } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
+import { BUILT_IN_THEMES, isBuiltInTheme } from "@/lib/audio-catalog";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 export const preferredRegion = "iad1";
 
-const SLUG_RE = /^[a-z0-9-]+$/;
-const THEMES_DIR = resolve(process.cwd(), ".themes");
 const CACHE_HEADERS = {
 	"Cache-Control": "no-store, max-age=0",
+};
+const BUILT_IN_CACHE_HEADERS = {
+	"Cache-Control":
+		"public, max-age=300, s-maxage=3600, stale-while-revalidate=86400",
 };
 
 export async function GET(
@@ -20,6 +20,15 @@ export async function GET(
 	{ params }: { params: Promise<{ name: string }> },
 ) {
 	const { name } = await params;
+
+	// First-party themes ship with the app, so they are always current.
+	const slug = name.toLowerCase();
+	if (isBuiltInTheme(slug)) {
+		recordLoad(slug);
+		return NextResponse.json(BUILT_IN_THEMES[slug], {
+			headers: BUILT_IN_CACHE_HEADERS,
+		});
+	}
 
 	const theme = await prisma.theme.findFirst({
 		where: { name: { equals: name, mode: "insensitive" } },
@@ -31,15 +40,6 @@ export async function GET(
 	});
 
 	if (!theme) {
-		if (SLUG_RE.test(name)) {
-			const localPath = resolve(THEMES_DIR, `${name}.json`);
-			if (existsSync(localPath)) {
-				const data = JSON.parse(await readFile(localPath, "utf-8"));
-				recordLoad(data.name ?? name);
-				return NextResponse.json(data, { headers: CACHE_HEADERS });
-			}
-		}
-
 		const session = await auth.api.getSession({ headers: await headers() });
 
 		if (session?.user?.id) {

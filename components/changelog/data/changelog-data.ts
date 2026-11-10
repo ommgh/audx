@@ -79,3 +79,34 @@ export const accordionDataV0_5_0 = [
     ],
   },
 ];
+export const accordionDataV0_9_0 = [
+  {
+    type: "new",
+    items: [
+      "Four redesigned themes (minimal, playful, mechanical, retro), each with the same 43 semantic sounds",
+      "Showcase page: hear every sound inside real components and flip any card to see the code",
+      "`audx theme <name>` re-skins every installed sound in one command",
+      "Interactive sound picker grouped by category, plus `audx list` with search",
+      "`audx create` starts a custom theme from an existing one",
+      "Global mute with `setMuted()`, and `useSound(click)` accepts generated sounds directly",
+    ],
+  },
+  {
+    type: "updates",
+    items: [
+      "Sounds are generated into `src/sounds/` as one file per sound with an index barrel",
+      "Project config moved to `audx.json` with a JSON schema for autocomplete",
+      "Loudness is normalized per role so a click never drowns out an error",
+      "No prompts in CI, typo suggestions for sounds, themes and commands, per-command `--help`",
+      "`defineSound` is safe to call during server rendering",
+    ],
+  },
+  {
+    type: "bugfixes",
+    items: [
+      "Built-in themes are always served fresh instead of from a stale database copy",
+      "Sitemap URLs no longer repeat the /audio prefix",
+    ],
+    badges: ["cli", "themes", "showcase"],
+  },
+];

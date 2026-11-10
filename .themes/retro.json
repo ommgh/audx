@@ -1,0 +1,1440 @@
+{
+	"$schema": "https://audx.site/schemas/theme.schema.json",
+	"name": "retro",
+	"author": "Om Mishra",
+	"version": "2.0.0",
+	"description": "An 8-bit console. Square waves, stepped arpeggios and bit-crushed noise for games and playful dev tools.",
+	"tags": [
+		"8-bit",
+		"chiptune",
+		"games"
+	],
+	"sounds": {
+		"click": {
+			"source": {
+				"type": "square",
+				"frequency": 880
+			},
+			"envelope": {
+				"attack": 0.001,
+				"decay": 0.03,
+				"sustain": 0.6,
+				"release": 0.01
+			},
+			"gain": 0.0693
+		},
+		"tap": {
+			"source": {
+				"type": "square",
+				"frequency": 1760
+			},
+			"envelope": {
+				"attack": 0.001,
+				"decay": 0.014,
+				"sustain": 0.6,
+				"release": 0.01
+			},
+			"gain": 0.0894
+		},
+		"press": {
+			"source": {
+				"type": "triangle",
+				"frequency": {
+					"start": 440,
+					"end": 220
+				}
+			},
+			"envelope": {
+				"attack": 0.001,
+				"decay": 0.04,
+				"sustain": 0.6,
+				"release": 0.01
+			},
+			"gain": 0.1029
+		},
+		"release": {
+			"source": {
+				"type": "square",
+				"frequency": {
+					"start": 440,
+					"end": 880
+				}
+			},
+			"envelope": {
+				"attack": 0.001,
+				"decay": 0.03,
+				"sustain": 0.6,
+				"release": 0.01
+			},
+			"gain": 0.0688
+		},
+		"hover": {
+			"source": {
+				"type": "square",
+				"frequency": 2093
+			},
+			"envelope": {
+				"attack": 0.001,
+				"decay": 0.01,
+				"sustain": 0.6,
+				"release": 0.01
+			},
+			"gain": 0.0586
+		},
+		"focus": {
+			"layers": [
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1046.5
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.024,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0564,
+					"delay": 0
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1318.51
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.024,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0564,
+					"delay": 0.028
+				}
+			]
+		},
+		"blur": {
+			"layers": [
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1318.51
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.024,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0567,
+					"delay": 0
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1046.5
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.024,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0567,
+					"delay": 0.028
+				}
+			]
+		},
+		"type": {
+			"layers": [
+				{
+					"source": {
+						"type": "noise",
+						"color": "white"
+					},
+					"envelope": {
+						"attack": 0,
+						"decay": 0.012
+					},
+					"gain": 0.191,
+					"filter": {
+						"type": "highpass",
+						"frequency": 2500
+					},
+					"effects": [
+						{
+							"type": "bitcrusher",
+							"bits": 4,
+							"mix": 1
+						}
+					]
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1567.98
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.008,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0764
+				}
+			]
+		},
+		"tick": {
+			"source": {
+				"type": "square",
+				"frequency": 3135.96
+			},
+			"envelope": {
+				"attack": 0.001,
+				"decay": 0.006,
+				"sustain": 0.6,
+				"release": 0.01
+			},
+			"gain": 0.1043
+		},
+		"toggle": {
+			"layers": [
+				{
+					"source": {
+						"type": "square",
+						"frequency": 523.25
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.03,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0779,
+					"delay": 0
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1046.5
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.03,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0779,
+					"delay": 0.035
+				}
+			]
+		},
+		"enable": {
+			"layers": [
+				{
+					"source": {
+						"type": "square",
+						"frequency": 523.25
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.026,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0787,
+					"delay": 0
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 659.26
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.026,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0787,
+					"delay": 0.03
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 783.99
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.026,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0787,
+					"delay": 0.06
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1046.5
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.026,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0787,
+					"delay": 0.09
+				}
+			]
+		},
+		"disable": {
+			"layers": [
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1046.5
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.026,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0775,
+					"delay": 0
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 783.99
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.026,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0775,
+					"delay": 0.03
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 659.26
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.026,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0775,
+					"delay": 0.06
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 523.25
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.026,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0775,
+					"delay": 0.09
+				}
+			]
+		},
+		"select": {
+			"layers": [
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1046.5
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.035,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0784,
+					"delay": 0
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1567.98
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.035,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0784,
+					"delay": 0.04
+				}
+			]
+		},
+		"deselect": {
+			"source": {
+				"type": "square",
+				"frequency": 783.99
+			},
+			"envelope": {
+				"attack": 0.001,
+				"decay": 0.04,
+				"sustain": 0.6,
+				"release": 0.01
+			},
+			"gain": 0.0852
+		},
+		"tab": {
+			"source": {
+				"type": "triangle",
+				"frequency": 1046.5
+			},
+			"envelope": {
+				"attack": 0.001,
+				"decay": 0.05,
+				"sustain": 0.5,
+				"release": 0.01
+			},
+			"gain": 0.145
+		},
+		"open": {
+			"source": {
+				"type": "square",
+				"frequency": {
+					"start": 220,
+					"end": 900
+				}
+			},
+			"envelope": {
+				"attack": 0.001,
+				"decay": 0.1,
+				"sustain": 0.6,
+				"release": 0.01
+			},
+			"gain": 0.0622
+		},
+		"close": {
+			"source": {
+				"type": "square",
+				"frequency": {
+					"start": 900,
+					"end": 220
+				}
+			},
+			"envelope": {
+				"attack": 0.001,
+				"decay": 0.1,
+				"sustain": 0.6,
+				"release": 0.01
+			},
+			"gain": 0.0628
+		},
+		"expand": {
+			"layers": [
+				{
+					"source": {
+						"type": "square",
+						"frequency": 523.25
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.02,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0677,
+					"delay": 0
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 783.99
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.02,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0677,
+					"delay": 0.022
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1046.5
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.02,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0677,
+					"delay": 0.044
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1567.98
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.02,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0677,
+					"delay": 0.066
+				}
+			]
+		},
+		"collapse": {
+			"layers": [
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1567.98
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.02,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0693,
+					"delay": 0
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1046.5
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.02,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0693,
+					"delay": 0.022
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 783.99
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.02,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0693,
+					"delay": 0.044
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 523.25
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.02,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0693,
+					"delay": 0.066
+				}
+			]
+		},
+		"back": {
+			"source": {
+				"type": "square",
+				"frequency": {
+					"start": 659.26,
+					"end": 440
+				}
+			},
+			"envelope": {
+				"attack": 0.001,
+				"decay": 0.06,
+				"sustain": 0.6,
+				"release": 0.01
+			},
+			"gain": 0.0674
+		},
+		"forward": {
+			"source": {
+				"type": "square",
+				"frequency": {
+					"start": 440,
+					"end": 659.26
+				}
+			},
+			"envelope": {
+				"attack": 0.001,
+				"decay": 0.06,
+				"sustain": 0.6,
+				"release": 0.01
+			},
+			"gain": 0.0673
+		},
+		"scroll": {
+			"source": {
+				"type": "triangle",
+				"frequency": 1318.51
+			},
+			"envelope": {
+				"attack": 0.001,
+				"decay": 0.016,
+				"sustain": 0.5,
+				"release": 0.005
+			},
+			"gain": 0.1239
+		},
+		"slide": {
+			"source": {
+				"type": "square",
+				"frequency": {
+					"start": 380,
+					"end": 1300
+				}
+			},
+			"envelope": {
+				"attack": 0.002,
+				"decay": 0.15,
+				"sustain": 0.4,
+				"release": 0.02
+			},
+			"gain": 0.0512,
+			"lfo": {
+				"type": "sine",
+				"frequency": 22,
+				"depth": 40,
+				"target": "frequency"
+			}
+		},
+		"copy": {
+			"layers": [
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1318.51
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.035,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0763,
+					"delay": 0
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1975.53
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.07,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0763,
+					"delay": 0.04
+				}
+			]
+		},
+		"paste": {
+			"layers": [
+				{
+					"source": {
+						"type": "square",
+						"frequency": 2093
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.03,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0765,
+					"delay": 0
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1046.5
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.06,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0765,
+					"delay": 0.04
+				}
+			]
+		},
+		"undo": {
+			"layers": [
+				{
+					"source": {
+						"type": "square",
+						"frequency": {
+							"start": 1200,
+							"end": 400
+						}
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.05,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0781
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": {
+							"start": 400,
+							"end": 800
+						}
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.04,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0781,
+					"delay": 0.06
+				}
+			]
+		},
+		"clear": {
+			"source": {
+				"type": "noise",
+				"color": "white"
+			},
+			"envelope": {
+				"attack": 0.002,
+				"decay": 0.14
+			},
+			"gain": 0.1919,
+			"filter": {
+				"type": "lowpass",
+				"frequency": 1200,
+				"resonance": 1,
+				"envelope": {
+					"attack": 0,
+					"peak": 9000,
+					"decay": 0.14
+				}
+			},
+			"effects": [
+				{
+					"type": "bitcrusher",
+					"bits": 3,
+					"mix": 1
+				}
+			]
+		},
+		"delete": {
+			"layers": [
+				{
+					"source": {
+						"type": "noise",
+						"color": "white"
+					},
+					"envelope": {
+						"attack": 0.002,
+						"decay": 0.2
+					},
+					"gain": 0.123,
+					"filter": {
+						"type": "lowpass",
+						"frequency": 300,
+						"resonance": 1,
+						"envelope": {
+							"attack": 0,
+							"peak": 6000,
+							"decay": 0.2
+						}
+					},
+					"effects": [
+						{
+							"type": "bitcrusher",
+							"bits": 3,
+							"mix": 1
+						}
+					]
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": {
+							"start": 500,
+							"end": 80
+						}
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.12,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0615
+				}
+			]
+		},
+		"drag": {
+			"source": {
+				"type": "triangle",
+				"frequency": {
+					"start": 329.63,
+					"end": 440
+				}
+			},
+			"envelope": {
+				"attack": 0.002,
+				"decay": 0.05,
+				"sustain": 0.5,
+				"release": 0.01
+			},
+			"gain": 0.1448
+		},
+		"drop": {
+			"layers": [
+				{
+					"source": {
+						"type": "triangle",
+						"frequency": {
+							"start": 440,
+							"end": 110
+						}
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.08,
+						"sustain": 0.4,
+						"release": 0.01
+					},
+					"gain": 0.1392
+				},
+				{
+					"source": {
+						"type": "noise",
+						"color": "white"
+					},
+					"envelope": {
+						"attack": 0,
+						"decay": 0.03
+					},
+					"gain": 0.0557,
+					"effects": [
+						{
+							"type": "bitcrusher",
+							"bits": 3,
+							"mix": 1
+						}
+					]
+				}
+			]
+		},
+		"success": {
+			"layers": [
+				{
+					"source": {
+						"type": "square",
+						"frequency": 523.25
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.05,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0936,
+					"delay": 0
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 659.26
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.05,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0936,
+					"delay": 0.06
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 783.99
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.05,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0936,
+					"delay": 0.12
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1046.5
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.18,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0936,
+					"delay": 0.18
+				}
+			]
+		},
+		"complete": {
+			"layers": [
+				{
+					"source": {
+						"type": "square",
+						"frequency": 523.25
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.045,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0912,
+					"delay": 0
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 659.26
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.045,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0912,
+					"delay": 0.05
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 783.99
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.045,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0912,
+					"delay": 0.1
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1046.5
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.045,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0912,
+					"delay": 0.15
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1318.51
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.045,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0912,
+					"delay": 0.2
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1567.98
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.045,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0912,
+					"delay": 0.25
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 2093
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.32,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0912,
+					"delay": 0.3
+				}
+			]
+		},
+		"error": {
+			"layers": [
+				{
+					"source": {
+						"type": "square",
+						"frequency": 196
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.11,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0907,
+					"delay": 0
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 146.83
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.2,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0907,
+					"delay": 0.13
+				}
+			]
+		},
+		"warning": {
+			"layers": [
+				{
+					"source": {
+						"type": "square",
+						"frequency": 987.77
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.045,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.1144,
+					"delay": 0
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 987.77
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.045,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.1144,
+					"delay": 0.085
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 987.77
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.045,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.1144,
+					"delay": 0.17
+				}
+			]
+		},
+		"deny": {
+			"layers": [
+				{
+					"source": {
+						"type": "square",
+						"frequency": 146.83
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.05,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.1087,
+					"delay": 0
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 146.83
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.05,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.1087,
+					"delay": 0.09
+				}
+			]
+		},
+		"info": {
+			"layers": [
+				{
+					"source": {
+						"type": "triangle",
+						"frequency": 1318.51
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.1,
+						"sustain": 0.5,
+						"release": 0.02
+					},
+					"gain": 0.2564
+				}
+			],
+			"effects": [
+				{
+					"type": "delay",
+					"time": 0.08,
+					"feedback": 0.35,
+					"mix": 0.3
+				}
+			]
+		},
+		"notify": {
+			"layers": [
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1567.98
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.07,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.1129,
+					"delay": 0
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 2093
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.14,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.1129,
+					"delay": 0.1
+				}
+			],
+			"effects": [
+				{
+					"type": "delay",
+					"time": 0.11,
+					"feedback": 0.3,
+					"mix": 0.25
+				}
+			]
+		},
+		"send": {
+			"source": {
+				"type": "square",
+				"frequency": {
+					"start": 600,
+					"end": 2400
+				}
+			},
+			"envelope": {
+				"attack": 0.001,
+				"decay": 0.08,
+				"sustain": 0.6,
+				"release": 0.01
+			},
+			"gain": 0.0919
+		},
+		"receive": {
+			"layers": [
+				{
+					"source": {
+						"type": "triangle",
+						"frequency": 1318.51
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.06,
+						"sustain": 0.5,
+						"release": 0.01
+					},
+					"gain": 0.2142,
+					"delay": 0
+				},
+				{
+					"source": {
+						"type": "triangle",
+						"frequency": 1760
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.06,
+						"sustain": 0.5,
+						"release": 0.01
+					},
+					"gain": 0.2142,
+					"delay": 0.07
+				}
+			],
+			"effects": [
+				{
+					"type": "delay",
+					"time": 0.08,
+					"feedback": 0.25,
+					"mix": 0.2
+				}
+			]
+		},
+		"pop": {
+			"source": {
+				"type": "square",
+				"frequency": {
+					"start": 600,
+					"end": 1800
+				}
+			},
+			"envelope": {
+				"attack": 0.001,
+				"decay": 0.025,
+				"sustain": 0.6,
+				"release": 0.01
+			},
+			"gain": 0.1343
+		},
+		"loading": {
+			"layers": [
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1046.5
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.03,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0781,
+					"delay": 0
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1318.51
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.03,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0781,
+					"delay": 0.055
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1567.98
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.03,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0781,
+					"delay": 0.11
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1046.5
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.03,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0781,
+					"delay": 0.165
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1318.51
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.03,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0781,
+					"delay": 0.22
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 1567.98
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.03,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0781,
+					"delay": 0.275
+				}
+			]
+		},
+		"lock": {
+			"layers": [
+				{
+					"source": {
+						"type": "noise",
+						"color": "white"
+					},
+					"envelope": {
+						"attack": 0,
+						"decay": 0.03
+					},
+					"gain": 0.0771,
+					"effects": [
+						{
+							"type": "bitcrusher",
+							"bits": 3,
+							"mix": 1
+						}
+					]
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 220
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.05,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0771,
+					"delay": 0.03
+				}
+			]
+		},
+		"unlock": {
+			"layers": [
+				{
+					"source": {
+						"type": "square",
+						"frequency": 440
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.025,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0825,
+					"delay": 0
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 659.26
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.025,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0825,
+					"delay": 0.035
+				},
+				{
+					"source": {
+						"type": "square",
+						"frequency": 880
+					},
+					"envelope": {
+						"attack": 0.001,
+						"decay": 0.025,
+						"sustain": 0.6,
+						"release": 0.01
+					},
+					"gain": 0.0825,
+					"delay": 0.07
+				}
+			]
+		}
+	}
+}

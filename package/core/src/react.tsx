@@ -14,6 +14,7 @@ import { type AudioAnalyser, createMasterAnalyser } from "./analyser";
 import {
 	getContext as getAudioContext,
 	getDestination,
+	isSilent,
 	setListener,
 } from "./context";
 import { render } from "./engine";
@@ -25,6 +26,7 @@ import type {
 	PlayOptions,
 	SequenceOptions,
 	SequenceStep,
+	Sound,
 	SoundDefinition,
 	SoundPatch,
 	VoiceHandle,
@@ -144,24 +146,23 @@ export function SoundProvider({
  * the user's `prefers-reduced-motion` preference. The callback reference
  * never changes between renders (values are read from refs).
  *
- * @param definition - The sound to play
- * @param opts - Default play options (can be overridden at call time)
+ * @param sound - A sound from `audx add` (e.g. `click`) or a raw definition
+ * @param opts - Default play options
  * @returns A function that triggers the sound and returns a {@link VoiceHandle}, or `undefined` if muted
  *
  * @example
  * ```tsx
- * const play = useSound({
- *   source: { type: "sine", frequency: 440 },
- *   envelope: { decay: 0.1 },
- * });
+ * import { click } from "@/sounds";
  *
- * <button onClick={play}>Beep</button>
+ * const play = useSound(click);
+ * <button onClick={play}>Save</button>
  * ```
  */
 export function useSound(
-	definition: SoundDefinition,
+	sound: Sound | SoundDefinition,
 	opts?: PlayOptions,
 ): () => VoiceHandle | undefined {
+	const definition = typeof sound === "function" ? sound.definition : sound;
 	const { state } = use(SoundContext);
 	const reducedMotion = usePrefersReducedMotion();
 
@@ -179,7 +180,7 @@ export function useSound(
 
 	return useCallback(() => {
 		const { enabled, volume } = stateRef.current;
-		if (!enabled || reducedMotionRef.current) return undefined;
+		if (!enabled || reducedMotionRef.current || isSilent()) return undefined;
 
 		const audio = getAudioContext();
 		const v = (optsRef.current?.volume ?? 1) * volume;
@@ -225,7 +226,7 @@ export function useSequence(
 
 	const play = useCallback(() => {
 		const { enabled, volume } = stateRef.current;
-		if (!enabled || reducedMotionRef.current) return;
+		if (!enabled || reducedMotionRef.current || isSilent()) return;
 
 		stopRef.current?.();
 

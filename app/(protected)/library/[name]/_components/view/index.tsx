@@ -165,7 +165,7 @@ function Header() {
 function Install() {
   const { theme } = useThemeDetail();
 
-  const snippet = `npx @litlab/audx add ommgh/audx --theme ${theme.name}`;
+  const snippet = `npx @litlab/audx theme ${theme.name}`;
 
   const [copied, setCopied] = useState(false);
 

@@ -75,7 +75,10 @@ export function SoundDetailPage({ audio }: AudioDetailPageProps) {
               ) : null}
             </div>
 
-            <SoundInstallInstructions soundName={audio.meta.semanticName} />
+            <SoundInstallInstructions
+              soundName={audio.meta.semanticName}
+              theme={audio.meta.theme}
+            />
           </div>
         </section>
 

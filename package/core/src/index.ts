@@ -6,8 +6,11 @@ import {
 	getDestination,
 	getListener,
 	getMasterBus,
+	isMuted,
+	isSilent,
 	setListener,
 	setMasterVolume,
+	setMuted,
 } from "./context";
 import { render } from "./engine";
 import { bufferToWav, renderToBuffer, renderToWav } from "./offline";
@@ -18,9 +21,12 @@ import type {
 	PlayOptions,
 	SequenceOptions,
 	SequenceStep,
+	Sound,
 	SoundDefinition,
 	VoiceHandle,
 } from "./types";
+
+const SILENT_VOICE: VoiceHandle = { stop() {} };
 
 /**
  * Binds a {@link SoundDefinition} into a reusable play function.
@@ -42,15 +48,19 @@ import type {
  * });
  *
  * click(); // plays the sound
+ * click({ volume: 0.5, jitter: { detune: 40 } });
  * ```
+ *
+ * Safe to call during SSR or while muted via {@link setMuted}: it simply
+ * does nothing.
  */
-export function defineSound(
-	definition: SoundDefinition,
-): (opts?: PlayOptions) => VoiceHandle {
-	return (opts) => {
+export function defineSound(definition: SoundDefinition): Sound {
+	const play = (opts?: PlayOptions): VoiceHandle => {
+		if (isSilent()) return SILENT_VOICE;
 		const ctx = getContext();
 		return render(ctx, definition, opts, undefined, getDestination());
 	};
+	return Object.assign(play, { definition });
 }
 
 /**
@@ -78,6 +88,7 @@ export function defineSequence(
 	options?: SequenceOptions,
 ): (opts?: PlayOptions) => (() => void) | undefined {
 	return (opts) => {
+		if (isSilent()) return undefined;
 		const ctx = getContext();
 		return playSequence(ctx, steps, options, opts);
 	};
@@ -216,6 +227,7 @@ export type {
 	SampleSource,
 	SequenceOptions,
 	SequenceStep,
+	Sound,
 	SoundDefinition,
 	SoundPatch,
 	Source,
@@ -237,9 +249,11 @@ export {
 	getDestination,
 	getListener,
 	getMasterBus,
+	isMuted,
 	loadPatch,
 	renderToBuffer,
 	renderToWav,
 	setListener,
 	setMasterVolume,
+	setMuted,
 };

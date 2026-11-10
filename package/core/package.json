@@ -1,6 +1,6 @@
 {
 	"name": "@litlab/audx",
-	"version": "0.8.5",
+	"version": "0.9.0",
 	"description": "Core Engine For Semantic Web Audio",
 	"author": "Om Mishra",
 	"license": "MIT",
@@ -33,6 +33,10 @@
 		"./react": {
 			"types": "./dist/react.d.ts",
 			"default": "./dist/react.js"
+		},
+		"./catalog": {
+			"types": "./dist/catalog.d.ts",
+			"default": "./dist/catalog.js"
 		},
 		"./bin": "./dist/bin.js",
 		"./package.json": "./package.json"

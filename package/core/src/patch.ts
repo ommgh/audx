@@ -1,4 +1,4 @@
-import { getContext, getDestination } from "./context";
+import { getContext, getDestination, isSilent } from "./context";
 import { render } from "./engine";
 import type {
 	PlayOptions,
@@ -56,6 +56,7 @@ export function createPatchInstance(data: SoundPatch): AudioPatch {
 			const def = data.sounds[name];
 			if (!def)
 				throw new Error(`Sound "${name}" not found in patch "${data.name}"`);
+			if (isSilent()) return { stop() {} };
 			const ctx = getContext();
 			return render(ctx, def, opts, undefined, getDestination());
 		},

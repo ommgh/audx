@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
+import { BUILT_IN_THEMES, THEME_NAMES } from "@/lib/audio-catalog";
 import { deriveThemeMeta, validateTheme } from "@/lib/data/theme-meta";
 import prisma from "@/lib/db";
 import type { Prisma } from "@/prisma/generated/client";
@@ -165,7 +166,37 @@ export async function POST(request: NextRequest) {
 	}
 }
 
+type IndexEntry = {
+	name: string;
+	file: string;
+	author: string;
+	description: string;
+	tags: string[];
+	soundCount: number;
+	sounds: string[];
+	sourceUrl: string | null;
+	builtIn: boolean;
+	loads: number;
+};
+
 export async function GET() {
+	const builtIns: IndexEntry[] = THEME_NAMES.map((name) => {
+		const theme = BUILT_IN_THEMES[name];
+		return {
+			name,
+			file: `${name}.json`,
+			author: theme.author ?? "audx",
+			description: theme.description ?? "",
+			tags: theme.tags ?? [],
+			soundCount: Object.keys(theme.sounds).length,
+			sounds: Object.keys(theme.sounds),
+			sourceUrl: null,
+			builtIn: true,
+			loads: 0,
+		};
+	});
+
+	let community: IndexEntry[] = [];
 	try {
 		const rows = await prisma.theme.findMany({
 			select: {
@@ -185,23 +216,33 @@ export async function GET() {
 			},
 		});
 
-		const result = rows.map((row) => ({
-			name: row.name,
-			file: `${row.name}.json`,
-			author: row.author,
-			description: row.description ?? "",
-			soundCount: row.soundCount,
-			sourceUrl: row.sourceUrl,
-			loads: row._count.loads,
-		}));
+		const loadsByName = new Map(
+			rows.map((r) => [r.name.toLowerCase(), r._count.loads]),
+		);
+		for (const b of builtIns) b.loads = loadsByName.get(b.name) ?? 0;
 
-		return NextResponse.json(result, {
-			headers: {
-				"Cache-Control":
-					"public, max-age=60, s-maxage=60, stale-while-revalidate=300",
-			},
-		});
-	} catch (err) {
-		return NextResponse.json({ error: String(err) }, { status: 500 });
+		community = rows
+			.filter((row) => !(row.name.toLowerCase() in BUILT_IN_THEMES))
+			.map((row) => ({
+				name: row.name,
+				file: `${row.name}.json`,
+				author: row.author,
+				description: row.description ?? "",
+				tags: [],
+				soundCount: row.soundCount,
+				sounds: [],
+				sourceUrl: row.sourceUrl,
+				builtIn: false,
+				loads: row._count.loads,
+			}));
+	} catch {
+		// The registry still works for built-in themes if the database is down.
 	}
+
+	return NextResponse.json([...builtIns, ...community], {
+		headers: {
+			"Cache-Control":
+				"public, max-age=60, s-maxage=60, stale-while-revalidate=300",
+		},
+	});
 }

@@ -12,16 +12,18 @@ import { cn } from "@/lib/utils";
 
 interface SoundInstallInstructionsProps {
 	soundName: string;
+	theme: string;
 }
 
 export function SoundInstallInstructions({
 	soundName,
+	theme,
 }: SoundInstallInstructionsProps) {
 	const [pm, setPm] = useState<PackageManager>(DEFAULT_PM);
 	const [copyState, setCopyState] = useState<"idle" | "done">("idle");
 
 	const prefix = getInstallPrefix(pm);
-	const fullCommand = `${prefix} add ${soundName}`;
+	const fullCommand = `${prefix} add ${soundName} --theme ${theme}`;
 
 	const handleCopy = useCallback(async () => {
 		try {
@@ -55,6 +57,9 @@ export function SoundInstallInstructions({
 					</span>
 					<span aria-hidden="true" className="text-primary">
 						{soundName}
+					</span>{" "}
+					<span aria-hidden="true" className="text-muted-foreground">
+						--theme {theme}
 					</span>
 				</div>
 

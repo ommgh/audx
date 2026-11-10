@@ -13,6 +13,15 @@ export function Header() {
         <AppLogo />
         <div className="flex items-center gap-2">
           <Link
+            href="/showcase"
+            className={cn(
+              buttonVariants({ variant: "ghost" }),
+              "text-muted-foreground hover:text-foreground",
+            )}
+          >
+            Showcase
+          </Link>
+          <Link
             href="/changelog"
             className={cn(buttonVariants({ variant: "outline", size: "icon" }))}
             aria-label="Changelog"

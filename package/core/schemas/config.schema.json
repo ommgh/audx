@@ -1,0 +1,26 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://audx.site/schemas/config.json",
+	"title": "audx project config",
+	"description": "audx.json: where `npx @litlab/audx` writes sounds and which theme it uses.",
+	"type": "object",
+	"properties": {
+		"$schema": { "type": "string" },
+		"theme": {
+			"type": "string",
+			"description": "Theme for new sounds: a registry name (minimal, playful, mechanical, retro), a URL, or a path to a theme .json file.",
+			"default": "minimal"
+		},
+		"dir": {
+			"type": "string",
+			"description": "Directory for generated sound modules, relative to this file.",
+			"default": "src/sounds"
+		},
+		"registry": {
+			"type": "string",
+			"description": "Registry base URL. Defaults to https://audx.site/api."
+		}
+	},
+	"required": ["theme", "dir"],
+	"additionalProperties": false
+}

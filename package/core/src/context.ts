@@ -3,6 +3,30 @@ import type { ContextOptions, Listener } from "./types";
 let ctx: AudioContext | null = null;
 let masterGain: GainNode | null = null;
 let storedOptions: ContextOptions = {};
+let muted = false;
+
+/**
+ * Globally mutes (or unmutes) every sound played through audx, including
+ * sounds created with `defineSound` and patches. Handy for a user setting.
+ *
+ * @example
+ * ```ts
+ * setMuted(localStorage.getItem("sounds") === "off");
+ * ```
+ */
+export function setMuted(value: boolean): void {
+	muted = value;
+}
+
+/** Whether {@link setMuted} has muted audx globally. */
+export function isMuted(): boolean {
+	return muted;
+}
+
+/** `true` when sounds can't or shouldn't play (muted, or no Web Audio, e.g. during SSR). */
+export function isSilent(): boolean {
+	return muted || typeof AudioContext === "undefined";
+}
 
 /**
  * Returns the shared `AudioContext`, creating one if needed.

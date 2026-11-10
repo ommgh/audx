@@ -33,6 +33,11 @@ function deriveSourceTypes(sounds: Record<string, unknown>): string[] {
 const themeFiles = [
   { file: "../.themes/minimal.json", url: "https://audx.site/library/minimal" },
   { file: "../.themes/playful.json", url: "https://audx.site/library/playful" },
+  {
+    file: "../.themes/mechanical.json",
+    url: "https://audx.site/library/mechanical",
+  },
+  { file: "../.themes/retro.json", url: "https://audx.site/library/retro" },
 ];
 
 async function main() {
@@ -41,36 +46,31 @@ async function main() {
     const theme = JSON.parse(raw) as ThemeJson;
     const sourceTypes = deriveSourceTypes(theme.sounds);
 
-    const record = await prisma.theme.upsert({
-      where: { name: theme.name },
-      update: {
-        author: theme.author ?? "Unknown",
-        description: theme.description ?? "",
-        soundCount: Object.keys(theme.sounds).length,
-        version: theme.version,
-        license: theme.license,
-        compatibility: theme.compatibility,
-        themeJson: theme as object,
-        sourceTypes,
-        fileSize: Buffer.byteLength(raw, "utf8"),
-        url,
-        verified: true,
-      },
-      create: {
-        name: theme.name,
-        author: theme.author ?? "Unknown",
-        description: theme.description ?? "",
-        soundCount: Object.keys(theme.sounds).length,
-        version: theme.version,
-        license: theme.license,
-        compatibility: theme.compatibility,
-        themeJson: theme as object,
-        sourceTypes,
-        fileSize: Buffer.byteLength(raw, "utf8"),
-        url,
-        verified: true,
-      },
+    const data = {
+      name: theme.name,
+      author: theme.author ?? "Unknown",
+      description: theme.description ?? "",
+      soundCount: Object.keys(theme.sounds).length,
+      version: theme.version,
+      license: theme.license,
+      compatibility: theme.compatibility,
+      themeJson: theme as object,
+      sourceTypes,
+      fileSize: Buffer.byteLength(raw, "utf8"),
+      url,
+      verified: true,
+    };
+
+    // Match case-insensitively so an existing "Minimal" row is updated in
+    // place (keeping its id and load history) instead of duplicated.
+    const existing = await prisma.theme.findFirst({
+      where: { name: { equals: theme.name, mode: "insensitive" } },
+      select: { id: true },
     });
+
+    const record = existing
+      ? await prisma.theme.update({ where: { id: existing.id }, data })
+      : await prisma.theme.create({ data });
 
     console.log(`Upserted theme: ${record.name} (id=${record.id})`);
 

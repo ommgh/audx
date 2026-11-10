@@ -16,41 +16,49 @@ Open-source library of customizable UI sound effects for modern web apps. Browse
 ## Quick Start
 
 ```bash
-# Install the CLI
-npm install @litlab/audx
-
-# Initialize in your project
-npx @litlab/audx init
-
-# Browse available sounds
-npx @litlab/audx list
-
-# Add a sound
-npx @litlab/audx add
+npx @litlab/audx init                 # pick a theme and a starter set of sounds
+npx @litlab/audx add click success    # add more any time
+npx @litlab/audx theme playful        # re-skin every installed sound
 ```
 
+```ts
+import { click, success } from "@/sounds";
+
+click();
+```
+
+Sounds are generated into `src/sounds/` as plain TypeScript you own. See the [package README](./package/core/README.md) for the full CLI and API, and hear every sound in real components at [audx.site/showcase](https://audx.site/showcase).
 
 ## Development
 
 ```bash
 bun install
 bun run dev           # Start dev server (Turbopack)
-bun run build         # Production build
+bun run build         # Build the package, then the site
 bun run lint          # Biome check (lint + format)
 ```
 
-### CLI
+### Package & CLI
 
 ```bash
-cd package
-npm install
-npm run build         # Compile TypeScript
-npm run test          # Run tests (vitest)
+cd package/core
+bun run build         # bunchee
+bun run test          # vitest
 ```
+
+### Designing sounds
+
+The built-in themes live in `scripts/sounds/themes/*.ts`, written with a small DSL (`scripts/sounds/dsl.ts`). Every theme must implement the full catalog in `package/core/src/catalog.ts`.
+
+```bash
+bun run sounds:build  # validates themes, normalizes loudness, writes .themes/*.json
+```
+
+The build renders each sound offline and rescales it so sounds with the same role sit at the same loudness across themes, so you only need to think about balance between layers, not absolute volume.
 
 ## Requirements
 
-- Node.js 18+
+- Node.js 20+
 - Bun (for website development)
 
 ## Contributing

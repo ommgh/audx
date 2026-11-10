@@ -1,129 +1,145 @@
 # @litlab/audx
 
-Declarative audio synthesis for the web. Describe sounds as plain objects, play them with one function call.
+UI sound effects you own as code. Pick a theme, add the sounds you need, and call them like functions. No audio files: every sound is a few hundred bytes of JSON synthesized with the Web Audio API.
 
-## Install
+Browse and preview every sound at [audx.site](https://audx.site), or hear them in real components at [audx.site/showcase](https://audx.site/showcase).
+
+## Quick start
 
 ```bash
-npm install @litlab/audx
+npx @litlab/audx init
 ```
 
-## Usage
-
-### Define and play a sound
+`init` creates `audx.json`, installs `@litlab/audx`, and lets you pick a starter set of sounds. They land in `src/sounds/` as plain TypeScript:
 
 ```ts
-import { defineSound, ensureReady } from "@litlab/audx";
+import { click, success, error } from "@/sounds";
 
-const pop = defineSound({
-  source: { type: "sine", frequency: { start: 1200, end: 300 } },
-  envelope: { attack: 0.001, decay: 0.06, sustain: 0, release: 0.03 },
-  gain: 0.3,
-});
-
-await ensureReady();
-pop();
-```
-
-### Shorthand helpers
-
-```ts
-import { sine, noise } from "@litlab/audx";
-
-const beep = sine(440, 0.1);
-const click = noise("white", 0.02);
-
-beep();
 click();
-```
 
-### Sound themes (React)
-
-```tsx
-import { useTheme } from "@litlab/audx/react";
-
-function App() {
-  const theme = useTheme("/themes/core.json");
-
-  return (
-    <button onClick={() => theme.play("click")} disabled={!theme.ready}>
-      Click me
-    </button>
-  );
+try {
+  await save();
+  success();
+} catch {
+  error();
 }
 ```
 
-### Sound themes (vanilla)
+In React, `useSound` respects `<SoundProvider>` mute/volume and the user's reduced-motion preference:
 
-```ts
-import { loadTheme } from "@litlab/audx";
+```tsx
+import { useSound } from "@litlab/audx/react";
+import { click } from "@/sounds";
 
-const theme = await loadTheme("/themes/core.json");
-theme.play("click");
+function SaveButton() {
+  const play = useSound(click);
+  return <button onClick={play}>Save</button>;
+}
+```
+
+## Themes
+
+Every first-party theme ships the same 43 semantic sounds, so you can change the personality of your whole app without touching code:
+
+| Theme        | Character                                                   |
+| ------------ | ----------------------------------------------------------- |
+| `minimal`    | Quiet and precise. Pure sine tones and soft air.            |
+| `playful`    | Bouncy and bright. Springy bloops and pentatonic chimes.    |
+| `mechanical` | Tactile. Key switches, latches and relays.                  |
+| `retro`      | 8-bit. Square waves and bit-crushed noise.                  |
+
+```bash
+npx @litlab/audx theme playful   # regenerates every installed sound
 ```
 
 ## CLI
 
-```bash
-# Browse and install themes from the registry
-npx @litlab/audx add
+```
+npx @litlab/audx <command>
 
-# Install themes from a GitHub repo
-npx @litlab/audx add user/repo
-
-# Create a new sound theme
-npx @litlab/audx init
-
-# List installed themes
-npx @litlab/audx list
-
-# Remove installed themes
-npx @litlab/audx remove
+  init                 Set up audx in this project
+  add [sounds...]      Add sounds (opens a picker without arguments)
+  remove [sounds...]   Remove installed sounds
+  list [search]        Browse sounds in your theme (--themes for themes)
+  theme [name]         Show or switch the theme of every installed sound
+  update               Pull the latest version of installed sounds
+  create <name>        Start a custom theme from an existing one
 ```
 
-## Theme authoring
+Useful flags: `--theme <name|url|./file.json>`, `--all`, `--overwrite`, `--yes` (no prompts, also the default in CI), `--cwd <path>`. Run `npx @litlab/audx <command> --help` for details.
 
-Create a theme JSON file with `npx @litlab/audx init`, then add sound definitions to the `sounds` object:
+```bash
+npx @litlab/audx add click success error      # specific sounds
+npx @litlab/audx add --all --theme mechanical  # a whole theme
+npx @litlab/audx list feedback                 # search the catalog
+npx @litlab/audx update --check                # see what changed upstream
+```
+
+### `audx.json`
 
 ```json
 {
-  "$schema": "node_modules/@litlab/audx/schemas/theme.schema.json",
-  "name": "my-theme",
-  "sounds": {
-    "click": {
-      "source": { "type": "noise", "color": "white" },
-      "filter": { "type": "bandpass", "frequency": 2000 },
-      "envelope": { "decay": 0.05 }
-    }
-  }
+  "$schema": "https://audx.site/schemas/config.json",
+  "theme": "minimal",
+  "dir": "src/sounds"
 }
 ```
 
-Push it to a GitHub repo. Others can install it with:
+### Sound categories
+
+| Category     | Sounds                                                              |
+| ------------ | ------------------------------------------------------------------- |
+| Input        | click, tap, press, release, hover, focus, blur, type, tick          |
+| Selection    | toggle, enable, disable, select, deselect, tab                      |
+| Navigation   | open, close, expand, collapse, back, forward, scroll, slide         |
+| Editing      | copy, paste, undo, clear, delete, drag, drop                        |
+| Feedback     | success, complete, error, warning, deny, info                       |
+| Notification | notify, send, receive, pop                                          |
+| Status       | loading, lock, unlock                                               |
+
+`delete` is exported as `deleteSound` because `delete` is a reserved word.
+
+## Custom themes
 
 ```bash
-npx @litlab/audx add your-username/your-repo
+npx @litlab/audx create brand --from mechanical
+# edit ./audx/themes/brand.json (your editor autocompletes it), then:
+npx @litlab/audx theme ./audx/themes/brand.json
 ```
 
-## API
+Themes can also be loaded from any URL: `npx @litlab/audx theme https://example.com/brand.json`.
+
+## Library API
+
+```ts
+import { defineSound, setMuted } from "@litlab/audx";
+
+const pop = defineSound({
+  source: { type: "sine", frequency: { start: 300, end: 1000 } },
+  envelope: { attack: 0.001, decay: 0.04 },
+  gain: 0.2,
+});
+
+pop();
+pop({ volume: 0.5, jitter: { detune: 50 } }); // vary repeats so they feel natural
+
+setMuted(true); // global mute, e.g. from a user setting
+```
 
 | Export | Description |
-|--------|-------------|
-| `defineSound(def)` | Create a reusable play function from a sound definition |
-| `ensureReady()` | Initialize the audio context (call before first play) |
-| `sine(freq, decay)` | Shorthand for sine oscillator |
-| `triangle(freq, decay)` | Shorthand for triangle oscillator |
-| `square(freq, decay)` | Shorthand for square oscillator |
-| `sawtooth(freq, decay)` | Shorthand for sawtooth oscillator |
-| `noise(color, decay)` | Shorthand for noise generator |
-| `loadTheme(url)` | Load a sound theme from a URL |
-| `defineTheme(json)` | Create a theme from a JSON object |
-| `useTheme(url)` | React hook for loading and playing themes |
+| --- | --- |
+| `defineSound(def)` | Returns a playable `Sound`. Safe to call during SSR. |
+| `setMuted(bool)` / `isMuted()` | Global mute for everything audx plays |
+| `setMasterVolume(v)` | Master volume (0 to 1) |
+| `definePatch(json)` / `loadPatch(url)` | Work with a whole theme at runtime |
+| `defineSequence(steps)` | Schedule several sounds on a timeline |
+| `renderToWav(def, opts)` | Render a sound offline to a WAV blob |
+| `sine` / `triangle` / `square` / `sawtooth` / `noise` | One-line shorthands |
 
-## Documentation
+From `@litlab/audx/react`: `SoundProvider`, `useSound`, `usePatch`, `useSequence`, `useAnalyser`, `useListener`.
 
-Full docs at [audx.site](https://audx.site).
+From `@litlab/audx/catalog`: `SOUND_CATALOG` (names, categories, usage notes).
 
 ## License
 
-[MIT](https://github.com/ommgh/audio/blob/main/LICENSE)
+MIT

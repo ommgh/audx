@@ -401,6 +401,14 @@ export type MultiLayerSound = {
  */
 export type SoundDefinition = Layer | MultiLayerSound;
 
+/**
+ * A playable sound created by `defineSound`. Call it to play; the original
+ * definition is available on `.definition` (e.g. for `useSound(click)`).
+ */
+export type Sound = ((opts?: PlayOptions) => VoiceHandle) & {
+	readonly definition: SoundDefinition;
+};
+
 /** Handle returned by the engine for stopping an in-flight voice. */
 export type VoiceHandle = {
 	/**
