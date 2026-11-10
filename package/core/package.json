@@ -24,7 +24,9 @@
 	"type": "module",
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
-	"bin": "./dist/bin.js",
+	"bin": {
+		"audx": "dist/bin.js"
+	},
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
