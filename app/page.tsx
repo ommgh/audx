@@ -6,6 +6,7 @@ import { Header } from "@/components/header";
 import { JsonLd } from "@/components/json-ld";
 import { getAllAudio, getAllThemes } from "@/lib/audio-catalog";
 import {
+	DOCS_URL,
 	GITHUB_URL,
 	NPM_URL,
 	SITE_DESCRIPTION,
@@ -31,6 +32,7 @@ const softwareJsonLd = {
 	programmingLanguage: ["TypeScript", "JavaScript"],
 	runtimePlatform: "Web Audio API",
 	codeRepository: GITHUB_URL,
+	softwareHelp: { "@type": "CreativeWork", url: DOCS_URL },
 	downloadUrl: NPM_URL,
 	installUrl: NPM_URL,
 	license: "https://opensource.org/licenses/MIT",

@@ -10,6 +10,7 @@ Open-source library of customizable UI sound effects for modern web apps. Browse
 [![license](https://img.shields.io/github/license/ommgh/audx)](LICENSE)
 [![CI](https://github.com/ommgh/audx/actions/workflows/publish.yml/badge.svg)](https://github.com/ommgh/audx/actions/workflows/publish.yml)
 [![Website](https://img.shields.io/website?down_color=red&down_message=offline&up_color=green&up_message=online&url=https%3A%2F%2Faudx.site)](https://audx.site)
+[![Docs](https://img.shields.io/badge/docs-docs.audx.site-1447E6)](https://docs.audx.site)
 
 ---
 
@@ -27,7 +28,7 @@ import { click, success } from "@/sounds";
 click();
 ```
 
-Sounds are generated into `src/sounds/` as plain TypeScript you own. See the [package README](./package/core/README.md) for the full CLI and API, and hear every sound in real components at [audx.site/showcase](https://audx.site/showcase).
+Sounds are generated into `src/sounds/` as plain TypeScript you own. See the [documentation](https://docs.audx.site) for guides and the full CLI and API reference, and hear every sound in real components at [audx.site/showcase](https://audx.site/showcase).
 
 ## Development
 

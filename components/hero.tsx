@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { HeroInstallationCode } from "@/components/hero-installation-code";
 import type { AudioCatalogItem } from "@/lib/audio-catalog";
+import { DOCS_URL } from "@/lib/site";
 
 export function Hero({ items }: { items: AudioCatalogItem[] }) {
 	return (
@@ -22,12 +23,20 @@ export function Hero({ items }: { items: AudioCatalogItem[] }) {
 					<HeroInstallationCode items={items} />
 				</div>
 
-				<Link
-					href="/showcase"
-					className="mt-4 text-xs text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
-				>
-					Hear it in real components →
-				</Link>
+				<div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+					<Link
+						href="/showcase"
+						className="underline-offset-4 transition-colors hover:text-foreground hover:underline"
+					>
+						Hear it in real components →
+					</Link>
+					<a
+						href={DOCS_URL}
+						className="underline-offset-4 transition-colors hover:text-foreground hover:underline"
+					>
+						Read the docs →
+					</a>
+				</div>
 			</div>
 		</section>
 	);

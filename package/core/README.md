@@ -2,7 +2,7 @@
 
 UI sound effects you own as code. Pick a theme, add the sounds you need, and call them like functions. No audio files: every sound is a few hundred bytes of JSON synthesized with the Web Audio API.
 
-Browse and preview every sound at [audx.site](https://audx.site), or hear them in real components at [audx.site/showcase](https://audx.site/showcase).
+Browse and preview every sound at [audx.site](https://audx.site), or hear them in real components at [audx.site/showcase](https://audx.site/showcase). Guides and the full reference live at [docs.audx.site](https://docs.audx.site).
 
 ## Quick start
 

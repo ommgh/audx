@@ -143,6 +143,7 @@ function printHelp() {
 		`    ${BIN} theme playful`,
 		"",
 		`  ${pc.dim("Browse and preview every sound at")} https://audx.site`,
+		`  ${pc.dim("Guides and full reference at")}       https://docs.audx.site`,
 		"",
 	];
 	console.log(lines.join("\n"));

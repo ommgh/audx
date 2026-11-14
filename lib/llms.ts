@@ -3,6 +3,7 @@ import { BUILT_IN_THEMES, THEME_NAMES } from "@/lib/audio-catalog";
 import { FAQ } from "@/lib/faq";
 import {
 	absoluteUrl,
+	DOCS_URL,
 	GITHUB_URL,
 	NPM_PACKAGE,
 	NPM_URL,
@@ -65,6 +66,7 @@ click();
 
 ## Docs
 
+- [Documentation](${DOCS_URL}): quickstart, React guide, themes, CLI and API reference ([llms.txt](${DOCS_URL}/llms.txt))
 - [Full documentation for LLMs](${absoluteUrl("/llms-full.txt")}): README, CLI, API, every sound and FAQ in one file
 - [Package README](${GITHUB_URL}/blob/master/package/core/README.md): CLI, themes, library API
 - [npm package](${NPM_URL}): \`${NPM_PACKAGE}\`
