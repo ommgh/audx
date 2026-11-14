@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { getThemeByName, getThemeSounds } from "@/lib/data/themes";
 import { getUserThemeByName, getUserThemeSounds } from "@/lib/data/user-themes";
+import { DEFAULT_OG_IMAGE } from "@/lib/site";
 import * as View from "./_components/view";
 
 export const dynamic = "force-dynamic";
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	if (!theme) return { title: "Not Found" };
 
 	const title = `${theme.name} by ${theme.author}`;
-	const url = `https://audx.site/library/${name}`;
+	const url = `/library/${name}`;
 
 	return {
 		title,
@@ -36,6 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			title,
 			description: theme.description ?? undefined,
 			url,
+			images: [DEFAULT_OG_IMAGE],
 		},
 	};
 }

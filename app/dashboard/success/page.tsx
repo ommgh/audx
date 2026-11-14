@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { requireAuth } from "@/lib/auth-utils";
+
+/** Signed-in / transactional page: keep it out of search results. */
+export const metadata: Metadata = {
+	title: "Payment successful",
+	robots: { index: false, follow: false },
+};
 
 export default async function SuccessPage() {
 	await requireAuth();

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 	title: "Showcase",
 	description:
 		"Real UI components wired to audx sounds. Switch between minimal, playful, mechanical and retro to hear the same interface with a different personality.",
-	alternates: { canonical: "https://audx.site/showcase" },
+	alternates: { canonical: "/showcase" },
 };
 
 export default function ShowcasePage() {

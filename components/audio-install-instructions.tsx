@@ -3,6 +3,7 @@
 import { RiCheckLine, RiFileCopyLine } from "@remixicon/react";
 import { useCallback, useState } from "react";
 import { PackageManagerSwitcher } from "@/components/package-manager-switcher";
+import { trackEvent } from "@/lib/analytics";
 import {
 	DEFAULT_PM,
 	getInstallPrefix,
@@ -28,12 +29,18 @@ export function SoundInstallInstructions({
 	const handleCopy = useCallback(async () => {
 		try {
 			await navigator.clipboard.writeText(fullCommand);
+			trackEvent("copy_install_command", {
+				sound: soundName,
+				theme,
+				package_manager: pm,
+				location: "sound_page",
+			});
 			setCopyState("done");
 			setTimeout(() => setCopyState("idle"), 2000);
 		} catch {
 			/* noop */
 		}
-	}, [fullCommand]);
+	}, [fullCommand, pm, soundName, theme]);
 
 	return (
 		<div className="flex flex-col gap-2">

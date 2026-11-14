@@ -7,6 +7,7 @@ import {
 	type UserThemeWithStats,
 	userThemeToThemeWithStats,
 } from "@/lib/data/user-themes";
+import { DEFAULT_OG_IMAGE } from "@/lib/site";
 import { View } from "./_components/view";
 
 export const dynamic = "force-dynamic";
@@ -14,11 +15,12 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
 	title: "Library",
 	description: "Browse and discover curated sound themes for your UI.",
-	alternates: { canonical: "https://audx.site/library" },
+	alternates: { canonical: "/library" },
 	openGraph: {
 		title: "Library",
 		description: "Browse and discover curated sound themes for your UI.",
-		url: "https://audx.site/library",
+		url: "/library",
+		images: [DEFAULT_OG_IMAGE],
 	},
 };
 

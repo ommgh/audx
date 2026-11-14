@@ -1,24 +1,17 @@
 import type { MetadataRoute } from "next";
-import { getAllAudio } from "@/lib/audio-data";
+import { getAllAudio } from "@/lib/audio-catalog";
+import { absoluteUrl } from "@/lib/site";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://audx.site";
-
+// `lastModified` is deliberately omitted: stamping every URL with the build
+// time teaches Google to ignore the field. Google ignores `priority` and
+// `changeFrequency`, so they are left out too.
 export default function sitemap(): MetadataRoute.Sitemap {
-	const items = getAllAudio();
-	const now = new Date();
-
 	return [
-		{
-			url: baseUrl,
-			lastModified: now,
-			changeFrequency: "weekly",
-			priority: 1,
-		},
-		...items.map((item) => ({
-			url: `${baseUrl}/${item.name}`,
-			lastModified: now,
-			changeFrequency: "monthly" as const,
-			priority: 0.7,
-		})),
+		{ url: absoluteUrl("/") },
+		{ url: absoluteUrl("/showcase") },
+		{ url: absoluteUrl("/library") },
+		{ url: absoluteUrl("/editor") },
+		{ url: absoluteUrl("/changelog") },
+		...getAllAudio().map((item) => ({ url: absoluteUrl(`/${item.name}`) })),
 	];
 }
