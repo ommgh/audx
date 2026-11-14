@@ -1,0 +1,99 @@
+---
+title: "Custom themes"
+description: "Fork a built-in theme into a JSON file, tune it, and apply it to every sound in your app."
+icon: "wand-magic-sparkles"
+---
+
+A custom theme is a JSON file with a name and a map of sound definitions. Start from a built-in theme so every sound name your code imports keeps working.
+
+## Create a theme
+
+<Steps>
+  <Step title="Copy a built-in theme">
+    ```bash
+    npx @litlab/audx create brand --from mechanical
+    ```
+
+    This writes `audx/themes/brand.json` with every sound from `mechanical`. Without `--from`, it copies your current theme. Pass `--overwrite` to replace an existing file.
+  </Step>
+  <Step title="Edit the sounds">
+    Open the file and change any sound. The file points at the theme JSON schema in `node_modules`, so your editor autocompletes and validates every field.
+
+    ```json audx/themes/brand.json
+    {
+      "$schema": "../../node_modules/@litlab/audx/schemas/theme.schema.json",
+      "name": "brand",
+      "description": "Based on mechanical.",
+      "version": "1.0.0",
+      "tags": [],
+      "sounds": {
+        "click": {
+          "source": { "type": "sine", "frequency": { "start": 1800, "end": 400 } },
+          "envelope": { "attack": 0, "decay": 0.08 },
+          "gain": 0.3
+        }
+      }
+    }
+    ```
+
+    See [Designing sounds](/guides/designing-sounds) for how definitions work.
+  </Step>
+  <Step title="Apply it">
+    ```bash
+    npx @litlab/audx theme ./audx/themes/brand.json
+    ```
+
+    Every installed sound is regenerated from your file, and `audx.json` now points at it. Run the same command again after each edit.
+  </Step>
+</Steps>
+
+If your theme is missing a sound that's installed, `theme` leaves that file unchanged and prints a warning.
+
+## Share a theme
+
+A theme can be loaded from any URL that serves the JSON:
+
+```bash
+npx @litlab/audx theme https://example.com/brand.json
+npx @litlab/audx add click --theme https://example.com/brand.json
+```
+
+The `--theme` flag accepts a built-in theme name, a URL, or a path to a `.json` file, on every command that takes it.
+
+## Load a theme at runtime
+
+You don't have to generate files from a theme. `loadPatch` and `usePatch` load a theme JSON in the browser and play sounds by name:
+
+<CodeGroup>
+```ts Vanilla
+import { loadPatch } from "@litlab/audx";
+
+const theme = await loadPatch("/themes/brand.json");
+theme.play("click");
+```
+
+```tsx React
+import { usePatch } from "@litlab/audx/react";
+
+function Button() {
+  const theme = usePatch("/themes/brand.json");
+  return <button onClick={() => theme.play("click")}>Save</button>;
+}
+```
+</CodeGroup>
+
+`usePatch` returns an empty, silent patch with `ready: false` while the file loads. Its `play` respects `<SoundProvider>` and reduced motion.
+
+## Theme file format
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `name` | `string` | Required. Display name. |
+| `sounds` | `object` | Required. Map of sound name to [sound definition](/reference/sound-definition). |
+| `description` | `string` | Short description. |
+| `version` | `string` | Your version string. |
+| `author` | `string` | Author name. |
+| `tags` | `string[]` | Free-form tags. |
+| `$schema` | `string` | Schema URL for editor support. |
+
+The published schema is at `https://audx.site/schemas/theme.schema.json`.

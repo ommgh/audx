@@ -1,0 +1,94 @@
+---
+title: "React API"
+description: "Everything exported from @litlab/audx/react."
+icon: "react"
+---
+
+```tsx
+import { SoundProvider, useSound } from "@litlab/audx/react";
+```
+
+Requires React 18 or later. The module is marked `"use client"`.
+
+Hooks that play audio (`useSound`, `useSequence`, `usePatch`) do nothing when the nearest `SoundProvider` is disabled, or when the user prefers reduced motion. They work without a provider, using `enabled: true` and `volume: 1`.
+
+## SoundProvider
+
+Controls sound for every hook below it.
+
+```tsx
+<SoundProvider enabled={soundsOn} volume={0.8}>
+  <App />
+</SoundProvider>
+```
+
+<ResponseField name="enabled" type="boolean" default="true">
+  Whether sounds may play.
+</ResponseField>
+
+<ResponseField name="volume" type="number" default="1">
+  Volume multiplier for every sound, `0` to `1`. Multiplied with each sound's own `volume` option.
+</ResponseField>
+
+<ResponseField name="onEnabledChange" type="(enabled: boolean) => void">
+  Reserved for a future hook that changes the setting from inside the tree. No public API calls it yet; manage `enabled` with your own state.
+</ResponseField>
+
+<ResponseField name="onVolumeChange" type="(volume: number) => void">
+  Reserved, like `onEnabledChange`.
+</ResponseField>
+
+## useSound
+
+```ts
+function useSound(sound: Sound | SoundDefinition, opts?: PlayOptions): () => VoiceHandle | undefined
+```
+
+Returns a callback that plays the sound. The callback is stable across renders and always uses the latest `sound`, `opts` and provider state. It returns `undefined` when playback is skipped.
+
+```tsx
+import { click } from "@/sounds";
+
+const play = useSound(click, { volume: 0.7 });
+<button onClick={play}>Save</button>;
+```
+
+## useSequence
+
+```ts
+function useSequence(steps: SequenceStep[], options?: { loop?: boolean; duration?: number }): {
+  play: () => void;
+  stop: () => void;
+}
+```
+
+Stable `play` and `stop` callbacks for a [sequence](/reference/core-api#definesequence). `play` stops any run already in progress before starting.
+
+## usePatch
+
+```ts
+function usePatch(source: string | SoundPatch): AudioPatch
+```
+
+Loads a theme from a URL, or wraps an in-memory theme object. Until a URL finishes loading, it returns an empty patch with `ready: false` whose `play` does nothing. Load errors are swallowed, so the empty patch stays in place.
+
+```tsx
+const ui = usePatch("/themes/brand.json");
+<button onClick={() => ui.play("click")} disabled={!ui.ready}>Save</button>;
+```
+
+## useAnalyser
+
+```ts
+function useAnalyser(opts?: AnalyserOptions): AudioAnalyser
+```
+
+Creates an analyser on the master bus once, and disposes it on unmount. See [analysis](/reference/core-api#analysis) for the members, and [Use with React](/guides/react#visualize-output) for an example.
+
+## useListener
+
+```ts
+function useListener(listener: Listener): void
+```
+
+Keeps the 3D audio listener in sync with the given position and orientation. It only updates when one of the numbers changes, so passing a new object each render is fine.

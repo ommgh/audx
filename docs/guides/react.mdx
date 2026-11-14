@@ -1,0 +1,182 @@
+---
+title: "Use with React"
+description: "Play sounds from components with SoundProvider and useSound, and give users a sound setting."
+icon: "react"
+---
+
+The React bindings live in `@litlab/audx/react`. They are marked `"use client"`, so they work in the Next.js App Router without extra setup.
+
+## Play a sound from a component
+
+Pass a sound to `useSound` and call the function it returns:
+
+```tsx
+import { useSound } from "@litlab/audx/react";
+import { click } from "@/sounds";
+
+export function SaveButton() {
+  const play = useSound(click);
+  return <button onClick={play}>Save</button>;
+}
+```
+
+The returned callback never changes between renders, so it's safe to pass to memoized children or use in effect dependencies.
+
+`useSound` skips playback when:
+
+- the nearest `<SoundProvider>` has `enabled={false}`
+- the user has `prefers-reduced-motion: reduce` set
+- audx is muted globally with `setMuted(true)`
+- Web Audio isn't available, for example during server rendering
+
+You can pass default play options as the second argument:
+
+```tsx
+const play = useSound(type, { volume: 0.6, jitter: { detune: 40, volume: 0.1 } });
+```
+
+<Tip>
+  Use `jitter` for sounds that repeat quickly, like `type` or `tick`. A small random change on each play keeps repeats from sounding mechanical.
+</Tip>
+
+## Add a sound setting
+
+Wrap your app in `<SoundProvider>` and drive `enabled` and `volume` from your own state. Every `useSound`, `useSequence` and `usePatch` below it follows those values.
+
+```tsx app/providers.tsx
+"use client";
+
+import { SoundProvider } from "@litlab/audx/react";
+import { createContext, useContext, useEffect, useState } from "react";
+
+const SoundSetting = createContext<{
+  enabled: boolean;
+  setEnabled: (value: boolean) => void;
+}>({ enabled: true, setEnabled: () => {} });
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  const [enabled, setEnabled] = useState(true);
+
+  useEffect(() => {
+    setEnabled(localStorage.getItem("sounds") !== "off");
+  }, []);
+
+  const update = (value: boolean) => {
+    setEnabled(value);
+    localStorage.setItem("sounds", value ? "on" : "off");
+  };
+
+  return (
+    <SoundSetting value={{ enabled, setEnabled: update }}>
+      <SoundProvider enabled={enabled} volume={0.8}>
+        {children}
+      </SoundProvider>
+    </SoundSetting>
+  );
+}
+
+export const useSoundSetting = () => useContext(SoundSetting);
+```
+
+```tsx components/sound-toggle.tsx
+"use client";
+
+import { useSound } from "@litlab/audx/react";
+import { enable } from "@/sounds";
+import { useSoundSetting } from "@/app/providers";
+
+export function SoundToggle() {
+  const { enabled, setEnabled } = useSoundSetting();
+  const play = useSound(enable);
+
+  return (
+    <label>
+      <input
+        type="checkbox"
+        checked={enabled}
+        onChange={(e) => {
+          setEnabled(e.target.checked);
+          play();
+        }}
+      />
+      Interface sounds
+    </label>
+  );
+}
+```
+
+`volume` multiplies the volume of every sound under the provider, from `0` to `1`.
+
+## Calling sounds directly
+
+Sounds are plain functions, so you can call them outside React too, for example in an event handler, a store action or a toast helper:
+
+```ts
+import { success } from "@/sounds";
+
+toast("Saved");
+success();
+```
+
+<Warning>
+  Calling a sound directly bypasses `<SoundProvider>` and the reduced-motion check. Use `useSound` inside components, or `setMuted` to silence direct calls.
+</Warning>
+
+Use `setMuted` and `setMasterVolume` from `@litlab/audx` to control every sound, including direct calls:
+
+```ts
+import { setMasterVolume, setMuted } from "@litlab/audx";
+
+setMuted(localStorage.getItem("sounds") === "off");
+setMasterVolume(0.8);
+```
+
+## Sequences
+
+`useSequence` schedules several sounds on a timeline and returns stable `play` and `stop` callbacks:
+
+```tsx
+import { useSequence } from "@litlab/audx/react";
+import { complete, pop } from "@/sounds";
+
+function Celebrate() {
+  const { play } = useSequence([
+    { sound: pop, at: 0 },
+    { sound: pop, wait: 0.08 },
+    { sound: complete, wait: 0.12 },
+  ]);
+  return <button onClick={play}>Finish</button>;
+}
+```
+
+Each step uses `at` for an absolute time in seconds, or `wait` for an offset from the previous step. Calling `play` again stops the previous run first.
+
+## Visualize output
+
+`useAnalyser` connects an analyser to the master bus and disposes it on unmount. Read from it in an animation loop:
+
+```tsx
+import { useAnalyser } from "@litlab/audx/react";
+import { useEffect, useRef } from "react";
+
+function Meter() {
+  const analyser = useAnalyser({ fftSize: 256 });
+  const bar = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let frame = 0;
+    const tick = () => {
+      const data = analyser.getFrequencyData();
+      const level = data.reduce((sum, v) => sum + v, 0) / data.length / 255;
+      if (bar.current) bar.current.style.transform = `scaleX(${level})`;
+      frame = requestAnimationFrame(tick);
+    };
+    tick();
+    return () => cancelAnimationFrame(frame);
+  }, [analyser]);
+
+  return <div ref={bar} style={{ height: 4, background: "currentColor", transformOrigin: "left" }} />;
+}
+```
+
+See the [React API reference](/reference/react-api) for every hook and prop.

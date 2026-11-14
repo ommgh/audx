@@ -1,0 +1,174 @@
+---
+title: "Core API"
+description: "Everything exported from @litlab/audx."
+icon: "code"
+---
+
+```ts
+import { defineSound, setMuted } from "@litlab/audx";
+```
+
+Every function here is safe to import during server rendering. Playback does nothing when Web Audio isn't available or audx is muted.
+
+## Sounds
+
+### defineSound
+
+```ts
+function defineSound(definition: SoundDefinition): Sound
+```
+
+Binds a [sound definition](/reference/sound-definition) into a play function. Each call creates a new voice routed through the master bus and returns a `VoiceHandle`.
+
+```ts
+const click = defineSound({
+  source: { type: "sine", frequency: { start: 1800, end: 400 } },
+  envelope: { attack: 0, decay: 0.08 },
+  gain: 0.3,
+});
+
+const voice = click({ volume: 0.5 });
+voice.stop(0.05); // optional fade-out in seconds, default 0.015
+click.definition; // the original definition
+```
+
+Generated sound modules are built with `defineSound`.
+
+### PlayOptions
+
+Every play function accepts these overrides.
+
+<ResponseField name="volume" type="number">Volume multiplier, `0` to `1`.</ResponseField>
+<ResponseField name="pan" type="number">Stereo pan override, `-1` (left) to `1` (right).</ResponseField>
+<ResponseField name="detune" type="number">Detune in cents, added to the source's detune.</ResponseField>
+<ResponseField name="playbackRate" type="number">Playback rate multiplier.</ResponseField>
+<ResponseField name="velocity" type="number">Velocity, `0` to `1`. Scales gain and can dim filter cutoffs.</ResponseField>
+<ResponseField name="jitter" type="{ detune?: number; volume?: number; playbackRate?: number }">
+  Random variation applied on each play, as a maximum `±value` per field. For example `{ detune: 50, volume: 0.1 }` varies pitch by up to ±50 cents and volume by up to ±10%.
+</ResponseField>
+
+### Shorthands
+
+```ts
+function sine(frequency: number | { start: number; end: number }, decay: number, gain?: number): Sound
+function triangle(frequency: number | { start: number; end: number }, decay: number, gain?: number): Sound
+function square(frequency: number | { start: number; end: number }, decay: number, gain?: number): Sound
+function sawtooth(frequency: number | { start: number; end: number }, decay: number, gain?: number): Sound
+function noise(color?: "white" | "pink" | "brown", decay?: number, gain?: number): Sound
+```
+
+One-line sounds. `gain` defaults to `0.4`. `noise` defaults to `"white"` and a decay of `0.05`.
+
+### defineSequence
+
+```ts
+function defineSequence(
+  steps: SequenceStep[],
+  options?: { loop?: boolean; duration?: number },
+): (opts?: PlayOptions) => (() => void) | undefined
+```
+
+Schedules several sounds on a timeline. Calling the result starts it and returns a stop function.
+
+```ts
+const chime = defineSequence(
+  [
+    { sound: noteC, at: 0 },
+    { sound: noteE, at: 0.25 },
+    { sound: noteG, at: 0.5 },
+  ],
+  { loop: true, duration: 1 },
+);
+
+const stop = chime();
+stop?.();
+```
+
+Each step takes a `sound` (a play function or a raw definition), and either `at` (absolute time in seconds) or `wait` (seconds after the previous step). A step can set its own `volume`. With `loop: true`, the sequence repeats every `duration` seconds (default `1`).
+
+## Global controls
+
+| Function | Description |
+| --- | --- |
+| `setMuted(value: boolean)` | Mute or unmute everything audx plays, including direct calls and patches. |
+| `isMuted(): boolean` | Whether `setMuted` has muted audx. |
+| `setMasterVolume(volume: number)` | Set the master bus gain. `0` is silent, `1` is unity. |
+| `ensureReady(options?): Promise<AudioContext>` | Create and resume the shared `AudioContext`, awaiting the resume. |
+| `dispose()` | Close the shared `AudioContext`. The next sound creates a new one. |
+| `getMasterBus(): GainNode` | The master `GainNode` that sits in front of the speakers. |
+| `getDestination(): AudioNode` | The node sounds connect to: the master bus if it exists, otherwise the context destination. |
+
+`ensureReady` accepts `{ latencyHint?, sampleRate? }`. Pass them on the first call to configure the context.
+
+Browsers only allow audio after a user gesture. audx resumes the context automatically on the first play, so sounds triggered from click or key handlers work without setup.
+
+## Patches
+
+A patch is a theme loaded at runtime: a named set of sound definitions you play by name.
+
+```ts
+function definePatch(data: SoundPatch): AudioPatch
+function loadPatch(source: string | SoundPatch): Promise<AudioPatch>
+```
+
+`loadPatch` fetches JSON from a URL and throws if the request fails.
+
+```ts
+const ui = await loadPatch("https://example.com/ui.json");
+ui.sounds;          // ["click", "success", ...]
+ui.play("click");   // throws if the name isn't in the patch
+ui.get("click");    // the raw definition, or undefined
+ui.toJSON();        // a deep copy of the patch data
+```
+
+`AudioPatch` also exposes `ready`, `name`, `author`, `version`, `description` and `tags`.
+
+## Offline rendering
+
+```ts
+function renderToBuffer(def: SoundDefinition, options: OfflineRenderOptions, playOpts?: PlayOptions): Promise<AudioBuffer>
+function renderToWav(def: SoundDefinition, options: OfflineRenderOptions, playOpts?: PlayOptions): Promise<Blob>
+function bufferToWav(buffer: AudioBuffer): Blob
+```
+
+Render a sound in memory with `OfflineAudioContext`. `OfflineRenderOptions` takes `duration` in seconds (required), `sampleRate` (default `44100`) and `numberOfChannels` (default `2`). WAV output is 16-bit PCM.
+
+```ts
+const wav = await renderToWav(click.definition, { duration: 0.5 });
+```
+
+## Analysis
+
+```ts
+function createAnalyser(opts?: AnalyserOptions): AudioAnalyser
+function createMasterAnalyser(opts?: AnalyserOptions): AudioAnalyser
+```
+
+`createMasterAnalyser` is connected to the master bus, so it sees everything audx plays. `createAnalyser` is unconnected; connect a source to `analyser.node` yourself.
+
+`AnalyserOptions`: `fftSize` (default `2048`), `smoothingTimeConstant` (default `0.8`), `minDecibels`, `maxDecibels`.
+
+An `AudioAnalyser` reuses its arrays between reads, so it's safe to call in an animation loop:
+
+| Member | Returns |
+| --- | --- |
+| `getFrequencyData()` | `Uint8Array` of frequency magnitudes, `0` to `255` |
+| `getTimeDomainData()` | `Uint8Array` waveform, `0` to `255` |
+| `getFloatFrequencyData()` | `Float32Array` of magnitudes in dB |
+| `getFloatTimeDomainData()` | `Float32Array` waveform, `-1` to `1` |
+| `frequencyBinCount` | Number of frequency bins (half of `fftSize`) |
+| `node` | The underlying `AnalyserNode` |
+| `dispose()` | Disconnect and release |
+
+## 3D audio
+
+```ts
+function setListener(listener: Listener): void
+function getListener(): Listener
+```
+
+Set or read the listener position (`positionX`, `positionY`, `positionZ`) and orientation (`forwardX/Y/Z`, defaults `0, 0, -1`; `upX/Y/Z`, defaults `0, 1, 0`). Use with the `panner` field on a [layer](/reference/sound-definition#3d-panner).
+
+## Types
+
+All types used above are exported, including `Sound`, `SoundDefinition`, `Layer`, `MultiLayerSound`, `Source`, `Envelope`, `Filter`, `Effect`, `LFO`, `PlayOptions`, `VoiceHandle`, `SequenceStep`, `SoundPatch`, `AudioPatch` and `AudioAnalyser`.

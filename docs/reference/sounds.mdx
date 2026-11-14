@@ -1,0 +1,101 @@
+---
+title: "Sound catalog"
+description: "The 43 semantic sounds every built-in theme ships, and when to use each one."
+icon: "list-music"
+---
+
+Every first-party theme implements all of these names. Pick a sound by what the interaction means, then let the theme decide how it sounds. Preview them at [audx.site](https://audx.site).
+
+```bash
+npx @litlab/audx add <sound>
+```
+
+## Input
+
+| Sound | Use it for |
+| --- | --- |
+| `click` | Primary buttons and links |
+| `tap` | Light taps: icon buttons, chips, small targets |
+| `press` | Pointer down on a pressable surface |
+| `release` | Pointer up, pairs with `press` |
+| `hover` | Pointer enters an interactive element (use sparingly) |
+| `focus` | An input or field gains focus |
+| `blur` | An input or field loses focus |
+| `type` | Keystrokes. Pair with `jitter` so repeats feel natural |
+| `tick` | Slider steps, steppers, wheel pickers |
+
+## Selection
+
+| Sound | Use it for |
+| --- | --- |
+| `toggle` | Neutral switch flip when on/off is not meaningful |
+| `enable` | Switch turned on, feature enabled |
+| `disable` | Switch turned off, feature disabled |
+| `select` | Checkbox checked, item selected, option picked |
+| `deselect` | Checkbox unchecked, selection removed |
+| `tab` | Tabs and segmented controls |
+
+## Navigation
+
+| Sound | Use it for |
+| --- | --- |
+| `open` | Dialog, sheet or popover opens |
+| `close` | Dialog, sheet or popover closes |
+| `expand` | Accordion, dropdown or tree node expands |
+| `collapse` | Accordion, dropdown or tree node collapses |
+| `back` | Navigate back, previous step |
+| `forward` | Navigate forward, next step |
+| `scroll` | Scroll snap, carousel item settles |
+| `slide` | Drawers, swipes and sliding panels |
+
+## Editing
+
+| Sound | Use it for |
+| --- | --- |
+| `copy` | Copied to clipboard |
+| `paste` | Pasted from clipboard |
+| `undo` | Undo or revert an action |
+| `clear` | Clear an input, reset filters, dismiss all |
+| `delete` | Item deleted or moved to trash. Exported as `deleteSound` |
+| `drag` | Item picked up for dragging |
+| `drop` | Dragged item dropped into place |
+
+## Feedback
+
+| Sound | Use it for |
+| --- | --- |
+| `success` | Action succeeded: saved, submitted, done |
+| `complete` | Bigger milestone: upload finished, onboarding complete |
+| `error` | Something failed |
+| `warning` | Needs attention but nothing broke |
+| `deny` | Action not allowed: invalid input, disabled button |
+| `info` | Neutral informational toast |
+
+## Notification
+
+| Sound | Use it for |
+| --- | --- |
+| `notify` | Incoming notification or alert |
+| `send` | Message or form sent |
+| `receive` | Message received in a conversation |
+| `pop` | Reactions, likes, badges and small celebrations |
+
+## Status
+
+| Sound | Use it for |
+| --- | --- |
+| `loading` | Work started, a process is running |
+| `lock` | Locked, secured, permission revoked |
+| `unlock` | Unlocked, access granted |
+
+## Use the catalog in code
+
+`@litlab/audx/catalog` exports this list, which is handy for building a sound picker or settings screen:
+
+```ts
+import { SOUND_CATALOG, SOUND_CATEGORIES } from "@litlab/audx/catalog";
+
+for (const { name, category, description } of SOUND_CATALOG) {
+  console.log(name, category, description);
+}
+```

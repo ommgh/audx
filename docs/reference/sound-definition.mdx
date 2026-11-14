@@ -1,0 +1,171 @@
+---
+title: "Sound definition"
+description: "Every field of the JSON format that describes an audx sound."
+icon: "brackets-curly"
+---
+
+A `SoundDefinition` is either a single [layer](#layer) or a [multi-layer sound](#multi-layer-sound). It's plain JSON, so the same shape works in `defineSound`, generated sound files and theme files. Times are in seconds, frequencies in Hz, and detune in cents.
+
+## Layer
+
+<ResponseField name="source" type="Source" required>
+  The signal generator. See [sources](#sources).
+</ResponseField>
+<ResponseField name="envelope" type="Envelope">
+  Amplitude envelope. Defaults to a short 0.5 second fade. See [envelope](#envelope).
+</ResponseField>
+<ResponseField name="filter" type="Filter | Filter[]">
+  Filters applied before the envelope. See [filters](#filters).
+</ResponseField>
+<ResponseField name="gain" type="number" default="0.5">
+  Output gain, `0` to `1`.
+</ResponseField>
+<ResponseField name="pan" type="number">
+  Stereo pan, `-1` to `1`. Don't combine with `panner`.
+</ResponseField>
+<ResponseField name="panner" type="Panner3D">
+  3D position. See [3D panner](#3d-panner).
+</ResponseField>
+<ResponseField name="delay" type="number">
+  Start delay relative to when the sound is triggered.
+</ResponseField>
+<ResponseField name="lfo" type="LFO | LFO[]">
+  Periodic modulation. See [LFO](#lfo).
+</ResponseField>
+<ResponseField name="effects" type="Effect[]">
+  Effects chain applied after the envelope. See [effects](#effects).
+</ResponseField>
+
+## Multi-layer sound
+
+```json
+{
+  "layers": [{ "source": { "type": "noise" }, "envelope": { "decay": 0.01 } }],
+  "effects": [{ "type": "reverb", "mix": 0.1 }]
+}
+```
+
+<ResponseField name="layers" type="Layer[]" required>
+  Layers that play together.
+</ResponseField>
+<ResponseField name="effects" type="Effect[]">
+  Effects applied to the sum of all layers.
+</ResponseField>
+
+## Sources
+
+<AccordionGroup>
+  <Accordion title="Oscillator: sine, triangle, square, sawtooth">
+    ```json
+    { "type": "sine", "frequency": { "start": 1800, "end": 400 }, "detune": 0, "fm": { "ratio": 2, "depth": 100 } }
+    ```
+
+    - `frequency` (required): a fixed value, or `{ start, end }` for a pitch sweep.
+    - `detune`: cents.
+    - `fm`: frequency modulation. `ratio` is modulator to carrier, `depth` is the modulation index.
+  </Accordion>
+  <Accordion title="Noise">
+    ```json
+    { "type": "noise", "color": "pink" }
+    ```
+
+    `color`: `white` (default), `pink` or `brown`.
+  </Accordion>
+  <Accordion title="Wavetable">
+    ```json
+    { "type": "wavetable", "harmonics": [1, 0.5, 0.25], "frequency": 440 }
+    ```
+
+    `harmonics` lists the amplitude of each harmonic, starting with the fundamental. `frequency` works like an oscillator's.
+  </Accordion>
+  <Accordion title="Sample">
+    ```json
+    { "type": "sample", "url": "/sounds/whoosh.mp3", "playbackRate": 1.2 }
+    ```
+
+    - `url`: fetched, decoded and cached after the first load. Or pass a decoded `buffer` in code.
+    - `playbackRate` (default `1`), `detune`.
+    - `loop`, `loopStart`, `loopEnd`.
+  </Accordion>
+  <Accordion title="Stream">
+    `{ type: "stream", stream: MediaStream }` plays live input such as a microphone. Code only, and only with a real-time `AudioContext`.
+  </Accordion>
+  <Accordion title="Constant">
+    ```json
+    { "type": "constant", "offset": 1 }
+    ```
+
+    A DC offset (default `1`), useful as a control signal.
+  </Accordion>
+</AccordionGroup>
+
+## Envelope
+
+| Field | Default | Description |
+| --- | --- | --- |
+| `attack` | `0` | Time to ramp from silence to peak. |
+| `decay` | required | Time for the decay phase. |
+| `sustain` | `0` | Level held after the decay, as a fraction of peak. |
+| `release` | `0` | Time for the release after the sustain. |
+
+## Filters
+
+A biquad filter:
+
+```json
+{ "type": "lowpass", "frequency": 2000, "resonance": 4, "envelope": { "attack": 0, "peak": 6000, "decay": 0.1 } }
+```
+
+| Field | Description |
+| --- | --- |
+| `type` | `lowpass`, `highpass`, `bandpass`, `notch`, `allpass`, `peaking`, `lowshelf` or `highshelf` |
+| `frequency` | Cutoff or center frequency |
+| `resonance` | Q factor, default `1` |
+| `gain` | dB, for `peaking` and shelf types |
+| `envelope` | Sweeps the cutoff to `peak` over `attack` (default `0`), then back over `decay` |
+
+Or an IIR filter: `{ "type": "iir", "feedforward": number[], "feedback": number[] }`.
+
+## LFO
+
+```json
+{ "type": "sine", "frequency": 6, "depth": 20, "target": "detune" }
+```
+
+| Field | Description |
+| --- | --- |
+| `type` | `sine`, `triangle`, `square` or `sawtooth` |
+| `frequency` | Rate in Hz |
+| `depth` | Amount, in the units of the target |
+| `target` | `frequency`, `detune`, `gain`, `pan`, `filter.frequency`, `filter.detune`, `filter.Q`, `filter.gain` or `playbackRate` |
+
+## Effects
+
+Most effects take a `mix` from `0` (dry) to `1` (wet).
+
+| `type` | Fields (defaults) |
+| --- | --- |
+| `reverb` | `decay` (0.5), `preDelay` (0), `damping` (0), `roomSize` (1), `mix` (0.3) |
+| `convolver` | `url` or `buffer` of an impulse response, `mix` (0.5) |
+| `delay` | `time` (0.25), `feedback` (0.3), `feedbackFilter` (`{ type, frequency, Q? }`), `mix` (0.3) |
+| `distortion` | `amount` (50), `mix` (0.5) |
+| `chorus` | `rate` (1.5), `depth` (0.003), `mix` (0.3) |
+| `flanger` | `rate` (0.5), `depth` (0.002), `feedback` (0.5), `mix` (0.5) |
+| `phaser` | `rate` (0.5), `depth` (1000), `stages` (4), `feedback` (0.5), `mix` (0.5) |
+| `tremolo` | `rate` (4), `depth` (0.5) |
+| `vibrato` | `rate` (5), `depth` (0.002) |
+| `bitcrusher` | `bits` (8), `sampleRateReduction` (1), `mix` (1) |
+| `compressor` | `threshold` (-24), `knee` (30), `ratio` (4), `attack` (0.003), `release` (0.25) |
+| `eq` | `bands`: list of `{ type: "lowshelf" \| "highshelf" \| "peaking", frequency, gain, Q? }` |
+| `gain` | `value` (required, linear) |
+| `pan` | `value` (required, `-1` to `1`) |
+
+## 3D panner
+
+```json
+{ "positionX": 2, "positionY": 0, "positionZ": -1 }
+```
+
+`positionX`, `positionY` and `positionZ` are required. Optional: `orientationX/Y/Z`, `panningModel` (`HRTF` default, or `equalpower`), `distanceModel` (`inverse` default, `linear`, `exponential`), `maxDistance`, `refDistance`, `rolloffFactor`, `coneInnerAngle`, `coneOuterAngle`, `coneOuterGain`.
+
+Position the listener with [`setListener`](/reference/core-api#3d-audio) or [`useListener`](/reference/react-api#uselistener).

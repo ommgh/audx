@@ -1,0 +1,133 @@
+---
+title: "CLI"
+description: "Every audx command, flag and alias."
+icon: "terminal"
+---
+
+```bash
+npx @litlab/audx <command> [options]
+```
+
+Run `npx @litlab/audx <command> --help` for help on any command.
+
+## Global options
+
+| Option | Description |
+| --- | --- |
+| `--cwd <path>` | Run in another directory |
+| `-h, --help` | Show help for a command |
+| `-v, --version` | Print the version |
+
+Short flags can be combined, for example `-yo` is `--yes --overwrite`.
+
+## init
+
+Set up audx in this project. Creates `audx.json`, installs `@litlab/audx` and adds a starter set of sounds.
+
+```bash
+npx @litlab/audx init
+npx @litlab/audx init -y --theme mechanical
+```
+
+| Option | Description |
+| --- | --- |
+| `--dir <path>` | Where sound files go (default: `src/sounds`) |
+| `-t, --theme <name>` | Theme name, URL, or path to a `.json` theme |
+| `--no-install` | Don't install `@litlab/audx` |
+| `-y, --yes` | Skip prompts and use defaults |
+
+Alias: `i`.
+
+## add
+
+Add sounds. Opens a picker when you pass no names.
+
+```bash
+npx @litlab/audx add click success error
+npx @litlab/audx add --all
+npx @litlab/audx add toggle --theme retro
+```
+
+| Option | Description |
+| --- | --- |
+| `-t, --theme <name>` | Theme name, URL, or path to a `.json` theme |
+| `-a, --all` | Add every sound in the theme |
+| `-o, --overwrite` | Replace sounds that are already installed |
+| `-y, --yes` | Skip prompts and use defaults |
+
+Aliases: `a`, `install`.
+
+## remove
+
+Remove installed sounds and regenerate the index.
+
+```bash
+npx @litlab/audx remove hover
+```
+
+| Option | Description |
+| --- | --- |
+| `-a, --all` | Remove every installed sound |
+
+Remember to delete any imports of removed sounds. Alias: `rm`.
+
+## list
+
+Browse sounds in your theme, grouped by category. Installed sounds are marked. An optional search matches names, categories and descriptions.
+
+```bash
+npx @litlab/audx list
+npx @litlab/audx list feedback
+npx @litlab/audx list --themes
+```
+
+| Option | Description |
+| --- | --- |
+| `-t, --theme <name>` | List sounds from another theme |
+| `--themes` | List available themes instead |
+
+Aliases: `ls`, `find`, `search`, and `themes` (same as `list --themes`).
+
+## theme
+
+Show the current theme, or switch every installed sound to another theme.
+
+```bash
+npx @litlab/audx theme
+npx @litlab/audx theme playful
+npx @litlab/audx theme ./audx/themes/brand.json
+```
+
+| Option | Description |
+| --- | --- |
+| `-f, --force` | Also replace sounds you customized on audx.site |
+
+## update
+
+Pull the latest version of installed sounds from the theme each one came from. Customized sounds are skipped.
+
+```bash
+npx @litlab/audx update
+npx @litlab/audx update --check
+```
+
+| Option | Description |
+| --- | --- |
+| `--check` | Only report what would change |
+
+Aliases: `upgrade`, and `check` (same as `update --check`).
+
+## create
+
+Start a custom theme from an existing one. Writes `audx/themes/<name>.json`.
+
+```bash
+npx @litlab/audx create brand --from mechanical
+```
+
+| Option | Description |
+| --- | --- |
+| `--from <theme>` | Theme to copy (default: your current theme) |
+| `-o, --overwrite` | Replace an existing theme file |
+
+See [Custom themes](/guides/custom-themes).

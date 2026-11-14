@@ -1,0 +1,137 @@
+---
+title: "Designing sounds"
+description: "Build sounds from sources, envelopes, filters, effects and layers with defineSound."
+icon: "sliders"
+---
+
+Every audx sound is a `SoundDefinition`: a JSON-serializable description that the engine turns into Web Audio nodes each time it plays. You can write one by hand with `defineSound`, edit one in a generated file, or put many in a [custom theme](/guides/custom-themes).
+
+## A first sound
+
+```ts
+import { defineSound } from "@litlab/audx";
+
+export const pop = defineSound({
+  source: { type: "sine", frequency: { start: 300, end: 1000 } },
+  envelope: { attack: 0.001, decay: 0.04 },
+  gain: 0.2,
+});
+
+pop();
+```
+
+`defineSound` returns a function. Each call creates a new voice and returns a handle with `stop()`. The original definition stays available as `pop.definition`.
+
+## The parts of a layer
+
+A single-layer sound has these fields:
+
+<ResponseField name="source" type="Source" required>
+  What makes the signal: an oscillator (`sine`, `triangle`, `square`, `sawtooth`), `noise`, a `wavetable`, a `sample` URL or buffer, a `stream`, or a `constant`.
+</ResponseField>
+
+<ResponseField name="envelope" type="Envelope">
+  How volume changes over time. Only `decay` is required. Without `attack`, the sound starts at full volume. Without `sustain`, it fades to silence after the decay.
+</ResponseField>
+
+<ResponseField name="filter" type="Filter | Filter[]">
+  Biquad filters (`lowpass`, `highpass`, `bandpass` and others) applied before the envelope. A filter can have its own envelope that sweeps the cutoff.
+</ResponseField>
+
+<ResponseField name="effects" type="Effect[]">
+  A chain after the envelope: reverb, delay, distortion, chorus, flanger, phaser, tremolo, vibrato, bitcrusher, compressor, EQ, gain and pan.
+</ResponseField>
+
+<ResponseField name="lfo" type="LFO | LFO[]">
+  Low-frequency oscillators that modulate a parameter such as `frequency`, `gain`, `pan` or `filter.frequency`.
+</ResponseField>
+
+<ResponseField name="gain" type="number" default="0.5">
+  Output level from `0` to `1`.
+</ResponseField>
+
+<ResponseField name="pan" type="number">
+  Stereo position from `-1` (left) to `1` (right). Use `panner` instead for 3D positioning.
+</ResponseField>
+
+<ResponseField name="delay" type="number">
+  Start delay in seconds.
+</ResponseField>
+
+See the [sound definition reference](/reference/sound-definition) for every field and default.
+
+## Layers
+
+Most good UI sounds combine a short transient with a tonal body. Use `layers` to play several layers together, with optional `effects` on the mix:
+
+```ts
+import { defineSound } from "@litlab/audx";
+
+export const press = defineSound({
+  layers: [
+    {
+      source: { type: "noise", color: "white" },
+      filter: { type: "bandpass", frequency: 4000, resonance: 2 },
+      envelope: { decay: 0.012 },
+      gain: 0.25,
+    },
+    {
+      source: { type: "triangle", frequency: { start: 520, end: 380 } },
+      envelope: { attack: 0.002, decay: 0.06 },
+      gain: 0.35,
+    },
+  ],
+  effects: [{ type: "reverb", decay: 0.3, mix: 0.12 }],
+});
+```
+
+## Shorthands
+
+For quick one-off tones, use the oscillator and noise helpers:
+
+```ts
+import { noise, sine, square } from "@litlab/audx";
+
+const blip = sine(880, 0.06);
+const sweep = square({ start: 200, end: 800 }, 0.1, 0.2);
+const hiss = noise("pink", 0.08);
+```
+
+Each takes a frequency (or noise color), a decay in seconds and an optional gain (default `0.4`).
+
+## Play-time options
+
+Any sound accepts overrides when you play it:
+
+```ts
+click({ volume: 0.5 });
+click({ detune: -200 });          // cents
+click({ pan: -0.5 });
+click({ velocity: 0.6 });         // scales gain, can dim filter cutoffs
+type({ jitter: { detune: 50, volume: 0.1 } });
+```
+
+`jitter` adds a random offset of up to `±value` each time, so repeated sounds don't feel identical.
+
+## Render to a file
+
+`renderToWav` renders offline, without speakers, and returns a WAV `Blob`:
+
+```ts
+import { renderToWav } from "@litlab/audx";
+import { success } from "@/sounds";
+
+const wav = await renderToWav(success.definition, { duration: 1 });
+const url = URL.createObjectURL(wav);
+```
+
+## Tips for UI sounds
+
+- Keep most sounds under 150 ms. Feedback sounds like `success` and `complete` can run longer.
+- Start with a low `gain`. A UI sound should sit under the content, not over it.
+- Use `jitter` on anything that repeats quickly.
+- Reserve `hover` and `type` for places where they help; they get tiring fast.
+
+<Tip>
+  Tweak sounds visually in the editor on [audx.site](https://audx.site), then install your version with the command it gives you.
+</Tip>

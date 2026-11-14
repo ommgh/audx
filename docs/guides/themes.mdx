@@ -1,0 +1,78 @@
+---
+title: "Themes"
+description: "Change the personality of every sound in your app with one command."
+icon: "palette"
+---
+
+A theme is a set of sound definitions. Every first-party theme implements the same 43 [semantic sounds](/reference/sounds), so you can switch themes without changing any code.
+
+## Built-in themes
+
+| Theme        | Character                                                |
+| ------------ | -------------------------------------------------------- |
+| `minimal`    | Quiet and precise. Pure sine tones and soft air.         |
+| `playful`    | Bouncy and bright. Springy bloops and pentatonic chimes. |
+| `mechanical` | Tactile. Key switches, latches and relays.               |
+| `retro`      | 8-bit. Square waves and bit-crushed noise.               |
+
+`minimal` is the default. Preview every theme at [audx.site](https://audx.site).
+
+Sounds with the same role are normalized to the same loudness across themes, so switching themes doesn't make your app suddenly louder or quieter.
+
+## Pick a theme at setup
+
+`init` asks which theme to use. To skip the prompt, pass `--theme`:
+
+```bash
+npx @litlab/audx init --yes --theme mechanical
+```
+
+## Switch themes
+
+```bash
+npx @litlab/audx theme playful
+```
+
+This regenerates every installed sound from the new theme and updates `theme` in `audx.json`, so sounds you add later come from it too. Your imports stay the same.
+
+To see the current theme and the available ones:
+
+```bash
+npx @litlab/audx theme
+npx @litlab/audx list --themes
+```
+
+## Mix themes
+
+`add --theme` pulls individual sounds from another theme without changing your default:
+
+```bash
+npx @litlab/audx add toggle --theme retro --overwrite
+```
+
+Each sound file records which theme it came from, so `update` pulls changes from the right place. Running `theme <name>` again moves every sound back to one theme.
+
+## Customized sounds
+
+Sounds you customize on [audx.site](https://audx.site) are marked as custom in their file header. `theme` and `update` leave them alone. To replace them anyway:
+
+```bash
+npx @litlab/audx theme minimal --force
+```
+
+## Keep sounds up to date
+
+Built-in themes get refinements over time. Check for changes, then pull them:
+
+```bash
+npx @litlab/audx update --check
+npx @litlab/audx update
+```
+
+`update` rewrites only the files that changed and skips customized sounds.
+
+## Next
+
+<Card title="Create a custom theme" icon="wand-magic-sparkles" href="/guides/custom-themes">
+  Start from a built-in theme and make it your own.
+</Card>
