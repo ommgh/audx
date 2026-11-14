@@ -40,6 +40,7 @@ export const SITE_KEYWORDS = [
 export const NPM_PACKAGE = "@litlab/audx";
 export const NPM_URL = "https://www.npmjs.com/package/@litlab/audx";
 export const GITHUB_URL = "https://github.com/ommgh/audx";
+export const DOCS_URL = "https://docs.audx.site";
 
 /** GA4 measurement ID (public by design: it ships in every page's HTML). */
 export const GA_MEASUREMENT_ID =

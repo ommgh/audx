@@ -41,6 +41,7 @@ function scheduleOnce(
 	opts: PlayOptions | undefined,
 	baseTime: number,
 	scheduled: Set<number>,
+	pending: Set<ReturnType<typeof setTimeout>>,
 ): VoiceHandle[] {
 	const handles: VoiceHandle[] = [];
 
@@ -70,7 +71,12 @@ function scheduleOnce(
 				const result = fn(volume !== undefined ? { volume } : opts);
 				if (result) handles.push(result);
 			} else {
-				setTimeout(() => fn(volume !== undefined ? { volume } : opts), delay);
+				const id = setTimeout(() => {
+					pending.delete(id);
+					const result = fn(volume !== undefined ? { volume } : opts);
+					if (result) handles.push(result);
+				}, delay);
+				pending.add(id);
 			}
 		}
 	}
@@ -99,7 +105,16 @@ export function playSequence(
 ): (() => void) | undefined {
 	const times = resolveStepTimes(steps);
 
+	const pending = new Set<ReturnType<typeof setTimeout>>();
+	const clearPending = () => {
+		for (const id of pending) clearTimeout(id);
+		pending.clear();
+	};
+
 	if (!options?.loop) {
+		// Step times are relative to when the sequence starts, so the base
+		// must be fixed here rather than re-read on every tick.
+		const baseTime = ctx.currentTime;
 		const scheduled = new Set<number>();
 		const handles: VoiceHandle[] = [];
 
@@ -109,8 +124,9 @@ export function playSequence(
 				steps,
 				times,
 				opts,
-				ctx.currentTime,
+				baseTime,
 				scheduled,
+				pending,
 			);
 			handles.push(...h);
 			if (scheduled.size < steps.length) {
@@ -123,6 +139,7 @@ export function playSequence(
 
 		return () => {
 			if (timerId !== null) clearTimeout(timerId);
+			clearPending();
 			for (const h of handles) h.stop();
 		};
 	}
@@ -137,7 +154,15 @@ export function playSequence(
 	const tick = () => {
 		if (stopped) return;
 
-		const h = scheduleOnce(ctx, steps, times, opts, loopBase, scheduled);
+		const h = scheduleOnce(
+			ctx,
+			steps,
+			times,
+			opts,
+			loopBase,
+			scheduled,
+			pending,
+		);
 		handles.push(...h);
 
 		if (scheduled.size >= steps.length) {
@@ -154,6 +179,7 @@ export function playSequence(
 	return () => {
 		stopped = true;
 		if (timerId !== null) clearInterval(timerId);
+		clearPending();
 		for (const h of handles) h.stop();
 	};
 }
