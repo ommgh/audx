@@ -2,81 +2,81 @@ export const accordionDataV0_8_5 = [
   {
     type: "new",
     items: [
-      "Added the Visual Audio Editor for precise wave editing",
-      "Introduced the Theme Generator to visually customize audio themes",
-      "New Library section for managing and viewing user-generated themes",
+      "Sound editor on audx.site: tweak any sound with a mixer, XY pad and live waveform preview",
+      "Theme generator: shape a whole theme from tone (soft to bold, warm to bright), length, volume, motion and waveform",
+      "Save generated themes to your library and reopen them from your profile",
+      "Bento page that plays every sound inside live UI components",
+      "`audx add` installs a sound you customized on audx.site straight into your project",
     ],
   },
   {
     type: "updates",
     items: [
-      "Updated the CLI tool to support installing custom created sounds directly",
-      "Improved performance when rendering complex audio waveforms",
-      "Refined the UI layout to better accommodate the new library features",
+      "Redesigned the editor layout with a bar visualizer and step matrix",
+      "Refreshed hero section and branding on the landing page",
+      "New changelog page",
     ],
   },
   {
     type: "bugfixes",
     items: [
-      "Fixed an issue where large audio files could cause memory spikes during playback",
-      "Resolved a bug causing the CLI to fail when the output directory contained spaces",
-      "Fixed incorrect timeline scaling for long audio tracks",
+      "Reworked sounds that were too similar to tell apart",
+      "Fixed sign-in redirecting to the wrong URL in production",
     ],
-    badges: ["cli", "editor", "themes"],
+    badges: ["editor", "themes", "cli"],
   },
 ];
 export const accordionDataV0_6_0 = [
   {
     type: "new",
     items: [
-      "Real-time audio effect previews directly in the playback engine",
-      "Multi-track audio support for layering multiple sound sources",
-      "Export capabilities for high-quality FLAC and WAV formats",
+      "Preview mixing panel in the editor to audition and balance sounds before you install them",
     ],
   },
   {
     type: "updates",
     items: [
-      "Upgraded the audio processing engine for 40% faster rendering",
-      "Enhanced timeline zoom behavior to keep playhead centered",
+      "CLI now talks about themes instead of patches: `add`, `list`, `remove` and `update` all work on themes",
+      "Clearer messages when a file is not a valid theme",
     ],
   },
   {
     type: "bugfixes",
     items: [
-      "Fixed audio crackling during high-CPU usage scenarios",
-      "Corrected track volume sliders occasionally resetting on load",
-      "Resolved an issue with MP3 metadata not saving properly on export",
-      "Fixed UI stutter when rapidly toggling mute states",
+      "Fixed the library page failing to load saved themes",
+      "Fixed layout issues on signed-in pages",
+      "Fixed the CLI package build and tests in CI",
     ],
+    badges: ["cli", "themes", "editor"],
   },
 ];
 export const accordionDataV0_5_0 = [
   {
     type: "new",
     items: [
-      "Complete overhaul of the audio playback engine for lower latency",
-      "New preset soundscapes and ambient loops for quick prototyping",
-      "Global spectrum analyzer to view frequency bands across all tracks",
-      "Shareable project links to collaborate with team members on mixes",
+      "New synthesis engine: describe a sound as a plain object and play it with `defineSound`, no audio files",
+      "Layers, filters, envelopes, LFOs and effects such as reverb, delay and bitcrusher",
+      "React bindings: `SoundProvider`, `useSound`, `usePatch`, `useSequence` and `useAnalyser`",
+      "Sounds organized by meaning (click, tap, toggle, success) across the minimal and playful themes",
+      "create-sound agent skill: generate sound definitions from a prompt or an audio file",
     ],
   },
   {
     type: "updates",
     items: [
-      "Smarter audio buffering for uninterrupted playback on low-end devices",
-      "Improved EQ interface with more granular control points",
-      "Faster waveform rendering when opening projects",
-      "Clearer error messages when importing unsupported audio formats",
+      "Rebuilt CLI with `init`, `add`, `list`, `remove`, `update` and `find`, installing from the registry, a GitHub repository or a local path",
+      "Offline rendering to WAV with `renderToWav`",
+      "Accounts and profiles on audx.site",
     ],
   },
   {
     type: "bugfixes",
     items: [
-      "Fixed broken project references when moving source files",
-      "Corrected UI misalignment in the track effects panel",
-      "Resolved lag when applying heavy reverb plugins",
+      "Fixed `audx init`",
+      "Fixed install commands for each package manager",
+      "Fixed play controls on sound cards",
     ],
+    badges: ["engine", "react", "cli"],
   },
 ];
 export const accordionDataV0_9_0 = [
