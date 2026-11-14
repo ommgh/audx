@@ -1,0 +1,120 @@
+---
+title: "Use audx with Vue, Svelte or vanilla JavaScript"
+sidebarTitle: "Vue, Svelte and vanilla JS"
+description: "audx sounds are plain functions, so they work in Vue, Nuxt, Svelte, SvelteKit, Astro, Solid, Angular and plain JavaScript. Set up, play sounds, and add mute."
+icon: "js"
+keywords: ["vue sound effects", "svelte sound effects", "vanilla javascript ui sounds", "web audio api", "nuxt sound", "sveltekit sound", "astro sound effects"]
+---
+
+Only the React hooks are React-specific. Everything else in audx is framework-agnostic: each generated sound is a plain function built with `defineSound`, and it plays through the Web Audio API in any browser.
+
+## Set up
+
+Run `init` from your project root. It works with any package manager and any bundler that understands ES modules:
+
+```bash
+npx @litlab/audx init
+```
+
+`init` asks where sound files should go and suggests `src/sounds` (or `lib/sounds`, or `sounds`). Sounds are written as `.ts` files, or `.js` if your project doesn't use TypeScript. If your `tsconfig.json` or `jsconfig.json` has a path alias that covers that directory, the CLI tells you the import path to use, for example `@/sounds`.
+
+<Tip>
+  In SvelteKit, put sounds under `src/lib` so you can import them with `$lib`: answer `src/lib/sounds` at the prompt, or run `npx @litlab/audx init --dir src/lib/sounds`.
+</Tip>
+
+## Play a sound
+
+Call the sound inside an event handler. Wrap the call in an arrow function, so the event object isn't passed in as play options.
+
+<CodeGroup>
+
+```vue Vue
+<script setup lang="ts">
+import { click } from "@/sounds";
+</script>
+
+<template>
+  <button @click="() => click()">Save</button>
+</template>
+```
+
+```svelte Svelte
+<script lang="ts">
+  import { click } from "$lib/sounds";
+</script>
+
+<button onclick={() => click()}>Save</button>
+```
+
+```ts Vanilla JS
+import { click } from "./sounds";
+
+document.querySelector("#save")?.addEventListener("click", () => click());
+```
+
+</CodeGroup>
+
+Every sound accepts optional play options:
+
+```ts
+import { tick, type } from "@/sounds";
+
+type({ jitter: { detune: 40, volume: 0.1 } }); // vary fast repeats
+tick({ volume: 0.4 });
+```
+
+## Add a mute setting
+
+Without the React provider, use the global controls from `@litlab/audx`. They apply to every sound you call:
+
+```ts sound-settings.ts
+import { setMasterVolume, setMuted } from "@litlab/audx";
+
+const saved = localStorage.getItem("sounds");
+setMuted(saved === "off");
+setMasterVolume(0.8);
+
+export function setSoundsEnabled(enabled: boolean) {
+  setMuted(!enabled);
+  localStorage.setItem("sounds", enabled ? "on" : "off");
+}
+```
+
+`useSound` in React skips playback when the user prefers reduced motion. Outside React, add that check yourself:
+
+```ts
+import { setMuted } from "@litlab/audx";
+
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+setMuted(reduceMotion.matches || localStorage.getItem("sounds") === "off");
+```
+
+## Server rendering
+
+Nuxt, SvelteKit, Astro and other SSR frameworks import your components on the server, where Web Audio doesn't exist. That's fine: calling a sound on the server does nothing, so you don't need guards or dynamic imports.
+
+## Browser autoplay rules
+
+Browsers keep audio suspended until the user interacts with the page. audx resumes it automatically on the first sound you play, so sounds triggered by a click, key press or tap always work. A sound played on page load, before any interaction, stays silent.
+
+To make sure audio is running before something time-sensitive, await `ensureReady()` inside a user gesture:
+
+```ts
+import { ensureReady } from "@litlab/audx";
+
+startButton.addEventListener("click", async () => {
+  await ensureReady();
+  startGame();
+});
+```
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Core API" icon="code" href="/reference/core-api">
+    Everything exported from `@litlab/audx`.
+  </Card>
+  <Card title="Themes" icon="palette" href="/guides/themes">
+    Change every sound in your app with one command.
+  </Card>
+</Columns>

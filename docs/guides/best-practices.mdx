@@ -1,0 +1,75 @@
+---
+title: "UI sound design best practices"
+sidebarTitle: "Best practices"
+description: "When to add sound to a user interface, which sound fits each interaction, and how to keep UI sounds subtle, consistent and accessible."
+icon: "ear-listen"
+keywords: ["ui sound design", "ux sound", "interaction sound best practices", "accessible ui sounds", "when to use sound in ui", "microinteraction sound", "sonic branding"]
+---
+
+Good interface sounds confirm what just happened without asking for attention. These guidelines help you add sound that makes an app feel responsive instead of noisy.
+
+## Sound supports feedback, it doesn't replace it
+
+Many people browse with sound off, use assistive technology, or work somewhere quiet. Every interaction that plays a sound must also show visual feedback: a pressed state, a toast, a status message. Treat sound as a second layer that makes that feedback feel more physical.
+
+## Match the sound to the meaning
+
+Pick sounds by what happened, not by which element was clicked. audx names its sounds after these meanings, so the code reads the same way:
+
+| What happened | Sound |
+| --- | --- |
+| The user pressed a primary button or link | `click` |
+| A small target: icon button, chip, tab | `tap`, `tab` |
+| A switch or checkbox changed state | `toggle`, or `enable` / `disable` |
+| A menu, dialog or drawer opened or closed | `open`, `close` |
+| Something saved or finished | `success`, `complete` |
+| Something failed or isn't allowed | `error`, `deny` |
+| Something needs attention | `warning`, `notify` |
+| A message went out or came in | `send`, `receive` |
+
+See the [sound catalog](/reference/sounds) for all 43 sounds and when to use each one.
+
+Keep the meaning consistent. If `success` plays when a form saves, don't also use it when a dialog opens. People learn the mapping quickly, and a mismatch makes them second-guess what happened.
+
+## Fewer sounds, in the right places
+
+- **Sound the outcome, not every step.** A checkout needs `success` when the order goes through, not a sound for every field.
+- **Go easy on hover and focus.** These fire constantly as the pointer moves and the user tabs through a page. Use them, if at all, on a few large targets.
+- **Never play sound on page load.** Browsers block audio until the user interacts with the page, and unexpected sound on arrival is the fastest way to get your app muted.
+- **Keep it short.** Sounds for frequent actions should be over before the user's next action, so they never pile up. In the built-in themes, input sounds like `click` and `tap` last a few dozen milliseconds. Only rare, celebratory sounds such as `complete` and `notify` run a little over half a second.
+
+## Vary sounds that repeat
+
+The same sample played many times in a row sounds mechanical. For keystrokes, ticks and scroll sounds, add a little random variation on every play:
+
+```ts
+import { type } from "@/sounds";
+
+type({ jitter: { detune: 40, volume: 0.1 } });
+```
+
+## Let users turn sounds off
+
+Always give users a way to turn interface sounds off, and remember their choice:
+
+- In React, drive `<SoundProvider enabled>` from a saved setting. See [Use with React](/guides/react#add-a-sound-setting).
+- Anywhere else, call `setMuted()` from `@litlab/audx`. See [Vue, Svelte and vanilla JS](/guides/frameworks#add-a-mute-setting).
+
+`useSound` also stays silent when the operating system asks for reduced motion (`prefers-reduced-motion: reduce`), because people who reduce motion often want fewer sensory effects in general.
+
+## Keep volume low and balanced
+
+UI sounds sit underneath whatever else the user is listening to. Start quiet, with `<SoundProvider volume={0.6}>` or `setMasterVolume(0.6)`, and raise it only if testers miss the sounds.
+
+The built-in themes are loudness-matched, so a `click` and a `success` in the same theme sit at a consistent level. If you design your own sounds, compare them side by side and keep frequent sounds quieter than rare ones.
+
+## Give your product one voice
+
+Use a single theme across your app, so every sound feels like it belongs to the same product. Choose one that suits the context:
+
+- **minimal** for productivity and professional tools
+- **playful** for consumer apps and onboarding
+- **mechanical** for tactile, hardware-like interfaces
+- **retro** for games and playful developer tools
+
+When the brand changes, `npx @litlab/audx theme <name>` swaps every sound at once. See [Themes](/guides/themes) and [Custom themes](/guides/custom-themes).

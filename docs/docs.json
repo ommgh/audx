@@ -2,7 +2,7 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "audx",
-  "description": "UI sound effects for React and the web, as code you own. 43 semantic interaction sounds in 4 themes, synthesized with the Web Audio API.",
+  "description": "Documentation for audx, the open-source UI sound effects library for React, Next.js and the web: 43 semantic interaction sounds in 4 themes, synthesized with the Web Audio API and installed as code you own.",
   "colors": {
     "primary": "#1447E6",
     "light": "#51A2FF",
@@ -17,16 +17,23 @@
     "groups": [
       {
         "group": "Get started",
-        "pages": ["index", "quickstart"]
+        "pages": [
+          "index",
+          "quickstart"
+        ]
       },
       {
         "group": "Guides",
         "pages": [
           "guides/react",
+          "guides/nextjs",
+          "guides/frameworks",
           "guides/themes",
           "guides/custom-themes",
           "guides/designing-sounds",
-          "guides/configuration"
+          "guides/best-practices",
+          "guides/configuration",
+          "guides/migrate-from-use-sound"
         ]
       },
       {
@@ -78,7 +85,36 @@
     }
   },
   "contextual": {
-    "options": ["copy", "view", "chatgpt", "claude", "perplexity", "mcp", "cursor", "vscode"]
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
+  },
+  "seo": {
+    "metatags": {
+      "canonical": "https://docs.audx.site"
+    },
+    "organization": {
+      "id": "https://audx.site/#organization",
+      "name": "audx",
+      "url": "https://audx.site",
+      "logo": "https://audx.site/audx-logo.svg",
+      "sameAs": [
+        "https://github.com/ommgh/audx",
+        "https://www.npmjs.com/package/@litlab/audx"
+      ]
+    }
+  },
+  "integrations": {
+    "ga4": {
+      "measurementId": "G-M5NFPNE1Y5"
+    }
   },
   "footer": {
     "socials": {

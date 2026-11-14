@@ -9,6 +9,7 @@ import { PlayerStrip } from "@/components/player/audio-player";
 import { trackEvent } from "@/lib/analytics";
 import type { AudioCatalogItem } from "@/lib/audio-catalog";
 import { generateAudioWaves } from "@/lib/audio-data";
+import { DOCS_URL } from "@/lib/site";
 import { AudioEditor } from "./editor/audio-editor";
 
 type PlayState = "idle" | "loading" | "playing";
@@ -152,6 +153,9 @@ export function SoundDetailPage({ audio, otherThemes }: AudioDetailPageProps) {
 
 /* ── Usage snippet ── */
 
+const docLink =
+	"underline underline-offset-2 transition-colors hover:text-foreground";
+
 function UsageSection({ soundName }: { soundName: string }) {
 	// `delete` is a reserved word, so the generated export is `deleteSound`.
 	const fn = soundName === "delete" ? "deleteSound" : soundName;
@@ -168,7 +172,19 @@ function UsageSection({ soundName }: { soundName: string }) {
 				<code className="font-mono">src/sounds/</code> as TypeScript you own.
 				Call it from any event handler, or wrap it in{" "}
 				<code className="font-mono">useSound</code> in React to respect mute,
-				volume and reduced motion.
+				volume and reduced motion. Guides:{" "}
+				<a href={`${DOCS_URL}/guides/react`} className={docLink}>
+					React
+				</a>
+				,{" "}
+				<a href={`${DOCS_URL}/guides/nextjs`} className={docLink}>
+					Next.js
+				</a>
+				,{" "}
+				<a href={`${DOCS_URL}/guides/frameworks`} className={docLink}>
+					Vue, Svelte and vanilla JS
+				</a>
+				.
 			</p>
 			<pre className="mt-3 overflow-x-auto rounded-lg border border-border/50 bg-secondary/30 px-4 py-3 font-mono text-xs leading-relaxed">
 				<code>{`import { useSound } from "@litlab/audx/react";

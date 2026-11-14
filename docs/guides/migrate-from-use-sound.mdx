@@ -1,0 +1,109 @@
+---
+title: "Migrate from use-sound to audx"
+sidebarTitle: "Migrate from use-sound"
+description: "Move a React app from the use-sound hook to audx: map each option, keep your existing audio files or switch to synthesized sounds, and add a global mute."
+icon: "arrow-right-arrow-left"
+keywords: ["use-sound alternative", "use-sound migration", "react sound hook", "howler alternative", "react play sound", "useSound react"]
+---
+
+[use-sound](https://github.com/joshwcomeau/use-sound) is a React hook that plays audio files you supply. audx's `useSound` has a similar shape, so most components change by a line or two. You can then either keep your audio files or replace them with synthesized sounds that need no files at all.
+
+## Option 1: switch to synthesized sounds
+
+Add the semantic sounds that match what your files did:
+
+```bash
+npx @litlab/audx add click success error
+```
+
+Then swap the import and the hook:
+
+<CodeGroup>
+
+```tsx Before (use-sound)
+import useSound from "use-sound";
+import boopSfx from "../sounds/boop.mp3";
+
+export function BoopButton() {
+  const [play] = useSound(boopSfx, { volume: 0.5 });
+  return <button onClick={() => play()}>Boop!</button>;
+}
+```
+
+```tsx After (audx)
+import { useSound } from "@litlab/audx/react";
+import { click } from "@/sounds";
+
+export function BoopButton() {
+  const play = useSound(click, { volume: 0.5 });
+  return <button onClick={() => play()}>Boop!</button>;
+}
+```
+
+</CodeGroup>
+
+Two differences to note:
+
+- audx's `useSound` is a named export, and it returns the play function directly rather than a tuple.
+- The sound is TypeScript in your repo, not an audio file, so there's nothing to host, preload or cache.
+
+## Option 2: keep your audio files
+
+If your app depends on specific recordings, play them with a `sample` source. Define each sound once, at module level:
+
+```ts sounds/boop.ts
+import { defineSound } from "@litlab/audx";
+
+export const boop = defineSound({
+  source: { type: "sample", url: "/sounds/boop.mp3" },
+  envelope: { decay: 0.4, sustain: 1, release: 0.05 },
+  gain: 1,
+});
+```
+
+The file is fetched and decoded on first play, then cached.
+
+<Warning>
+  Set `envelope.decay` to at least the length of the file in seconds, with `sustain: 1`. Without an envelope, a layer fades out after about half a second. `gain: 1` plays the file at its recorded level; the default is `0.5`.
+</Warning>
+
+Use it exactly like a generated sound:
+
+```tsx
+const play = useSound(boop, { volume: 0.5 });
+```
+
+## Option mapping
+
+| use-sound | audx |
+| --- | --- |
+| `useSound(url)` | `useSound(sound)`, with a generated sound or one defined with `defineSound` |
+| `volume` | `useSound(sound, { volume })`, or `<SoundProvider volume>` for the whole app |
+| `playbackRate` | `useSound(sound, { playbackRate })` |
+| `soundEnabled` | `<SoundProvider enabled>` for the whole app |
+| `stop()` | `const voice = play(); voice?.stop();` |
+| `interrupt` | Keep the handle from the previous `play()` and call `stop()` on it first |
+| `sprite` | Not supported. Split the sprite into separate files, one `sample` sound each |
+| `onplay`, `onend` | Not supported. Run your code next to the `play()` call |
+
+## Mute and accessibility
+
+With use-sound you pass `soundEnabled` to every hook. In audx, one `<SoundProvider>` near the root controls every `useSound` below it:
+
+```tsx
+<SoundProvider enabled={soundsOn} volume={0.8}>
+  <App />
+</SoundProvider>
+```
+
+`useSound` also stays silent when the user has `prefers-reduced-motion: reduce` set, without extra code. See [Use with React](/guides/react) for a complete sound setting.
+
+## Remove use-sound
+
+When nothing imports it any more:
+
+```bash
+npm uninstall use-sound
+```
+
+Delete the audio files you replaced with synthesized sounds.

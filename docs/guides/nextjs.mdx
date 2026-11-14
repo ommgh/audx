@@ -1,0 +1,162 @@
+---
+title: "Add sound effects to a Next.js app"
+sidebarTitle: "Use with Next.js"
+description: "Add UI sound effects to a Next.js App Router or Pages Router app with audx: set up, play sounds from client components, and add a mute setting."
+icon: "n"
+keywords: ["nextjs sound effects", "next.js ui sounds", "app router", "use client", "button click sound nextjs", "web audio nextjs"]
+---
+
+audx works in Next.js without any config. Sounds are generated as TypeScript in your project, the React bindings ship with `"use client"`, and every sound is safe to import during server rendering: it does nothing until it runs in a browser.
+
+## Set up
+
+Run `init` from the root of your Next.js app:
+
+```bash
+npx @litlab/audx init
+```
+
+`init` suggests a sounds directory based on your project layout, and the `@/*` alias that `create-next-app` adds to `tsconfig.json` covers it:
+
+| Project layout | Suggested directory | Import from |
+| --- | --- | --- |
+| `src/app/` | `src/sounds` | `@/sounds` |
+| `app/` at the root | `sounds` (or `lib/sounds` if `lib/` exists) | `@/sounds` |
+
+## Play a sound from a client component
+
+Sounds play in response to user interaction, so call them from a client component:
+
+```tsx app/components/save-button.tsx
+"use client";
+
+import { useSound } from "@litlab/audx/react";
+import { success } from "@/sounds";
+
+export function SaveButton() {
+  const play = useSound(success);
+  return <button onClick={() => play()}>Save</button>;
+}
+```
+
+Render it from any server component as usual:
+
+```tsx app/page.tsx
+import { SaveButton } from "./components/save-button";
+
+export default function Page() {
+  return <SaveButton />;
+}
+```
+
+<Note>
+  You can import a sound in a server component, but you can't pass it to a client component as a prop: functions aren't serializable. Import sounds inside the client components that play them.
+</Note>
+
+## Add a mute setting
+
+Put `<SoundProvider>` in a client providers file and wrap your root layout with it. Every `useSound` below it follows its `enabled` and `volume` props, and also stays silent when the user has `prefers-reduced-motion: reduce` set.
+
+```tsx app/providers.tsx
+"use client";
+
+import { SoundProvider } from "@litlab/audx/react";
+import { useEffect, useState } from "react";
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  const [enabled, setEnabled] = useState(true);
+
+  useEffect(() => {
+    setEnabled(localStorage.getItem("sounds") !== "off");
+  }, []);
+
+  return (
+    <SoundProvider
+      enabled={enabled}
+      volume={0.8}
+      onEnabledChange={(value) => {
+        setEnabled(value);
+        localStorage.setItem("sounds", value ? "on" : "off");
+      }}
+    >
+      {children}
+    </SoundProvider>
+  );
+}
+```
+
+```tsx app/layout.tsx
+import { Providers } from "./providers";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
+  );
+}
+```
+
+Read the setting from `localStorage` in an effect, as above, rather than during render. Reading it during render gives a different result on the server and the client and causes a hydration mismatch.
+
+See [Use with React](/guides/react#add-a-sound-setting) for a toggle component that drives this setting.
+
+## Sounds outside components
+
+Server actions, route handlers and middleware run on the server, where there is no audio. Play the sound on the client when the result comes back:
+
+```tsx app/components/subscribe-form.tsx
+"use client";
+
+import { useSound } from "@litlab/audx/react";
+import { error, success } from "@/sounds";
+import { subscribe } from "../actions";
+
+export function SubscribeForm() {
+  const playSuccess = useSound(success);
+  const playError = useSound(error);
+
+  return (
+    <form
+      action={async (data) => {
+        const result = await subscribe(data);
+        if (result.ok) playSuccess();
+        else playError();
+      }}
+    >
+      <input name="email" type="email" required />
+      <button>Subscribe</button>
+    </form>
+  );
+}
+```
+
+## Pages Router
+
+The same code works in the Pages Router. Wrap your app in `pages/_app.tsx` instead of a root layout. You don't need `"use client"` there.
+
+```tsx pages/_app.tsx
+import type { AppProps } from "next/app";
+import { SoundProvider } from "@litlab/audx/react";
+
+export default function App({ Component, pageProps }: AppProps) {
+  return (
+    <SoundProvider>
+      <Component {...pageProps} />
+    </SoundProvider>
+  );
+}
+```
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Pick sounds for each interaction" icon="list-music" href="/reference/sounds">
+    The 43 semantic sounds and when to use each one.
+  </Card>
+  <Card title="UI sound best practices" icon="ear-listen" href="/guides/best-practices">
+    When to play sounds, and how to keep them accessible.
+  </Card>
+</Columns>

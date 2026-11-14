@@ -67,6 +67,12 @@ click();
 ## Docs
 
 - [Documentation](${DOCS_URL}): quickstart, React guide, themes, CLI and API reference ([llms.txt](${DOCS_URL}/llms.txt))
+- [Quickstart](${DOCS_URL}/quickstart): set up audx in any project with one command
+- [Use with React](${DOCS_URL}/guides/react): \`useSound\`, \`SoundProvider\` and a mute setting
+- [Use with Next.js](${DOCS_URL}/guides/nextjs): App Router and Pages Router setup
+- [Vue, Svelte and vanilla JS](${DOCS_URL}/guides/frameworks): use audx without React
+- [Migrate from use-sound](${DOCS_URL}/guides/migrate-from-use-sound): option mapping, and how to keep existing audio files
+- [UI sound best practices](${DOCS_URL}/guides/best-practices): which sound fits each interaction, and accessibility
 - [Full documentation for LLMs](${absoluteUrl("/llms-full.txt")}): README, CLI, API, every sound and FAQ in one file
 - [Package README](${GITHUB_URL}/blob/master/package/core/README.md): CLI, themes, library API
 - [npm package](${NPM_URL}): \`${NPM_PACKAGE}\`
