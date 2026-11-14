@@ -1,0 +1,67 @@
+---
+title: "Introduction"
+description: "UI sound effects for React and the web, as code you own."
+icon: "house"
+---
+
+audx is an open-source library of UI sound effects. Pick a theme, add the sounds you need, and call them like functions.
+
+```ts
+import { click, success, error } from "@/sounds";
+
+click();
+```
+
+There are no audio files. Every sound is a few hundred bytes of JSON that the [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) synthesizes at play time. The CLI writes each sound into your project as a plain TypeScript module, so you own the code and can change it.
+
+## Why audx
+
+<Columns cols={2}>
+  <Card title="Semantic sounds" icon="tags">
+    43 sounds named for what they mean, like `click`, `toggle`, `success`, `error` and `notify`, so you pick a sound by intent, not by waveform.
+  </Card>
+  <Card title="Swappable themes" icon="palette">
+    Every built-in theme ships the same 43 sounds. Run `audx theme playful` to re-skin your whole app without touching code.
+  </Card>
+  <Card title="Code you own" icon="file-code">
+    Sounds land in `src/sounds/` as readable source. Commit them, review them and edit them like any other module.
+  </Card>
+  <Card title="Tiny and SSR-safe" icon="feather">
+    No audio assets to download. Playing a sound during server rendering, or while muted, does nothing.
+  </Card>
+</Columns>
+
+## How it works
+
+<Steps>
+  <Step title="Initialize">
+    `npx @litlab/audx init` creates `audx.json`, installs `@litlab/audx` and lets you pick a starter set of sounds.
+  </Step>
+  <Step title="Add sounds">
+    `npx @litlab/audx add click success` writes one module per sound, plus an `index.ts` that re-exports them.
+  </Step>
+  <Step title="Play them">
+    Import a sound and call it, or pass it to `useSound` in React to respect a mute setting and the user's reduced-motion preference.
+  </Step>
+</Steps>
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Add your first sounds in under a minute.
+  </Card>
+  <Card title="Use with React" icon="react" href="/guides/react">
+    `SoundProvider`, `useSound` and a sound on/off setting.
+  </Card>
+  <Card title="Themes" icon="palette" href="/guides/themes">
+    Compare the four built-in themes and switch between them.
+  </Card>
+  <Card title="CLI reference" icon="terminal" href="/reference/cli">
+    Every command and flag.
+  </Card>
+</Columns>
+
+<Tip>
+  Hear every sound before you install it at [audx.site](https://audx.site), or try them in real components at [audx.site/showcase](https://audx.site/showcase).
+</Tip>

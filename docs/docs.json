@@ -1,0 +1,89 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "audx",
+  "description": "UI sound effects for React and the web, as code you own. 43 semantic interaction sounds in 4 themes, synthesized with the Web Audio API.",
+  "colors": {
+    "primary": "#1447E6",
+    "light": "#51A2FF",
+    "dark": "#193CB8"
+  },
+  "favicon": "/favicon.svg",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Get started",
+        "pages": ["index", "quickstart"]
+      },
+      {
+        "group": "Guides",
+        "pages": [
+          "guides/react",
+          "guides/themes",
+          "guides/custom-themes",
+          "guides/designing-sounds",
+          "guides/configuration"
+        ]
+      },
+      {
+        "group": "Reference",
+        "pages": [
+          "reference/cli",
+          "reference/sounds",
+          "reference/core-api",
+          "reference/react-api",
+          "reference/sound-definition"
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Browse sounds",
+          "href": "https://audx.site",
+          "icon": "waveform-lines"
+        },
+        {
+          "anchor": "Showcase",
+          "href": "https://audx.site/showcase",
+          "icon": "sparkles"
+        },
+        {
+          "anchor": "Changelog",
+          "href": "https://audx.site/changelog",
+          "icon": "clock-rotate-left"
+        }
+      ]
+    }
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "npm",
+        "href": "https://www.npmjs.com/package/@litlab/audx"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com/ommgh/audx"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Browse sounds",
+      "href": "https://audx.site"
+    }
+  },
+  "contextual": {
+    "options": ["copy", "view", "chatgpt", "claude", "perplexity", "mcp", "cursor", "vscode"]
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/ommgh/audx",
+      "website": "https://audx.site"
+    }
+  }
+}
